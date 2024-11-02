@@ -1,0 +1,107 @@
+---
+import ConstructorCard from "../../components/ConstructorCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import type {
+  ConstructorName,
+  RacerName,
+  SeasonName,
+  TrackName,
+} from "../../types";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import { seasonRacers, drivers, tracks, results } from "@/data";
+import { withBase } from "@/utils";
+
+export function getStaticPaths() {
+  const seasons: string[] = [];
+  Object.entries(results).forEach((season) => {
+    if (Object.values(season[1]).length > 0) {
+      seasons.push(season[0]);
+    }
+  });
+
+  return seasons.map((season) => ({ params: { season } }));
+}
+
+type Winner = {
+  name: string;
+  nationality?: string;
+  team: string;
+  car: ConstructorName;
+};
+
+const { season } = Astro.params as { season: SeasonName };
+const tracksData = Object.entries(results[season]).map((track) => {
+  const trackData = tracks[track[0] as TrackName];
+
+  if (!track[1]) {
+    return {
+      name: trackData?.name ?? "unknown",
+      location: trackData?.location ?? "unknown",
+      countryCode: trackData?.countryCode ?? "gb",
+    };
+  }
+
+  const winners: Winner[] = (Object.keys(track[1].results) as RacerName[])
+    .slice(0, 3)
+    .map((id) => {
+      const racer = seasonRacers[season][id];
+
+      return {
+        name: drivers[id].name,
+        nationality: drivers[id].countryCode,
+        team: racer?.team ?? "unknown",
+        car: racer?.car ?? "renault",
+      };
+    });
+
+  return {
+    name: trackData?.name ?? "unknown",
+    location: trackData?.location ?? "unknown",
+    link: `/${season}/${track[0]}`,
+    countryCode: trackData?.countryCode ?? "gb",
+    winners,
+  };
+});
+
+const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
+---
+
+<Layout title={`Inky 500 | ${seasonTitle}`}>
+  <a href={withBase("/")} class="absolute">
+    <Button variant="outline" size="icon">
+      <ChevronLeft className="h-4 w-4" />
+    </Button>
+  </a>
+  <h1>
+    Season {season[season.length - 1].toUpperCase()}
+  </h1>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {
+      tracksData.map(
+        (track, index) =>
+          track && (
+            <ConstructorCard
+              title={track.name}
+              index={index + 1}
+              subtitle={[track.location, track.countryCode]}
+              link={track.link}
+              car={track.winners?.[0].car}
+            >
+              <div class="flex flex-col gap-2">
+                {track.winners ? (
+                  <>
+                    <p>🥇 {track.winners[0].name}</p>
+                    <p>🥈 {track.winners[1].name}</p>
+                    <p>🥉 {track.winners[2].name}</p>
+                  </>
+                ) : (
+                  "IN PROGRESS"
+                )}
+              </div>
+            </ConstructorCard>
+          )
+      )
+    }
+  </div>
+</Layout>

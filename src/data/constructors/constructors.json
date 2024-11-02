@@ -1,0 +1,56 @@
+{
+  "alpine": {
+    "name": "Alpine",
+    "countryCode": "fr",
+    "img": "alpine",
+    "teamColor": "#0090FF"
+  },
+  "astonmartin": {
+    "name": "Aston Martin",
+    "countryCode": "gb",
+    "img": "astonmartin",
+    "teamColor": "#006F62"
+  },
+  "bmw": {
+    "name": "BMW",
+    "countryCode": "de",
+    "img": "bmw",
+    "teamColor": "#1E22AA"
+  },
+  "chevrolet": {
+    "name": "Chevrolet",
+    "countryCode": "us",
+    "img": "chevrolet",
+    "teamColor": "#0033A0"
+  },
+  "ginetta": {
+    "name": "Ginetta",
+    "countryCode": "gb",
+    "img": "ginetta",
+    "teamColor": "#FF8000"
+  },
+  "mercedes": {
+    "name": "Mercedes",
+    "countryCode": "de",
+    "img": "mercedes",
+    "teamColor": "#00D2BE"
+  },
+  "mclaren": {
+    "name": "McLaren",
+    "countryCode": "gb",
+    "img": "mclaren",
+    "teamColor": "#FF8700"
+  },
+  "porsche": {
+    "name": "Porsche",
+    "countryCode": "de",
+    "img": "porsche",
+    "teamColor": "#E60000"
+  },
+  "renault": {
+    "name": "Renault",
+    "countryCode": "fr",
+    "img": "renault",
+    "teamColor": "#FFD700"
+  }
+}

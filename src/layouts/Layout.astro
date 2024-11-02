@@ -1,50 +1,80 @@
 ---
+import { Image } from "astro:assets";
+import gghqLogo from "../assets/gghq.png";
+import "@/styles/globals.css";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { ModeToggle } from "@/components/ModeToggle";
+import { ViewTransitions } from "astro:transitions";
+import { withBase } from "@/utils";
+import NavLink from "@/components/NavLink.astro";
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<!doctype html>
+<script is:inline>
+  function setDarkMode(document) {
+    const getThemePreference = () => {
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("theme")
+      ) {
+        return localStorage.getItem("theme");
+      }
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "theme-light";
+    };
+    const isDark = getThemePreference() === "dark";
+    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+    if (typeof localStorage !== "undefined") {
+      const observer = new MutationObserver(() => {
+        const isDark = document.documentElement.classList.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "theme-light");
+      });
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
+  }
+
+  setDarkMode(document);
+
+  document.addEventListener("astro:before-swap", (ev) => {
+    // Pass the incoming document to set the theme on it
+    setDarkMode(ev.newDocument);
+  });
+</script>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body class="bg-white dark:bg-zinc-900">
+    <div class="flex items-center justify-between px-3 py-2">
+      <div class="flex gap-8">
+        <a href={withBase("/")} class="flex items-center">
+          <Image src={gghqLogo} alt="GGHQ" class="w-8 h-8" />
+          <span class="font-extrabold">Inky 500</span>
+        </a>
+        <NavLink href={withBase("/")} class="mr-3">Seasons</NavLink>
+        <NavLink href={withBase("/drivers")} class="mr-3">Drivers</NavLink>
+      </div>
+      <div>
+        <ModeToggle client:load />
+      </div>
+    </div>
+    <div class="container mx-auto mb-16 p-3 overflow-hidden">
+      <slot />
+    </div>
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>

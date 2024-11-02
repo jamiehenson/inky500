@@ -1,0 +1,184 @@
+---
+import { drivers, tracks, seasonRacers } from "@/data";
+
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import {
+  type ConstructorName,
+  type RacerName,
+  type SeasonName,
+  type TrackName,
+} from "../../types";
+import { TableCell, TableRow } from "@/components/ui/table";
+import TableCard from "@/components/TableCard.astro";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import { ProgressionChart } from "@/components/ProgressionChart.tsx";
+import {
+  results,
+  standings,
+  constructors,
+  constructorsStandings,
+} from "@/data";
+import { getCarImages, withBase } from "@/utils";
+import DeltaMarker from "@/components/DeltaMarker.astro";
+
+export function getStaticPaths() {
+  const races: { season: string; track: string }[] = [];
+  Object.entries(results).forEach((season) => {
+    Object.entries(season[1]).forEach((track) => {
+      if (track[1]) {
+        races.push({ season: season[0], track: track[0] });
+      }
+    });
+  });
+
+  return races.map(({ season, track }) => ({ params: { season, track } }));
+}
+
+const { season, track } = Astro.params as {
+  season: SeasonName;
+  track: TrackName;
+};
+
+const { name: trackName, countryCode: trackCountryCode } = tracks[track] ?? {};
+
+const trackResults = results[season][track];
+
+const trackStandings = standings[season][track];
+
+const trackConstructors = ["s4", "s5"].includes(season)
+  ? constructorsStandings[season][track]
+  : null;
+
+const winnerId = trackResults
+  ? (Object.keys(trackResults.results) as RacerName[])[0]
+  : "unknown";
+const winner = seasonRacers[season][winnerId];
+const winnerName = drivers[winnerId].name;
+
+const { images, imagePath } = getCarImages();
+const carTeamColor =
+  constructors[winner?.car ?? "renault"]?.teamColor ?? "transparent";
+
+const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
+---
+
+<Layout title={`Inky 500 | ${tracks[track].name}, ${seasonTitle}`}>
+  <a href={withBase(`/${season}`)} class="absolute z-10">
+    <Button variant="outline" size="icon">
+      <ChevronLeft className="h-4 w-4" />
+    </Button>
+  </a>
+  <div class="relative">
+    <div
+      class="absolute rounded-lg w-full h-full opacity-50 -z-10"
+      style={{
+        background: `linear-gradient(to right, transparent, ${carTeamColor})`,
+      }}
+    >
+    </div>
+    <div class="absolute top-3 right-3 opacity-50">
+      {
+        images[imagePath(winner?.car ?? "renault")] && winner && (
+          <Image
+            src={images[imagePath(winner?.car ?? "renault")]()}
+            alt={winner.car}
+            class="w-16 h-16"
+          />
+        )
+      }
+    </div>
+    <div class="p-3 mb-8">
+      <h1>
+        {trackName}
+        <span class={`rounded-sm ml-3 fi fi-${trackCountryCode}`}></span>
+      </h1>
+      <h2 class="-mt-3">
+        {seasonTitle}
+      </h2>
+      <h3 class="text-center text-lg">
+        Winner: <span class="font-bold">{winnerName}</span>
+      </h3>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    <TableCard
+      title="Results"
+      description=""
+      data={trackResults?.results}
+      season={season}
+      track={track}
+      link={trackResults?.data}
+      className="col-span-2"
+    />
+    <TableCard
+      title="Drivers' Standings"
+      data={trackStandings}
+      season={season}
+      track={track}
+      className="col-span-2 sm:col-span-1"
+    />
+    {
+      trackConstructors ? (
+        <TableCard
+          title="Constructors' Standings"
+          season={season}
+          track={track}
+          className="col-span-2 sm:col-span-1"
+        >
+          {Object.entries(trackConstructors).map((result) => {
+            const constructor = constructors[result[0] as ConstructorName];
+            const constructorDrivers = Object.entries(seasonRacers[season])
+              .filter((racer) =>
+                racer[1].otherCars?.[track]
+                  ? racer[1].otherCars[track] === result[0]
+                  : racer[1].car === result[0]
+              )
+              .map((racer) => [racer[0], drivers[racer[0] as RacerName].name]);
+
+            if (constructor && constructorDrivers.length > 0) {
+              return (
+                <TableRow>
+                  {typeof result[1] !== "string" ? (
+                    <TableCell>
+                      <DeltaMarker delta={result[1].delta} />
+                    </TableCell>
+                  ) : null}
+                  <TableCell className="flex items-center gap-2">
+                    <Image
+                      src={images[imagePath(result[0] as ConstructorName)]()}
+                      alt={result[0]}
+                      class="w-6 h-6"
+                    />
+                    {constructor.name}
+                  </TableCell>
+                  <TableCell>
+                    {constructorDrivers.map((driver) => (
+                      <p
+                        class={
+                          Object.keys(trackResults?.results ?? {}).includes(
+                            driver[0]
+                          )
+                            ? ""
+                            : "font-extralight text-zinc-400"
+                        }
+                      >
+                        {driver[1]}
+                      </p>
+                    ))}
+                  </TableCell>
+                  <TableCell className="font-bold">
+                    {result[1].normalisedPoints}
+                  </TableCell>
+                </TableRow>
+              );
+            }
+          })}
+        </TableCard>
+      ) : null
+    }
+    <ProgressionChart season={season} track={track} client:visible />
+  </div>
+</Layout>

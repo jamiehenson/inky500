@@ -1,0 +1,104 @@
+{
+  "algarve": null,
+  "barcelona": null,
+  "brands": null,
+  "donington": null,
+  "hockenheim": null,
+  "knockhill": null,
+  "laguna-seca": null,
+  "monza": {
+    "results": {
+      "cannonmandan": "32:23.633",
+      "kruthal": "8.356",
+      "eugenegoat": "11.287",
+      "inkubusjaymz": "4.744",
+      "bigtimebosco": "2.931",
+      "atlas": "1.133",
+      "graeme": "7.651",
+      "snicks": "47.398",
+      "diego": "?",
+      "fletch": "DNF",
+      "blyzr": "-",
+      "subbax": "-"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "1:59.030"
+    }
+  },
+  "oulton-park": {
+    "results": {
+      "atlas": "27:44.011",
+      "inkubusjaymz": "28.398",
+      "eugenegoat": "0.663",
+      "kruthal": "2.194",
+      "graeme": "1.439",
+      "cannonmandan": "2.749",
+      "bigtimebosco": "1.726",
+      "blyzr": "24.614",
+      "snicks": "33.994",
+      "diego": "11.717",
+      "subbax": "-"
+    },
+    "fastestLap": {
+      "racerId": "atlas",
+      "time": "1:41.364"
+    }
+  },
+  "silverstone": {
+    "results": {
+      "cannonmandan": "29:25.957",
+      "bigtimebosco": "36.578",
+      "graeme": "7.429",
+      "blyzr": "1.193",
+      "kruthal": "23.200",
+      "inkubusjaymz": "0.183",
+      "atlas": "27.430",
+      "subbax": "58.030",
+      "eugenegoat": "DNF",
+      "snicks": "DNF",
+      "diego": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "2:23.992"
+    }
+  },
+  "snetterton": {
+    "results": {
+      "atlas": "27:33.341",
+      "cannonmandan": "13.259",
+      "kruthal": "0.487",
+      "bigtimebosco": "7.282",
+      "inkubusjaymz": "1.403",
+      "eugenegoat": "7.138",
+      "graeme": "3.870",
+      "blyzr": "6.884",
+      "snicks": "1:10.715",
+      "diego": "11.851",
+      "subbax": "-"
+    },
+    "fastestLap": {
+      "racerId": "atlas",
+      "time": "1:54.887"
+    }
+  },
+  "spa": {
+    "results": {
+      "atlas": "30:59.274",
+      "kruthal": "9.297",
+      "eugenegoat": "22.454",
+      "bigtimebosco": "1.558",
+      "graeme": "4.409",
+      "blyzr": "1.954",
+      "inkubusjaymz": "13.339",
+      "snicks": "51.081",
+      "diego": "59.750",
+      "cannonmandan": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "atlas",
+      "time": "2:31.663"
+    }
+  }
+}

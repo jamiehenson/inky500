@@ -1,0 +1,101 @@
+---
+import { DriverDataTable } from "@/components/DriverDataTable";
+import { drivers, seasonRacers, results, standings } from "@/data";
+import Layout from "@/layouts/Layout.astro";
+import type { RacerName } from "@/types";
+
+const resultPositionSuffix = (position: number) => {
+  if (!position) {
+    return "N/A";
+  }
+
+  const lastDigit = (n: number) => n % 10;
+  const lastTwoDigits = (n: number) => n % 100;
+
+  if (lastDigit(position) === 1 && lastTwoDigits(position) !== 11) {
+    return position + "st";
+  }
+
+  if (lastDigit(position) === 2 && lastTwoDigits(position) !== 12) {
+    return position + "nd";
+  }
+
+  if (lastDigit(position) === 3 && lastTwoDigits(position) !== 13) {
+    return position + "rd";
+  }
+
+  return position + "th";
+};
+
+const calculateDriverData = (driver: RacerName) => {
+  let fastestLaps = 0;
+  const positions = Object.values(results)
+    .flatMap((seasonResults) => {
+      const raceResults = Object.values(seasonResults);
+      return raceResults.map((race) => {
+        if (race?.fastestLap.racerId === driver) {
+          fastestLaps++;
+        }
+
+        return race === null
+          ? -1
+          : Object.keys(race.results).indexOf(driver) + 1;
+      });
+    })
+    .filter((position) => position >= 1);
+
+  const averageResult =
+    positions.reduce((acc, position) => acc + position, 0) / positions.length;
+
+  return {
+    name: drivers[driver].name,
+    teams: Array.from(
+      new Set(
+        Object.values(seasonRacers)
+          .filter((season) => Object.keys(season).length > 0)
+          .flatMap((season) => {
+            return [
+              ...Object.values(season[driver]?.otherCars ?? {}),
+              season[driver]?.car,
+            ];
+          })
+      )
+    ).filter((team) => team !== undefined),
+    points: Object.values(standings).reduce((acc, seasonStandings) => {
+      const seasonStandingEntries = Object.entries(seasonStandings);
+
+      const points =
+        Object.keys(seasonStandingEntries).length === 0
+          ? 0
+          : (seasonStandingEntries[seasonStandingEntries.length - 1][1][driver]
+              ?.points ?? 0);
+
+      return acc + points;
+    }, 0),
+    wins: positions.filter((position) => position === 1).length,
+    podiums: positions.filter((position) => position <= 3).length,
+    fastestLaps,
+    bestResult: resultPositionSuffix(positions.sort((a, b) => a - b)[0]),
+    averageResult: Number.isNaN(averageResult)
+      ? "N/A"
+      : resultPositionSuffix(Math.round(averageResult)),
+  };
+};
+
+// const driverPositions =
+
+const data = Object.keys(drivers)
+  .filter((driver) => driver !== "unknown")
+  .sort((a, b) => {
+    const driverA = drivers[a as RacerName].name;
+    const driverB = drivers[b as RacerName].name;
+
+    return driverA.localeCompare(driverB);
+  })
+  .map((driver) => calculateDriverData(driver as RacerName));
+---
+
+<Layout title="Inky 500 | Drivers">
+  <h1>Drivers</h1>
+  <DriverDataTable data={data} client:load />
+</Layout>

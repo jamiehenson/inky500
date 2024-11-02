@@ -1,0 +1,165 @@
+{
+  "bigtimebosco": {
+    "name": "Big Time Bosco",
+    "countryCode": "gb",
+    "img": "bigtimebosco",
+    "tableNames": ["BigTime B"]
+  },
+  "eugenegoat": {
+    "name": "Eugene Goat",
+    "countryCode": "gb",
+    "img": "eugenegoat",
+    "twitch": "gghqio",
+    "tableNames": ["Eugene G"]
+  },
+  "diego": {
+    "name": "D. Iego",
+    "countryCode": "gb",
+    "img": "diego",
+    "twitch": "piratelassie",
+    "tableNames": ["D i", "Happy B", "D I"]
+  },
+  "inkubusjaymz": {
+    "name": "Inkubus Jaymz",
+    "countryCode": "gb",
+    "img": "inkubusjaymz",
+    "twitch": "inkubusjaymz",
+    "tableNames": ["Inkubus J"]
+  },
+  "graeme": {
+    "name": "Graeme Clark",
+    "countryCode": "gb-sct",
+    "img": "graeme",
+    "twitch": "graemekustom",
+    "tableNames": ["Graeme C", "Kustom P"]
+  },
+  "wobbleboss": {
+    "name": "Ben Nykänen",
+    "countryCode": "gb-sct",
+    "img": "wobbleboss",
+    "tableNames": ["Ben N"]
+  },
+  "snicks": {
+    "name": "K. Snicks",
+    "countryCode": "no",
+    "img": "snicks",
+    "twitch": "sncksstreams",
+    "tableNames": ["K S"]
+  },
+  "kruthal": {
+    "name": "K. Ruthal",
+    "countryCode": "gb",
+    "img": "kruthal",
+    "tableNames": ["K r", "  K", ". K"]
+  },
+  "atlas": {
+    "name": "Joseph Atlas",
+    "countryCode": "gb",
+    "img": "atlas",
+    "tableNames": ["Joseph A"]
+  },
+  "cousinbenson": {
+    "name": "Cousin Bob",
+    "countryCode": "gb",
+    "img": "cousinbenson",
+    "twitch": "pongoxp",
+    "tableNames": ["cousin b"]
+  },
+  "xnpxbirdy": {
+    "name": "N. Bird",
+    "countryCode": "gb",
+    "tableNames": ["N. B"]
+  },
+  "michael": {
+    "name": "Michael Smith",
+    "countryCode": "gb",
+    "img": "michael",
+    "tableNames": ["Michael S"],
+    "youtube": "MichaelSmithRaces"
+  },
+  "cannonmandan": {
+    "name": "Cannon Man Dan",
+    "countryCode": "gb",
+    "img": "cannonmandan",
+    "tableNames": ["  C", " CannonMan D", " Cannon M"]
+  },
+  "roberts": {
+    "name": "Dan Roberts",
+    "countryCode": "gb",
+    "tableNames": ["Dan R"],
+    "youtube": "DCOnTrack"
+  },
+  "happybadger": {
+    "name": "Happy Badger",
+    "countryCode": "gb",
+    "img": "happybadger"
+  },
+  "blyzr": {
+    "name": "Blayze Reid",
+    "countryCode": "us",
+    "img": "blyzr",
+    "tableNames": ["Blayze R"]
+  },
+  "adam": {
+    "name": "Adam",
+    "countryCode": "gb",
+    "img": "adam"
+  },
+  "beaverdude": {
+    "name": "Beaver Dude"
+  },
+  "harpr": {
+    "name": "Ryan Harper",
+    "countryCode": "gb-sct",
+    "img": "harper"
+  },
+  "subhaac": {
+    "name": "Subhaa Arumugam",
+    "img": "subhaac",
+    "tableNames": ["Subhaa Chandar S"]
+  },
+  "calamitysam": {
+    "name": "S. Am",
+    "countryCode": "gb",
+    "img": "calamitysam",
+    "tableNames": ["S a"]
+  },
+  "fletch": {
+    "name": "Fletch",
+    "countryCode": "gb"
+  },
+  "minusinferno": {
+    "name": "MinusInferno"
+  },
+  "subbax": {
+    "name": "Subbax",
+    "countryCode": "gb"
+  },
+  "preece": {
+    "name": "Josh Preece",
+    "tableNames": ["Josh P"]
+  },
+  "rafa4xx": {
+    "name": "R. Oliveira",
+    "countryCode": "pt",
+    "tableNames": ["Rafael O"]
+  },
+  "mcdonoli": {
+    "name": "O. McDonnell",
+    "countryCode": "gb",
+    "tableNames": ["Oliver M"]
+  },
+  "bouncingczech": {
+    "name": "W. Masek",
+    "countryCode": "cz",
+    "tableNames": ["Bouncing C"]
+  },
+  "blex": {
+    "name": "N. Harley",
+    "countryCode": "gb",
+    "tableNames": ["Naomi H"]
+  },
+  "unknown": {
+    "name": "Unknown"
+  }
+}

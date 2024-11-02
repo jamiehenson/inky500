@@ -1,0 +1,107 @@
+{
+  "brands": {
+    "name": "Brands Hatch",
+    "location": "West Kingsdown, United Kingdom",
+    "countryCode": "gb"
+  },
+  "monza": {
+    "name": "Monza",
+    "location": "Monza, Italy",
+    "countryCode": "it"
+  },
+  "barcelona": {
+    "name": "Barcelona",
+    "location": "Montmeló, Spain",
+    "countryCode": "es"
+  },
+  "zolder": {
+    "name": "Zolder",
+    "location": "Heusden-Zolder, Belgium",
+    "countryCode": "be"
+  },
+  "silverstone": {
+    "name": "Silverstone",
+    "location": "Silverstone, United Kingdom",
+    "countryCode": "gb"
+  },
+  "zandvoort": {
+    "name": "Zandvoort",
+    "location": "Zandvoort, Netherlands",
+    "countryCode": "nl"
+  },
+  "misano": {
+    "name": "Misano",
+    "location": "Misano Adriatico, Italy",
+    "countryCode": "it"
+  },
+  "hungaroring": {
+    "name": "Hungaroring",
+    "location": "Mogyoród, Hungary",
+    "countryCode": "hu"
+  },
+  "nurburgring": {
+    "name": "Nürburgring",
+    "location": "Nürburg, Germany",
+    "countryCode": "de"
+  },
+  "spa": {
+    "name": "Spa Francorchamps",
+    "location": "Stavelot, Belgium",
+    "countryCode": "be"
+  },
+  "algarve": {
+    "name": "Algarve",
+    "location": "Portimão, Portugal",
+    "countryCode": "pt"
+  },
+  "donington": {
+    "name": "Donington",
+    "location": "Castle Donington, United Kingdom",
+    "countryCode": "gb"
+  },
+  "hockenheim": {
+    "name": "Hockenheim",
+    "location": "Hockenheim, Germany",
+    "countryCode": "de"
+  },
+  "knockhill": {
+    "name": "Knockhill",
+    "location": "Dunfermline, Scotland",
+    "countryCode": "gb-sct"
+  },
+  "laguna-seca": {
+    "name": "Laguna Seca",
+    "location": "Monterey, United States",
+    "countryCode": "us"
+  },
+  "oulton-park": {
+    "name": "Oulton Park",
+    "location": "Little Budworth, United Kingdom",
+    "countryCode": "gb"
+  },
+  "snetterton": {
+    "name": "Snetterton",
+    "location": "Norfolk, United Kingdom",
+    "countryCode": "gb"
+  },
+  "paul-ricard": {
+    "name": "Paul Ricard",
+    "location": "Le Castellet, France",
+    "countryCode": "fr"
+  },
+  "suzuka": {
+    "name": "Suzuka",
+    "location": "Suzuka, Japan",
+    "countryCode": "jp"
+  },
+  "mt-panorama": {
+    "name": "Mt. Panorama",
+    "location": "Bathurst, Australia",
+    "countryCode": "au"
+  },
+  "cota": {
+    "name": "COTA",
+    "location": "Austin, United States",
+    "countryCode": "us"
+  }
+}

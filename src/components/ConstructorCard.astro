@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./ui/card";
+import type { ConstructorName } from "@/types";
+import { Badge } from "./ui/badge";
+import { constructors } from "@/data";
+import { getCarImages, withBase } from "@/utils";
+
+interface Props {
+  link?: string;
+  car?: ConstructorName;
+  title: string;
+  subtitle: string | [string, string];
+  index?: number;
+}
+
+const { link, car, title, subtitle, index } = Astro.props;
+
+const { images, imagePath } = getCarImages();
+const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
+---
+
+<a href={withBase(link ?? "#")} class={link ? "" : "cursor-not-allowed"}>
+  <Card
+    className={link
+      ? "hover:bg-zinc-100 hover:dark:bg-zinc-800 transition-colors"
+      : ""}
+  >
+    <div
+      class="absolute rounded-lg w-full h-full opacity-50 -z-10"
+      style={{
+        background: `linear-gradient(to right, transparent, ${carTeamColor})`,
+      }}
+    >
+    </div>
+    <div class="absolute top-3 right-3 opacity-50">
+      {
+        car && typeof images === "object" && images[imagePath(car)] && (
+          <Image src={images[imagePath(car)]()} alt={car} class="w-16 h-16" />
+        )
+      }
+    </div>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        {index ? <Badge className="rounded-lg">{index}</Badge> : null}
+        {title}</CardTitle
+      >
+      <CardDescription
+        >{
+          Array.isArray(subtitle) ? (
+            <div>
+              <Badge className="rounded-lg" variant="secondary">
+                <span class={`mr-1 rounded-sm fi fi-${subtitle[1]}`} />
+                {subtitle[0]}
+              </Badge>
+            </div>
+          ) : (
+            subtitle
+          )
+        }</CardDescription
+      >
+    </CardHeader>
+    <CardContent>
+      <slot />
+    </CardContent>
+  </Card>
+</a>

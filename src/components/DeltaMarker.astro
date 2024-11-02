@@ -1,0 +1,23 @@
+---
+import { ChevronDown, ChevronUp, Minus } from "lucide-react";
+
+interface Props {
+  delta: number;
+}
+
+const { delta } = Astro.props;
+---
+
+<div class="flex items-center">
+  {
+    delta > 0 ? (
+      <ChevronUp color="green" />
+    ) : delta < 0 ? (
+      <ChevronDown color="red" />
+    ) : (
+      <Minus color="darkgray" />
+    )
+  }
+
+  <span class="font-bold">{delta !== 0 ? Math.abs(delta) : null}</span>
+</div>
