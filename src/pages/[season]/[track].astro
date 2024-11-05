@@ -64,7 +64,10 @@ const carTeamColor =
 const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
 ---
 
-<Layout title={`Inky 500 | ${tracks[track].name}, ${seasonTitle}`}>
+<Layout
+  title={`Inky 500 | ${tracks[track].name}, ${seasonTitle}`}
+  description={`Results and standings for the Inky 500 ${seasonTitle} after ${tracks[track].name} 🏆`}
+>
   <a href={withBase(`/${season}`)} class="absolute z-10">
     <Button variant="outline" size="icon">
       <ChevronLeft className="h-4 w-4" />

@@ -62,7 +62,10 @@ const tracksData = Object.entries(results[season]).map((track) => {
 const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
 ---
 
-<Layout title={`Inky 500 | ${seasonTitle}`}>
+<Layout
+  title={`Inky 500 | ${seasonTitle}`}
+  description={`All the stats from ${seasonTitle} of the Inky 500 🔎`}
+>
   <a href={withBase("/")} class="absolute">
     <Button variant="outline" size="icon">
       <ChevronLeft className="h-4 w-4" />

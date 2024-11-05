@@ -4,7 +4,6 @@ import ConstructorCard from "../components/ConstructorCard.astro";
 import Layout from "../layouts/Layout.astro";
 import type { ConstructorName } from "@/types";
 import { Image } from "astro:assets";
-import { Badge } from "@/components/ui/badge";
 import type { Status } from "@/components/StatusBadge.astro";
 import StatusBadge from "@/components/StatusBadge.astro";
 
@@ -98,7 +97,10 @@ const seasonInfo: SeasonInfo[] = [
 ];
 ---
 
-<Layout title="Inky 500 | Seasons">
+<Layout
+  title="Inky 500 | Seasons"
+  description={`View the results and standings for all Inky 500 seasons 🏆`}
+>
   <main>
     <h1>Seasons</h1>
     <div class="grid sm:grid-cols-2 gap-3">
