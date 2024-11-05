@@ -14,7 +14,7 @@ import { getCarImages } from "@/utils";
 import DeltaMarker from "./DeltaMarker.astro";
 import type { StandingResult } from "@/data/standings";
 
-interface Props {
+type Props = {
   title: string;
   description?: string;
   season: SeasonName;
@@ -22,7 +22,7 @@ interface Props {
   data?: Record<string, string | StandingResult>;
   className?: string;
   link?: string;
-}
+};
 
 const { title, description, data, season, track, className, link } =
   Astro.props;

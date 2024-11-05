@@ -12,13 +12,13 @@ import { Badge } from "./ui/badge";
 import { constructors } from "@/data";
 import { getCarImages, withBase } from "@/utils";
 
-interface Props {
+type Props = {
   link?: string;
   car?: ConstructorName;
   title: string;
   subtitle: string | [string, string];
   index?: number;
-}
+};
 
 const { link, car, title, subtitle, index } = Astro.props;
 

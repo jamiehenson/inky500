@@ -7,9 +7,9 @@ import { ModeToggle } from "@/components/ModeToggle";
 import { ViewTransitions } from "astro:transitions";
 import { withBase } from "@/utils";
 import NavLink from "@/components/NavLink.astro";
-interface Props {
+type Props = {
   title: string;
-}
+};
 
 const { title } = Astro.props;
 ---

@@ -1,0 +1,25 @@
+---
+import { cn } from "@/lib/utils";
+import { Badge } from "./ui/badge";
+
+export type Status = "complete" | "upcoming";
+
+type Props = {
+  status: Status;
+};
+
+const statuses: Record<Status, { color: string; label: string }> = {
+  complete: { color: "bg-green-600", label: "Complete" },
+  upcoming: { color: "bg-yellow-600", label: "Upcoming" },
+};
+
+const { status } = Astro.props;
+---
+
+<div class="absolute bottom-3 right-3">
+  <Badge
+    className={cn(statuses[status].color, "opacity-90 pointer-events-none")}
+  >
+    {statuses[status].label}
+  </Badge>
+</div>

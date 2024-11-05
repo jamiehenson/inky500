@@ -4,16 +4,20 @@ import ConstructorCard from "../components/ConstructorCard.astro";
 import Layout from "../layouts/Layout.astro";
 import type { ConstructorName } from "@/types";
 import { Image } from "astro:assets";
+import { Badge } from "@/components/ui/badge";
+import type { Status } from "@/components/StatusBadge.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
 
 interface SeasonInfo {
-  key: string;
-  title: string;
-  subtitle: string;
-  game: string;
-  raceCount: number;
-  winners?: string[];
   car?: ConstructorName;
+  game: string;
+  key: string;
   link?: string;
+  raceCount: number;
+  status: Status;
+  subtitle: string;
+  title: string;
+  winners?: string[];
 }
 
 const { images, imagePath } = getCarImages();
@@ -47,6 +51,7 @@ const seasonInfo: SeasonInfo[] = [
     raceCount: 6,
     winners: ["Graeme", "Cannon Man Dan", "InkubusJaymz"],
     car: "ginetta",
+    status: "complete",
   },
   {
     key: "s2",
@@ -57,6 +62,7 @@ const seasonInfo: SeasonInfo[] = [
     raceCount: 12,
     winners: ["Cannon Man Dan", "Atlas", "Kruthal"],
     car: "bmw",
+    status: "complete",
   },
   {
     key: "s3",
@@ -67,6 +73,7 @@ const seasonInfo: SeasonInfo[] = [
     raceCount: 10,
     winners: ["N. Bird", "Cousin Bob", "Big Time Bosco"],
     car: "bmw",
+    status: "complete",
   },
   {
     key: "s4",
@@ -77,6 +84,7 @@ const seasonInfo: SeasonInfo[] = [
     raceCount: 15,
     winners: ["Big Time Bosco", "N. Bird", "Michael Smith"],
     car: "alpine",
+    status: "complete",
   },
   {
     key: "s5",
@@ -84,7 +92,8 @@ const seasonInfo: SeasonInfo[] = [
     link: "/s5",
     subtitle: "GT3",
     game: "ACC",
-    raceCount: 10,
+    raceCount: 18,
+    status: "upcoming",
   },
 ];
 ---
@@ -113,6 +122,7 @@ const seasonInfo: SeasonInfo[] = [
                   )
               )}
             </div>
+
             <div class="flex flex-col gap-2">
               {season.winners ? (
                 <>
@@ -120,10 +130,9 @@ const seasonInfo: SeasonInfo[] = [
                   <p>🥈 {season.winners[1]}</p>
                   <p>🥉 {season.winners[2]}</p>
                 </>
-              ) : (
-                "IN PROGRESS"
-              )}
+              ) : null}
             </div>
+            <StatusBadge status={season.status} />
           </ConstructorCard>
         ))
       }

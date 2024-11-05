@@ -11,15 +11,10 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { seasonRacers, drivers, tracks, results } from "@/data";
 import { withBase } from "@/utils";
+import StatusBadge from "@/components/StatusBadge.astro";
 
 export function getStaticPaths() {
-  const seasons: string[] = [];
-  Object.entries(results).forEach((season) => {
-    if (Object.values(season[1]).length > 0) {
-      seasons.push(season[0]);
-    }
-  });
-
+  const seasons = Object.keys(results).filter((season) => season !== "s1");
   return seasons.map((season) => ({ params: { season } }));
 }
 
@@ -95,10 +90,10 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
                     <p>🥈 {track.winners[1].name}</p>
                     <p>🥉 {track.winners[2].name}</p>
                   </>
-                ) : (
-                  "IN PROGRESS"
-                )}
+                ) : null}
               </div>
+              {console.log(results[season], track)}
+              <StatusBadge status={track.winners ? "complete" : "upcoming"} />
             </ConstructorCard>
           )
       )

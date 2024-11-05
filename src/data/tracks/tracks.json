@@ -1,5 +1,5 @@
 {
-  "brands": {
+  "brands-hatch": {
     "name": "Brands Hatch",
     "location": "West Kingsdown, United Kingdom",
     "countryCode": "gb"
@@ -102,6 +102,31 @@
   "cota": {
     "name": "COTA",
     "location": "Austin, United States",
+    "countryCode": "us"
+  },
+  "red-bull-ring": {
+    "name": "Red Bull Ring",
+    "location": "Spielberg, Austria",
+    "countryCode": "at"
+  },
+  "kyalami": {
+    "name": "Kyalami",
+    "location": "Midrand, South Africa",
+    "countryCode": "za"
+  },
+  "imola": {
+    "name": "Imola",
+    "location": "Imola, Italy",
+    "countryCode": "it"
+  },
+  "indianapolis": {
+    "name": "Indianapolis",
+    "location": "Indianapolis, United States",
+    "countryCode": "us"
+  },
+  "watkins-glen": {
+    "name": "Watkins Glen",
+    "location": "Watkins Glen, United States",
     "countryCode": "us"
   }
 }
