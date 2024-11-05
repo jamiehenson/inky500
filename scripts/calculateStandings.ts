@@ -164,7 +164,7 @@ export const calculateStandings = (season: SeasonName) => {
       const delta =
         previousDriverKeys.indexOf(driver) - driverKeys.indexOf(driver);
 
-      if (points[race] !== null && points[race][driver]) {
+      if (points[race] !== null && points[race][driver] !== undefined) {
         driverPoints[race] = {
           ...driverPoints[race],
           [driver]: {
