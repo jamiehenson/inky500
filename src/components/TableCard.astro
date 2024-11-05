@@ -10,9 +10,9 @@ import type {
   TrackName,
 } from "@/types";
 import { seasonRacers, drivers } from "@/data";
-import { getCarImages } from "@/utils";
 import DeltaMarker from "./DeltaMarker.astro";
 import type { StandingResult } from "@/data/standings";
+import { carImages } from "@/utils";
 
 type Props = {
   title: string;
@@ -26,8 +26,6 @@ type Props = {
 
 const { title, description, data, season, track, className, link } =
   Astro.props;
-
-const { images, imagePath } = getCarImages();
 ---
 
 <Card className={className}>
@@ -68,26 +66,21 @@ const { images, imagePath } = getCarImages();
                   </TableCell>
                   <TableCell>
                     <div class="flex items-center gap-2">
-                      {images[
-                        imagePath(
-                          (seasonDriver.otherCars?.[track] ??
-                            seasonDriver.car) as ConstructorName
-                        )
-                      ] && (
-                        <Image
-                          src={images[
-                            imagePath(
-                              (seasonDriver.otherCars?.[track] ??
-                                seasonDriver.car) as ConstructorName
-                            )
-                          ]()}
-                          alt={
-                            seasonDriver.otherCars?.[track] ?? seasonDriver.car
-                          }
-                          class="w-6 h-6"
-                        />
-                      )}{" "}
-                      <span>{seasonDriver.team}</span>
+                      {" "}
+                      (
+                      <Image
+                        src={
+                          carImages[
+                            (seasonDriver.otherCars?.[track] ??
+                              seasonDriver.car) as ConstructorName
+                          ]
+                        }
+                        alt={
+                          seasonDriver.otherCars?.[track] ?? seasonDriver.car
+                        }
+                        class="w-6 h-6"
+                      />
+                      ) <span>{seasonDriver.team}</span>
                     </div>
                   </TableCell>
                   <TableCell className="font-bold text-right">

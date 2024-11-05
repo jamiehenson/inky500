@@ -10,7 +10,7 @@ import {
 import type { ConstructorName } from "@/types";
 import { Badge } from "./ui/badge";
 import { constructors } from "@/data";
-import { getCarImages, withBase } from "@/utils";
+import { carImages, withBase } from "@/utils";
 
 type Props = {
   link?: string;
@@ -22,7 +22,6 @@ type Props = {
 
 const { link, car, title, subtitle, index } = Astro.props;
 
-const { images, imagePath } = getCarImages();
 const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
 ---
 
@@ -40,11 +39,7 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
     >
     </div>
     <div class="absolute top-3 right-3 opacity-50">
-      {
-        car && typeof images === "object" && images[imagePath(car)] && (
-          <Image src={images[imagePath(car)]()} alt={car} class="w-16 h-16" />
-        )
-      }
+      {car && <Image src={carImages[car]} alt={car} class="w-16 h-16" />}
     </div>
     <CardHeader>
       <CardTitle className="flex items-center gap-2">

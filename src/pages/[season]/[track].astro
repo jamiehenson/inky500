@@ -20,7 +20,7 @@ import {
   constructors,
   constructorsStandings,
 } from "@/data";
-import { getCarImages, withBase } from "@/utils";
+import { carImages, withBase } from "@/utils";
 import DeltaMarker from "@/components/DeltaMarker.astro";
 
 export function getStaticPaths() {
@@ -57,7 +57,6 @@ const winnerId = trackResults
 const winner = seasonRacers[season][winnerId];
 const winnerName = drivers[winnerId].name;
 
-const { images, imagePath } = getCarImages();
 const carTeamColor =
   constructors[winner?.car ?? "renault"]?.teamColor ?? "transparent";
 
@@ -83,9 +82,9 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
     </div>
     <div class="absolute top-3 right-3 opacity-50">
       {
-        images[imagePath(winner?.car ?? "renault")] && winner && (
+        winner && (
           <Image
-            src={images[imagePath(winner?.car ?? "renault")]()}
+            src={carImages[winner?.car ?? "renault"]}
             alt={winner.car}
             class="w-16 h-16"
           />
@@ -151,7 +150,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
                   ) : null}
                   <TableCell className="flex items-center gap-2">
                     <Image
-                      src={images[imagePath(result[0] as ConstructorName)]()}
+                      src={carImages[result[0] as ConstructorName]}
                       alt={result[0]}
                       class="w-6 h-6"
                     />
