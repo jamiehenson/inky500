@@ -65,7 +65,7 @@ const { title, description } = Astro.props;
     <div class="flex items-center justify-between px-3 py-2">
       <div class="flex gap-8">
         <a href={withBase("/")} class="flex items-center">
-          <Image src={gghqLogo} alt="GGHQ" class="w-8 h-8" />
+          <Image src={gghqLogo} alt="GGHQ" class="w-8 h-8" loading="eager" />
           <span class="font-extrabold">Inky 500</span>
         </a>
         <NavLink href={withBase("/")} class="mr-3">Seasons</NavLink>

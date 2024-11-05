@@ -66,8 +66,6 @@ const { title, description, data, season, track, className, link } =
                   </TableCell>
                   <TableCell>
                     <div class="flex items-center gap-2">
-                      {" "}
-                      (
                       <Image
                         src={
                           carImages[
@@ -80,7 +78,7 @@ const { title, description, data, season, track, className, link } =
                         }
                         class="w-6 h-6"
                       />
-                      ) <span>{seasonDriver.team}</span>
+                      <span>{seasonDriver.team}</span>
                     </div>
                   </TableCell>
                   <TableCell className="font-bold text-right">
