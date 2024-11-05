@@ -2,6 +2,8 @@
 
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "./ui/button";
+import { carImages } from "@/utils";
+import type { ConstructorName } from "@/types";
 
 const sortableColumn = (column: any, label: string) => (
   <Button
@@ -27,7 +29,8 @@ export const columns = [
             <img
               key={team}
               className="w-4 h-4"
-              src={`/src/assets/cars/${team}.png`}
+              src={carImages[team as ConstructorName].src}
+              alt={team}
             />
           ))}
         </div>

@@ -52,5 +52,23 @@
     "countryCode": "fr",
     "img": "renault",
     "teamColor": "#FFD700"
+  },
+  "audi": {
+    "name": "Audi",
+    "countryCode": "de",
+    "img": "audi",
+    "teamColor": "#000000"
+  },
+  "ktm": {
+    "name": "KTM",
+    "countryCode": "at",
+    "img": "ktm",
+    "teamColor": "#FF0000"
+  },
+  "maserati": {
+    "name": "Maserati",
+    "countryCode": "it",
+    "img": "maserati",
+    "teamColor": "#6CACE4"
   }
 }
