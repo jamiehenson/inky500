@@ -159,6 +159,10 @@
     "countryCode": "gb",
     "tableNames": ["Naomi H"]
   },
+  "expendablelee": {
+    "name": "Expendable Lee",
+    "countryCode": "gb"
+  },
   "unknown": {
     "name": "Unknown"
   }

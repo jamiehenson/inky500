@@ -1,0 +1,100 @@
+{
+  "snetterton": {
+    "results": {
+      "cannonmandan": "?",
+      "blyzr": "?",
+      "inkubusjaymz": "?",
+      "graeme": "?",
+      "happybadger": "?",
+      "eugenegoat": "?",
+      "fletch": "?",
+      "kruthal": "?",
+      "expendablelee": "?"
+    },
+    "fastestLap": {
+      "racerId": "graeme",
+      "time": "?"
+    }
+  },
+  "silverstone": {
+    "results": {
+      "graeme": "?",
+      "cannonmandan": "?",
+      "kruthal": "?",
+      "inkubusjaymz": "?",
+      "blyzr": "?",
+      "eugenegoat": "?",
+      "fletch": "?",
+      "happybadger": "?"
+    },
+    "fastestLap": {
+      "racerId": "inkubusjaymz",
+      "time": "?"
+    }
+  },
+  "oulton-park": {
+    "results": {
+      "graeme": "?",
+      "cannonmandan": "?",
+      "blyzr": "?",
+      "inkubusjaymz": "?",
+      "kruthal": "?",
+      "happybadger": "?",
+      "eugenegoat": "?",
+      "fletch": "?",
+      "expendablelee": "?"
+    },
+    "fastestLap": {
+      "racerId": "graeme",
+      "time": "?"
+    }
+  },
+  "spa": {
+    "results": {
+      "cannonmandan": "?",
+      "graeme": "?",
+      "kruthal": "?",
+      "happybadger": "?",
+      "eugenegoat": "?",
+      "blyzr": "?",
+      "inkubusjaymz": "?",
+      "expendablelee": "?",
+      "fletch": "?"
+    },
+    "fastestLap": {
+      "racerId": "kruthal",
+      "time": "?"
+    }
+  },
+  "brands-hatch": {
+    "results": {
+      "graeme": "?",
+      "inkubusjaymz": "?",
+      "happybadger": "?",
+      "blyzr": "?",
+      "kruthal": "?",
+      "eugenegoat": "?",
+      "fletch": "?",
+      "expendablelee": "?"
+    },
+    "fastestLap": {
+      "racerId": "graeme",
+      "time": "?"
+    }
+  },
+  "donington": {
+    "results": {
+      "graeme": "?",
+      "cannonmandan": "?",
+      "kruthal": "?",
+      "inkubusjaymz": "?",
+      "eugenegoat": "?",
+      "blyzr": "?",
+      "happybadger": "?"
+    },
+    "fastestLap": {
+      "racerId": "kruthal",
+      "time": "?"
+    }
+  }
+}

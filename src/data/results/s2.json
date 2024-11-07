@@ -1,11 +1,82 @@
 {
-  "algarve": null,
-  "barcelona": null,
-  "brands-hatch": null,
-  "donington": null,
-  "hockenheim": null,
-  "knockhill": null,
-  "laguna-seca": null,
+  "algarve": {
+    "results": {
+      "cannonmandan": "30:55.334",
+      "kruthal": "18.316",
+      "blyzr": "4.395",
+      "atlas": "1.872",
+      "inkubusjaymz": "4.335",
+      "eugenegoat": "38.262",
+      "minusinferno": "1.313",
+      "fletch": "15.454"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "1:52.635"
+    }
+  },
+  "barcelona": {
+    "results": {
+      "cannonmandan": "31:30.026",
+      "kruthal": "19.937",
+      "inkubusjaymz": "2.915",
+      "eugenegoat": "10.191",
+      "graeme": "0.853",
+      "atlas": "9.856",
+      "fletch": "19.147"
+    },
+    "fastestLap": {
+      "racerId": "kruthal",
+      "time": "1:53.641"
+    }
+  },
+  "hockenheim": {
+    "results": {
+      "atlas": "31:33.731",
+      "bigtimebosco": "19.454",
+      "inkubusjaymz": "2.103",
+      "graeme": "13.107",
+      "kruthal": "56.257",
+      "eugenegoat": "4.597"
+    },
+    "fastestLap": {
+      "racerId": "bigtimebosco",
+      "time": "1:49.005"
+    }
+  },
+  "knockhill": {
+    "results": {
+      "cannonmandan": "27:18.129",
+      "atlas": "0.991",
+      "blyzr": "3.449",
+      "bigtimebosco": "1.604",
+      "kruthal": "1.911",
+      "eugenegoat": "6.912",
+      "graeme": "16.363",
+      "inkubusjaymz": "8.613"
+    },
+    "fastestLap": {
+      "racerId": "blyzr",
+      "time": "0:51.001"
+    }
+  },
+  "laguna-seca": {
+    "results": {
+      "cannonmandan": "32:31.465",
+      "kruthal": "3.584",
+      "atlas": "12.860",
+      "graeme": "12.679",
+      "inkubusjaymz": "19.591",
+      "eugenegoat": "1.880",
+      "snicks": "18.933",
+      "diego": "15.320",
+      "bigtimebosco": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "kruthal",
+      "time": "1:30.401"
+    }
+  },
   "monza": {
     "results": {
       "cannonmandan": "32:23.633",

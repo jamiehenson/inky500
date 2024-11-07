@@ -14,8 +14,7 @@ import { withBase } from "@/utils";
 import StatusBadge from "@/components/StatusBadge.astro";
 
 export function getStaticPaths() {
-  const seasons = Object.keys(results).filter((season) => season !== "s1");
-  return seasons.map((season) => ({ params: { season } }));
+  return Object.keys(results).map((season) => ({ params: { season } }));
 }
 
 type Winner = {

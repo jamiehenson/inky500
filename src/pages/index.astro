@@ -11,7 +11,6 @@ interface SeasonInfo {
   car?: ConstructorName;
   game: string;
   key: string;
-  link?: string;
   raceCount: number;
   status: Status;
   subtitle: string;
@@ -67,7 +66,6 @@ const seasonInfo: SeasonInfo[] = [
   {
     key: "s2",
     title: "Season 2",
-    link: "/s2",
     subtitle: "Touring Cars",
     game: "Project Cars 2",
     raceCount: 12,
@@ -78,7 +76,6 @@ const seasonInfo: SeasonInfo[] = [
   {
     key: "s3",
     title: "Season 3",
-    link: "/s3",
     subtitle: "TCX",
     game: "ACC",
     raceCount: 10,
@@ -89,7 +86,6 @@ const seasonInfo: SeasonInfo[] = [
   {
     key: "s4",
     title: "Season 4",
-    link: "/s4",
     subtitle: "GT4",
     game: "ACC",
     raceCount: 15,
@@ -100,7 +96,6 @@ const seasonInfo: SeasonInfo[] = [
   {
     key: "s5",
     title: "Season 5",
-    link: "/s5",
     subtitle: "GT3",
     game: "ACC",
     raceCount: 18,
@@ -121,7 +116,7 @@ const seasonInfo: SeasonInfo[] = [
           <ConstructorCard
             title={season.title}
             subtitle={`${season.subtitle} - ${season.raceCount} races`}
-            link={season.link}
+            link={`/${season.key}`}
             car={season.car}
           >
             <div class="flex items-center gap-2 flex-wrap -mt-4 mb-4">
