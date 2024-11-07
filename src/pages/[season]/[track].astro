@@ -58,7 +58,7 @@ const winner = seasonRacers[season][winnerId];
 const winnerName = drivers[winnerId].name;
 
 const carTeamColor =
-  constructors[winner?.car ?? "renault"]?.teamColor ?? "transparent";
+  constructors[winner?.car ?? "unknown"]?.teamColor ?? "transparent";
 
 const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
 ---
@@ -84,7 +84,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
       {
         winner && (
           <Image
-            src={carImages[winner?.car ?? "renault"]}
+            src={carImages[winner?.car ?? "unknown"]}
             alt={winner.car}
             class="w-16 h-16"
           />

@@ -24,7 +24,7 @@ export const columns = [
     cell: ({ row }: { row: any }) => {
       const teams = row.getValue("teams");
       return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {teams.map((team: string) => (
             <img
               key={team}

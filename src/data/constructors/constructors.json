@@ -11,6 +11,18 @@
     "img": "astonmartin",
     "teamColor": "#006F62"
   },
+  "audi": {
+    "name": "Audi",
+    "countryCode": "de",
+    "img": "audi",
+    "teamColor": "#000000"
+  },
+  "bentley": {
+    "name": "Bentley",
+    "countryCode": "gb",
+    "img": "bentley",
+    "teamColor": "#007B3E"
+  },
   "bmw": {
     "name": "BMW",
     "countryCode": "de",
@@ -23,11 +35,59 @@
     "img": "chevrolet",
     "teamColor": "#0033A0"
   },
+  "ferrari": {
+    "name": "Ferrari",
+    "countryCode": "it",
+    "img": "ferrari",
+    "teamColor": "#DC0000"
+  },
+  "ford": {
+    "name": "Ford",
+    "countryCode": "us",
+    "img": "ford",
+    "teamColor": "#00274D"
+  },
   "ginetta": {
     "name": "Ginetta",
     "countryCode": "gb",
     "img": "ginetta",
     "teamColor": "#FF8000"
+  },
+  "honda": {
+    "name": "Honda",
+    "countryCode": "jp",
+    "img": "honda",
+    "teamColor": "#DA251D"
+  },
+  "ktm": {
+    "name": "KTM",
+    "countryCode": "at",
+    "img": "ktm",
+    "teamColor": "#FF0000"
+  },
+  "lamborghini": {
+    "name": "Lamborghini",
+    "countryCode": "it",
+    "img": "lamborghini",
+    "teamColor": "#FFD700"
+  },
+  "lexus": {
+    "name": "Lexus",
+    "countryCode": "jp",
+    "img": "lexus",
+    "teamColor": "#2B2B2B"
+  },
+  "maserati": {
+    "name": "Maserati",
+    "countryCode": "it",
+    "img": "maserati",
+    "teamColor": "#6CACE4"
+  },
+  "mclaren": {
+    "name": "McLaren",
+    "countryCode": "gb",
+    "img": "mclaren",
+    "teamColor": "#FF8700"
   },
   "mercedes": {
     "name": "Mercedes",
@@ -35,11 +95,11 @@
     "img": "mercedes",
     "teamColor": "#00D2BE"
   },
-  "mclaren": {
-    "name": "McLaren",
-    "countryCode": "gb",
-    "img": "mclaren",
-    "teamColor": "#FF8700"
+  "nissan": {
+    "name": "Nissan",
+    "countryCode": "jp",
+    "img": "nissan",
+    "teamColor": "#C3002F"
   },
   "porsche": {
     "name": "Porsche",
@@ -53,22 +113,10 @@
     "img": "renault",
     "teamColor": "#FFD700"
   },
-  "audi": {
-    "name": "Audi",
-    "countryCode": "de",
-    "img": "audi",
-    "teamColor": "#000000"
-  },
-  "ktm": {
-    "name": "KTM",
-    "countryCode": "at",
-    "img": "ktm",
-    "teamColor": "#FF0000"
-  },
-  "maserati": {
-    "name": "Maserati",
-    "countryCode": "it",
-    "img": "maserati",
-    "teamColor": "#6CACE4"
+  "unknown": {
+    "name": "Unknown",
+    "countryCode": "unknown",
+    "img": "unknown",
+    "teamColor": "#808080"
   }
 }

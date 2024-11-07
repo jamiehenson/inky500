@@ -75,7 +75,7 @@ export const calculateStandings = (season: SeasonName) => {
     racePointsKeys.forEach((driver) => {
       const seasonRacer = seasonRacers[season][driver as RacerName];
       const car =
-        seasonRacer?.otherCars?.[race] ?? seasonRacer?.car ?? "renault";
+        seasonRacer?.otherCars?.[race] ?? seasonRacer?.car ?? "unknown";
       const addedConstructorPoints =
         (constructorPoints[race]?.[car]?.points ?? 0) + racePoints[driver];
 
