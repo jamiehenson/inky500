@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import { seasonRacers, drivers, constructors } from "@/data";
+import {
+  type ConstructorName,
+  type RacerName,
+  type SeasonName,
+  type TrackName,
+} from "@/types";
+import { carImages } from "@/utils";
+import DeltaMarker from "./DeltaMarker.astro";
+import TableCard from "./TableCard.astro";
+import { TableRow, TableCell } from "./ui/table";
+import type { ConstructorResults } from "@/data/constructorsStandings";
+
+type Props = {
+  season: SeasonName;
+  track: TrackName;
+  data: ConstructorResults;
+  trackResults: Record<string, string>;
+};
+
+const { season, track, data, trackResults } = Astro.props;
+---
+
+<TableCard title="Constructors' Standings" className="col-span-2 sm:col-span-1">
+  {
+    Object.entries(data).map((result) => {
+      const constructor = constructors[result[0] as ConstructorName];
+      const constructorDrivers = Object.entries(seasonRacers[season])
+        .filter((racer) =>
+          racer[1].otherCars?.[track]
+            ? racer[1].otherCars[track] === result[0]
+            : racer[1].car === result[0]
+        )
+        .map((racer) => [racer[0], drivers[racer[0] as RacerName].name]);
+
+      if (constructor && constructorDrivers.length > 0) {
+        return (
+          <TableRow>
+            {typeof result[1] !== "string" ? (
+              <TableCell>
+                <DeltaMarker delta={result[1].delta} />
+              </TableCell>
+            ) : null}
+            <TableCell className="flex items-center gap-2">
+              <Image
+                src={carImages[result[0] as ConstructorName]}
+                alt={result[0]}
+                class="w-6 h-6"
+              />
+              {constructor.name}
+            </TableCell>
+            <TableCell>
+              {constructorDrivers.map((driver) => (
+                <p
+                  class={
+                    Object.keys(trackResults ?? {}).includes(driver[0])
+                      ? ""
+                      : "font-extralight text-zinc-400"
+                  }
+                >
+                  {driver[1]}
+                </p>
+              ))}
+            </TableCell>
+            <TableCell className="font-bold text-right">
+              {result[1].normalisedPoints}
+            </TableCell>
+          </TableRow>
+        );
+      }
+    })
+  }
+</TableCard>

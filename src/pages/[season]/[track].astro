@@ -3,14 +3,7 @@ import { drivers, tracks, seasonRacers } from "@/data";
 
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
-import {
-  type ConstructorName,
-  type RacerName,
-  type SeasonName,
-  type TrackName,
-} from "../../types";
-import { TableCell, TableRow } from "@/components/ui/table";
-import TableCard from "@/components/TableCard.astro";
+import { type RacerName, type SeasonName, type TrackName } from "../../types";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { ProgressionChart } from "@/components/ProgressionChart.tsx";
@@ -21,7 +14,9 @@ import {
   constructorsStandings,
 } from "@/data";
 import { carImages, withBase } from "@/utils";
-import DeltaMarker from "@/components/DeltaMarker.astro";
+import ResultsTableCard from "@/components/ResultsTableCard.astro";
+import ConstructorsTableCard from "@/components/ConstructorsTableCard.astro";
+import StandingsTableCard from "@/components/StandingsTableCard.astro";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
@@ -106,79 +101,37 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
   </div>
 
   <div class="grid md:grid-cols-2 gap-8">
-    <TableCard
-      title="Results"
-      description=""
-      data={trackResults?.results}
-      season={season}
-      track={track}
-      link={trackResults?.data}
-      className="col-span-2"
-    />
-    <TableCard
-      title="Drivers' Standings"
-      data={trackStandings}
-      season={season}
-      track={track}
-      className={`${trackConstructors ? "col-span-2 sm:col-span-1" : "col-span-2"}`}
-    />
     {
-      trackConstructors ? (
-        <TableCard
-          title="Constructors' Standings"
+      trackResults ? (
+        <ResultsTableCard
+          title="Results"
           season={season}
           track={track}
-          className="col-span-2 sm:col-span-1"
-        >
-          {Object.entries(trackConstructors).map((result) => {
-            const constructor = constructors[result[0] as ConstructorName];
-            const constructorDrivers = Object.entries(seasonRacers[season])
-              .filter((racer) =>
-                racer[1].otherCars?.[track]
-                  ? racer[1].otherCars[track] === result[0]
-                  : racer[1].car === result[0]
-              )
-              .map((racer) => [racer[0], drivers[racer[0] as RacerName].name]);
-
-            if (constructor && constructorDrivers.length > 0) {
-              return (
-                <TableRow>
-                  {typeof result[1] !== "string" ? (
-                    <TableCell>
-                      <DeltaMarker delta={result[1].delta} />
-                    </TableCell>
-                  ) : null}
-                  <TableCell className="flex items-center gap-2">
-                    <Image
-                      src={carImages[result[0] as ConstructorName]}
-                      alt={result[0]}
-                      class="w-6 h-6"
-                    />
-                    {constructor.name}
-                  </TableCell>
-                  <TableCell>
-                    {constructorDrivers.map((driver) => (
-                      <p
-                        class={
-                          Object.keys(trackResults?.results ?? {}).includes(
-                            driver[0]
-                          )
-                            ? ""
-                            : "font-extralight text-zinc-400"
-                        }
-                      >
-                        {driver[1]}
-                      </p>
-                    ))}
-                  </TableCell>
-                  <TableCell className="font-bold">
-                    {result[1].normalisedPoints}
-                  </TableCell>
-                </TableRow>
-              );
-            }
-          })}
-        </TableCard>
+          data={trackResults}
+          link={trackResults.data}
+          className="col-span-2"
+        />
+      ) : null
+    }
+    {
+      trackStandings ? (
+        <StandingsTableCard
+          title="Drivers' Standings"
+          season={season}
+          track={track}
+          data={trackStandings}
+          className={`${trackConstructors ? "col-span-2 sm:col-span-1" : "col-span-2"}`}
+        />
+      ) : null
+    }
+    {
+      trackConstructors ? (
+        <ConstructorsTableCard
+          season={season}
+          track={track}
+          data={trackConstructors}
+          trackResults={trackResults?.results ?? {}}
+        />
       ) : null
     }
     <ProgressionChart season={season} track={track} client:visible />

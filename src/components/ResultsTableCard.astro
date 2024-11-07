@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import { drivers, seasonRacers } from "@/data";
+import {
+  type RacerName,
+  type ConstructorName,
+  type SeasonName,
+  type TrackName,
+} from "@/types";
+import { carImages, pointsScheme } from "@/utils";
+import TableCard from "./TableCard.astro";
+import { TableRow, TableCell } from "./ui/table";
+import { Badge } from "./ui/badge";
+import type { RacerResult } from "@/data/results";
+
+type Props = {
+  data: RacerResult;
+  title: string;
+  season: SeasonName;
+  track: TrackName;
+  className: string;
+  link?: string;
+};
+
+const { data, title, season, track, className, link } = Astro.props;
+---
+
+<TableCard title={title} className={className} link={link}>
+  {
+    Object.entries(data.results).map((result, index) => {
+      const seasonDriver = seasonRacers[season][result[0] as RacerName];
+      const driver = drivers[result[0] as RacerName];
+      const hasFastestLap = data.fastestLap.racerId === result[0];
+
+      if (driver && seasonDriver) {
+        const pointsAdded = ["DNF", "DSQ"].includes(result[1])
+          ? 0
+          : Number(pointsScheme[season][index]) + (hasFastestLap ? 1 : 0);
+
+        return (
+          <TableRow>
+            <TableCell>
+              <Badge className="mr-2">{index + 1}</Badge>
+              <span class={`rounded-sm mr-1 fi fi-${driver.countryCode}`} />
+              {driver.name}
+            </TableCell>
+            <TableCell>
+              <div class="flex items-center gap-2">
+                <Image
+                  src={
+                    carImages[
+                      (seasonDriver.otherCars?.[track] ??
+                        seasonDriver.car) as ConstructorName
+                    ]
+                  }
+                  alt={seasonDriver.otherCars?.[track] ?? seasonDriver.car}
+                  class="w-6 h-6"
+                />
+                <span>{seasonDriver.team}</span>
+              </div>
+            </TableCell>
+            <TableCell className="font-bold text-right">
+              <span>
+                {[".", "lap"].some(
+                  (el) => result[1].toString().includes(el) && index !== 0
+                )
+                  ? "+"
+                  : ""}
+              </span>
+              {result[1]}
+              <Badge
+                className={`ml-2 ${hasFastestLap ? "bg-blue-100 dark:bg-blue-950" : ""}`}
+                variant="outline"
+              >
+                +{`${pointsAdded} ${pointsAdded === 1 ? "pt" : "pts"}`}
+              </Badge>
+            </TableCell>
+          </TableRow>
+        );
+      }
+    })
+  }
+  {
+    data.fastestLap ? (
+      <TableRow>
+        <TableCell className="bg-blue-100 dark:bg-blue-950 font-bold rounded-bl-lg">
+          <span class="font-bold">Fastest lap</span>
+        </TableCell>
+        <TableCell className="bg-blue-100 dark:bg-blue-950 font-bold">
+          {drivers[data.fastestLap.racerId].name}
+        </TableCell>
+        <TableCell className="bg-blue-100 dark:bg-blue-950 text-right font-bold rounded-br-lg">
+          {data.fastestLap.time}
+        </TableCell>
+      </TableRow>
+    ) : null
+  }
+</TableCard>

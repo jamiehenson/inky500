@@ -14,17 +14,4 @@ export type RacerName = keyof typeof driversData;
 export const constructors = Object.keys(constructorsData);
 export type ConstructorName = keyof typeof constructorsData;
 
-export type RacerResults = {
-  [index in TrackName]: {
-    results: {
-      [index in RacerName]: string;
-    };
-    fastestLap: {
-      racerId: RacerName;
-      time: string;
-    };
-    data: string;
-  };
-};
-
 export type Penalties = Record<string, Record<string, number>>;

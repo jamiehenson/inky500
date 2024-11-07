@@ -1,31 +1,16 @@
 ---
-import { Image } from "astro:assets";
 import { Card, CardHeader, CardTitle, CardDescription } from "./ui/card";
-import { Table, TableBody, TableRow, TableCell } from "./ui/table";
+import { Table, TableBody } from "./ui/table";
 import { Badge } from "./ui/badge";
-import type {
-  ConstructorName,
-  RacerName,
-  SeasonName,
-  TrackName,
-} from "@/types";
-import { seasonRacers, drivers } from "@/data";
-import DeltaMarker from "./DeltaMarker.astro";
-import type { StandingResult } from "@/data/standings";
-import { carImages } from "@/utils";
 
 type Props = {
   title: string;
   description?: string;
-  season: SeasonName;
-  track: TrackName;
-  data?: Record<string, string | StandingResult>;
   className?: string;
   link?: string;
 };
 
-const { title, description, data, season, track, className, link } =
-  Astro.props;
+const { title, description, className, link } = Astro.props;
 ---
 
 <Card className={className}>
@@ -44,63 +29,7 @@ const { title, description, data, season, track, className, link } =
   </CardHeader>
   <Table>
     <TableBody>
-      {
-        data ? (
-          Object.entries(data).map((result, index) => {
-            const seasonDriver = seasonRacers[season][result[0] as RacerName];
-            const driver = drivers[result[0] as RacerName];
-
-            if (driver && seasonDriver) {
-              return (
-                <TableRow>
-                  {typeof result[1] !== "string" ? (
-                    <TableCell>
-                      <DeltaMarker delta={result[1].delta} />
-                    </TableCell>
-                  ) : null}
-                  <TableCell>
-                    <span
-                      class={`rounded-sm mr-1 fi fi-${driver.countryCode}`}
-                    />
-                    {driver.name}
-                  </TableCell>
-                  <TableCell>
-                    <div class="flex items-center gap-2">
-                      <Image
-                        src={
-                          carImages[
-                            (seasonDriver.otherCars?.[track] ??
-                              seasonDriver.car) as ConstructorName
-                          ]
-                        }
-                        alt={
-                          seasonDriver.otherCars?.[track] ?? seasonDriver.car
-                        }
-                        class="w-6 h-6"
-                      />
-                      <span>{seasonDriver.team}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-bold text-right">
-                    <span>
-                      {[".", "lap"].some(
-                        (el) => result[1].toString().includes(el) && index !== 0
-                      )
-                        ? "+"
-                        : ""}
-                    </span>
-                    {typeof result[1] === "string"
-                      ? result[1]
-                      : result[1].points}
-                  </TableCell>
-                </TableRow>
-              );
-            }
-          })
-        ) : (
-          <slot />
-        )
-      }
+      <slot />
     </TableBody>
   </Table>
 </Card>

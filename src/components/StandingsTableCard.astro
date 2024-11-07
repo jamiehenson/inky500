@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+import { drivers, seasonRacers } from "@/data";
+import {
+  type RacerName,
+  type ConstructorName,
+  type SeasonName,
+  type TrackName,
+} from "@/types";
+import { carImages } from "@/utils";
+import DeltaMarker from "./DeltaMarker.astro";
+import TableCard from "./TableCard.astro";
+import { TableRow, TableCell } from "./ui/table";
+import type { StandingResult } from "@/data/standings";
+
+type Props = {
+  data: Record<string, StandingResult>;
+  title: string;
+  season: SeasonName;
+  track: TrackName;
+  className: string;
+};
+
+const { data, title, season, track, className } = Astro.props;
+---
+
+<TableCard title={title} className={className}>
+  {
+    Object.entries(data).map((result) => {
+      const seasonDriver = seasonRacers[season][result[0] as RacerName];
+      const driver = drivers[result[0] as RacerName];
+
+      if (driver && seasonDriver) {
+        return (
+          <TableRow>
+            <TableCell>
+              <DeltaMarker delta={result[1].delta} />
+            </TableCell>
+            <TableCell>{driver.name}</TableCell>
+            <TableCell>
+              <div class="flex items-center gap-2">
+                <Image
+                  src={
+                    carImages[
+                      (seasonDriver.otherCars?.[track] ??
+                        seasonDriver.car) as ConstructorName
+                    ]
+                  }
+                  alt={seasonDriver.otherCars?.[track] ?? seasonDriver.car}
+                  class="w-6 h-6"
+                />
+                <span>{seasonDriver.team}</span>
+              </div>
+            </TableCell>
+            <TableCell className="font-bold text-right">
+              {result[1].points}
+            </TableCell>
+          </TableRow>
+        );
+      }
+    })
+  }
+</TableCard>
