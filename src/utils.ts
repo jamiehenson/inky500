@@ -13,8 +13,8 @@ import mercedes from "./assets/cars/mercedes.png";
 import porsche from "./assets/cars/porsche.png";
 import renault from "./assets/cars/renault.png";
 
-export const withBase = (path: string) => {
-  return `${import.meta.env.BASE_URL}${path}`;
+export const withBase = (path?: string) => {
+  return `${import.meta.env.BASE_URL}${path ?? ""}/`;
 };
 
 export const carImages: Record<ConstructorName, ImageMetadata> = {
