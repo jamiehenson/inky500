@@ -29,8 +29,8 @@ const { season, track, data, trackResults } = Astro.props;
       const constructor = constructors[result[0] as ConstructorName];
       const constructorDrivers = Object.entries(seasonRacers[season])
         .filter((racer) =>
-          racer[1].otherCars?.[track]
-            ? racer[1].otherCars[track] === result[0]
+          racer[1].otherTeams?.[track]
+            ? racer[1].otherTeams[track].car === result[0]
             : racer[1].car === result[0]
         )
         .map((racer) => [racer[0], drivers[racer[0] as RacerName].name]);

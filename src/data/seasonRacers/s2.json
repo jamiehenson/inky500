@@ -2,7 +2,10 @@
   "bigtimebosco": {
     "team": "Renault Mégane",
     "teamColor": "#FE63DC",
-    "car": "renault"
+    "car": "renault",
+    "otherTeams": {
+      "brands-hatch": { "team": "Mercedes-AMG A45", "car": "mercedes" }
+    }
   },
   "eugenegoat": {
     "team": "Renault Mégane",

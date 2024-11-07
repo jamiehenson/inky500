@@ -18,8 +18,8 @@
     "team": "Dörr Motorsports",
     "teamColor": "#2e4c46",
     "car": "astonmartin",
-    "otherCars": {
-      "oulton-park": "mclaren"
+    "otherTeams": {
+      "oulton-park": { "car": "mclaren", "team": "Dörr Motorsports" }
     }
   },
   "graeme": {
@@ -66,11 +66,11 @@
     "team": "DCRoberts",
     "teamColor": "#2e0d92",
     "car": "astonmartin",
-    "otherCars": {
-      "oulton-park": "chevrolet",
-      "monza": "chevrolet",
-      "laguna-seca": "chevrolet",
-      "nurburgring": "chevrolet"
+    "otherTeams": {
+      "oulton-park": { "car": "chevrolet", "team": "DCRoberts" },
+      "monza": { "car": "chevrolet", "team": "DCRoberts" },
+      "laguna-seca": { "car": "chevrolet", "team": "DCRoberts" },
+      "nurburgring": { "car": "chevrolet", "team": "DCRoberts" }
     }
   },
   "calamitysam": {
@@ -92,9 +92,9 @@
     "team": "Ya BOIIIIII",
     "teamColor": "purple",
     "car": "mercedes",
-    "otherCars": {
-      "oulton-park": "astonmartin",
-      "monza": "astonmartin"
+    "otherTeams": {
+      "oulton-park": { "car": "astonmartin", "team": "Ya BOIIIIII" },
+      "monza": { "car": "astonmartin", "team": "Ya BOIIIIII" }
     }
   },
   "cannonmandan": {

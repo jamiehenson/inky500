@@ -31,6 +31,8 @@ const { data, title, season, track, className } = Astro.props;
       const driver = drivers[result[0] as RacerName];
 
       if (driver && seasonDriver) {
+        const currentTeam = seasonDriver.otherTeams?.[track] ?? seasonDriver;
+
         return (
           <TableRow>
             <TableCell>
@@ -40,16 +42,11 @@ const { data, title, season, track, className } = Astro.props;
             <TableCell>
               <div class="flex items-center gap-2">
                 <Image
-                  src={
-                    carImages[
-                      (seasonDriver.otherCars?.[track] ??
-                        seasonDriver.car) as ConstructorName
-                    ]
-                  }
-                  alt={seasonDriver.otherCars?.[track] ?? seasonDriver.car}
+                  src={carImages[currentTeam.car as ConstructorName]}
+                  alt={currentTeam.car}
                   class="w-6 h-6"
                 />
-                <span>{seasonDriver.team}</span>
+                <span>{currentTeam.team}</span>
               </div>
             </TableCell>
             <TableCell className="font-bold text-right">

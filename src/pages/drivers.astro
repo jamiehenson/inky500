@@ -55,7 +55,9 @@ const calculateDriverData = (driver: RacerName) => {
           .filter((season) => Object.keys(season).length > 0)
           .flatMap((season) => {
             return [
-              ...Object.values(season[driver]?.otherCars ?? {}),
+              ...Object.values(season[driver]?.otherTeams ?? {}).map(
+                (otherTeam) => otherTeam.car
+              ),
               season[driver]?.car,
             ];
           })

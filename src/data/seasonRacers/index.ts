@@ -9,7 +9,12 @@ export type SeasonRacer = {
   team: string;
   car: ConstructorName;
   teamColor?: string;
-  otherCars?: { [index: string]: string };
+  otherTeams?: {
+    [index: string]: {
+      team: string;
+      car: ConstructorName;
+    };
+  };
 };
 
 export type SeasonRacers = Partial<Record<RacerName, SeasonRacer>>;
