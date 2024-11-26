@@ -1,0 +1,82 @@
+---
+import { tracks } from "@/data";
+import { type SeasonName, type TrackName } from "@/types";
+import Card from "./ui/card/Card.astro";
+import CardContent from "./ui/card/CardContent.astro";
+import CardDescription from "./ui/card/CardDescription.astro";
+import CardHeader from "./ui/card/CardHeader.astro";
+import CardTitle from "./ui/card/CardTitle.astro";
+
+type Props = {
+  season: SeasonName;
+  track: TrackName;
+};
+
+const { season, track } = Astro.props;
+
+const chartConfig = {
+  drivers: {
+    label: "Drivers",
+    color: "hsl(var(--chart-1))",
+  },
+  constructors: {
+    label: "Constructors",
+    color: "hsl(var(--chart-2))",
+  },
+};
+
+const chartButtons = ["s4", "s5"].includes(season)
+  ? ["drivers", "constructors"]
+  : ["drivers"];
+---
+
+<Card className="col-span-2">
+  <CardHeader
+    className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row"
+  >
+    <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
+      <CardTitle>Progression</CardTitle>
+      <CardDescription>
+        Showing progression as of {tracks[track].name}
+      </CardDescription>
+    </div>
+    <div class="flex">
+      {
+        chartButtons.map((key) => {
+          const chart = key as keyof typeof chartConfig;
+          return (
+            <button
+              id={`chart-show-${key}`}
+              class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l last:rounded-tr-lg data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:data-[active=true]:bg-zinc-50 dark:hover:data-[active=true]:bg-zinc-850"
+            >
+              <span class="text-lg text-muted-foreground">
+                {chartConfig[chart].label}
+              </span>
+            </button>
+          );
+        })
+      }
+    </div>
+  </CardHeader>
+  <CardContent className="px-2 sm:p-6"> Chart </CardContent>
+</Card>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const driversButton = document.getElementById("chart-show-drivers");
+    const constructorsButton = document.getElementById(
+      "chart-show-constructors"
+    );
+    if (!driversButton || !constructorsButton) return;
+
+    driversButton.addEventListener("click", () => {
+      driversButton.dataset.active = "true";
+      constructorsButton.dataset.active = "false";
+    });
+
+    constructorsButton.addEventListener("click", () => {
+      constructorsButton.dataset.active = "true";
+      driversButton.dataset.active = "false";
+    });
+  });
+</script>

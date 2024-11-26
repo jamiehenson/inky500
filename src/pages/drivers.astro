@@ -1,8 +1,16 @@
 ---
-import { DriverDataTable } from "@/components/DriverDataTable";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableHead from "@/components/ui/table/TableHead.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
 import { drivers, seasonRacers, results, standings } from "@/data";
 import Layout from "@/layouts/Layout.astro";
-import type { RacerName } from "@/types";
+import { cn } from "@/lib/utils";
+import type { ConstructorName, RacerName } from "@/types";
+import { carImages } from "@/utils";
+import { ArrowDownUp } from "lucide-astro";
 
 const resultPositionSuffix = (position: number) => {
   if (!position) {
@@ -84,7 +92,16 @@ const calculateDriverData = (driver: RacerName) => {
   };
 };
 
-// const driverPositions =
+const headers = [
+  { id: "name", label: "Name", sortable: false },
+  { id: "teams", label: "Teams", sortable: false },
+  { id: "points", label: "Points", sortable: true },
+  { id: "wins", label: "Wins", sortable: true },
+  { id: "podiums", label: "Podiums", sortable: true },
+  { id: "fastestLaps", label: "Fastest Laps", sortable: true },
+  { id: "bestResult", label: "Best Result", sortable: false },
+  { id: "averageResult", label: "Average Result", sortable: false },
+];
 
 const data = Object.keys(drivers)
   .filter((driver) => driver !== "unknown")
@@ -102,5 +119,84 @@ const data = Object.keys(drivers)
   description={`View statistics for all the drivers in the Inky 500 🛞`}
 >
   <h1>Drivers</h1>
-  <DriverDataTable data={data} client:load />
+  <div class="rounded-md border">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {
+            headers.map((header, index) => (
+              <TableHead
+                onclick={header.sortable ? `sortTable(${index})` : undefined}
+              >
+                <div
+                  class={cn("flex gap-1 items-center", {
+                    "cursor-pointer": header.sortable,
+                  })}
+                >
+                  {header.label}
+                  {header.sortable ? <ArrowDownUp class="h-5" /> : null}
+                </div>
+              </TableHead>
+            ))
+          }
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {
+          data.map((driver) => (
+            <TableRow>
+              {headers.map((header) => (
+                <TableCell>
+                  {header.id === "teams"
+                    ? driver.teams.map((team) => (
+                        <img
+                          class="w-4 h-4 inline-flex mr-2 last:mr-0"
+                          src={carImages[team as ConstructorName].src}
+                          alt={team}
+                        />
+                      ))
+                    : driver[header.id as keyof typeof driver]}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        }
+      </TableBody>
+    </Table>
+  </div>
 </Layout>
+
+<script is:inline>
+  let sortOrder = {};
+
+  const sortTable = (columnIndex) => {
+    const tbody = document.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    const sortedRows = rows.sort((a, b) => {
+      const aText = a.cells[columnIndex].textContent.trim();
+      const bText = b.cells[columnIndex].textContent.trim();
+
+      if (!isNaN(aText) && !isNaN(bText)) {
+        return sortOrder[columnIndex]
+          ? Number(bText) - Number(aText)
+          : Number(aText) - Number(bText);
+      }
+
+      return sortOrder[columnIndex]
+        ? bText.localeCompare(aText)
+        : aText.localeCompare(bText);
+    });
+
+    // Toggle sort order
+    sortOrder[columnIndex] = !sortOrder[columnIndex];
+
+    // Remove existing rows
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+
+    // Append sorted rows
+    sortedRows.forEach((row) => tbody.appendChild(row));
+  };
+</script>

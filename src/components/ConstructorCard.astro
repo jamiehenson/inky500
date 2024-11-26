@@ -1,16 +1,14 @@
 ---
 import { Image } from "astro:assets";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "./ui/card";
 import type { ConstructorName } from "@/types";
+import CardContent from "./ui/card/CardContent.astro";
+import CardDescription from "./ui/card/CardDescription.astro";
+import CardHeader from "./ui/card/CardHeader.astro";
+import CardTitle from "./ui/card/CardTitle.astro";
 import Badge from "./ui/Badge.astro";
 import { constructors } from "@/data";
 import { carImages, withBase } from "@/utils";
+import Card from "./ui/card/Card.astro";
 
 type Props = {
   link?: string;

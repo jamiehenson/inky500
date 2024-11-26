@@ -9,9 +9,10 @@ import {
 } from "@/types";
 import { carImages, pointsScheme } from "@/utils";
 import TableCard from "./TableCard.astro";
-import { TableRow, TableCell } from "./ui/table";
 import Badge from "./ui/Badge.astro";
 import type { RacerResult } from "@/data/results";
+import TableCell from "./ui/table/TableCell.astro";
+import TableRow from "./ui/table/TableRow.astro";
 
 type Props = {
   data: RacerResult;
@@ -33,9 +34,10 @@ const { data, title, season, track, className, link } = Astro.props;
       const hasFastestLap = data.fastestLap.racerId === result[0];
 
       if (driver && seasonDriver) {
-        const pointsAdded = ["DNF", "DSQ"].includes(result[1])
+        const pointsAdded = ["DNF", "DSQ", "-"].includes(result[1])
           ? 0
-          : Number(pointsScheme[season][index]) + (hasFastestLap ? 1 : 0);
+          : Number(pointsScheme[season][index] ?? "0") +
+            (hasFastestLap ? 1 : 0);
 
         const currentTeam = seasonDriver.otherTeams?.[track] ?? seasonDriver;
 

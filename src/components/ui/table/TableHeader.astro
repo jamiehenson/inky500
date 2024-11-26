@@ -1,0 +1,7 @@
+---
+import { cn } from "@/lib/utils";
+
+const { className, ...props } = Astro.props;
+---
+
+<thead class={cn("[&_tr]:border-b", className)} {...props}> <slot /> </thead>

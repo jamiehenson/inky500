@@ -10,8 +10,9 @@ import {
 import { carImages } from "@/utils";
 import DeltaMarker from "./DeltaMarker.astro";
 import TableCard from "./TableCard.astro";
-import { TableRow, TableCell } from "./ui/table";
 import type { ConstructorResults } from "@/data/constructorsStandings";
+import TableCell from "./ui/table/TableCell.astro";
+import TableRow from "./ui/table/TableRow.astro";
 
 type Props = {
   season: SeasonName;
