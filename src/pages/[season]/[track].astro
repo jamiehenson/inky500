@@ -93,7 +93,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
         <span class={`rounded-sm ml-3 fi fi-${trackCountryCode}`}></span>
       </h1>
       <h2 class="-mt-3">
-        {seasonTitle}
+        {seasonTitle}{trackResults?.date ? ` - ${trackResults?.date}` : ""}
       </h2>
       <h3 class="text-center text-lg">
         Winner: <span class="font-bold">{winnerName}</span>

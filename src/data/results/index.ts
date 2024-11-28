@@ -12,6 +12,7 @@ export type RacerResult = {
     time: string;
   };
   data?: string;
+  date?: string;
 };
 
 export type RaceResults = Record<TrackName, RacerResult | null>;
