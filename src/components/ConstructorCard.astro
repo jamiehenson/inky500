@@ -36,7 +36,7 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
       }}
     >
     </div>
-    <div class="absolute top-3 right-3 opacity-50">
+    <div class="absolute top-3 right-3 opacity-50 z-0">
       {
         car && (
           <Image
@@ -48,28 +48,30 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
         )
       }
     </div>
-    <CardHeader>
-      <CardTitle className="flex items-center gap-2">
-        {index ? <Badge className="rounded-lg">{index}</Badge> : null}
-        {title}</CardTitle
-      >
-      <CardDescription
-        >{
-          Array.isArray(subtitle) ? (
-            <div>
-              <Badge className="rounded-lg" variant="secondary">
-                <span class={`mr-1 rounded-sm fi fi-${subtitle[1]}`} />
-                {subtitle[0]}
-              </Badge>
-            </div>
-          ) : (
-            subtitle
-          )
-        }</CardDescription
-      >
-    </CardHeader>
-    <CardContent>
-      <slot />
-    </CardContent>
+    <div class="relative z-10">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          {index ? <Badge className="rounded-lg">{index}</Badge> : null}
+          {title}</CardTitle
+        >
+        <CardDescription
+          >{
+            Array.isArray(subtitle) ? (
+              <div>
+                <Badge className="rounded-lg" variant="secondary">
+                  <span class={`mr-1 rounded-sm fi fi-${subtitle[1]}`} />
+                  {subtitle[0]}
+                </Badge>
+              </div>
+            ) : (
+              subtitle
+            )
+          }</CardDescription
+        >
+      </CardHeader>
+      <CardContent>
+        <slot />
+      </CardContent>
+    </div>
   </Card>
 </a>
