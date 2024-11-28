@@ -1,5 +1,5 @@
 ---
-import { tracks } from "@/data";
+import { constructorsStandings, tracks } from "@/data";
 import { type SeasonName, type TrackName } from "@/types";
 import Card from "./ui/card/Card.astro";
 import CardContent from "./ui/card/CardContent.astro";
@@ -47,7 +47,8 @@ const chartButtons = ["s4", "s5"].includes(season)
           return (
             <button
               id={`chart-show-${key}`}
-              class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l last:rounded-tr-lg data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:data-[active=true]:bg-zinc-50 dark:hover:data-[active=true]:bg-zinc-850"
+              data-active={`${key === "drivers"}`}
+              class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l last:rounded-tr-lg sm:border-l sm:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700"
             >
               <span class="text-lg text-muted-foreground">
                 {chartConfig[chart].label}
@@ -58,25 +59,166 @@ const chartButtons = ["s4", "s5"].includes(season)
       }
     </div>
   </CardHeader>
-  <CardContent className="px-2 sm:p-6"> Chart </CardContent>
+  <CardContent className="px-2 sm:p-6 flex justify-center h-[600px]">
+    <canvas id="standings-chart"></canvas>
+    {
+      Object.keys(constructorsStandings[season]).length > 0 ? (
+        <canvas id="constructors-chart" class="!hidden" />
+      ) : null
+    }
+  </CardContent>
+
+  <script>
+    import Chart from "chart.js/auto";
+    import {
+      constructors,
+      constructorsStandings,
+      drivers,
+      seasonRacers,
+      standings,
+      tracks,
+    } from "@/data";
+    import type {
+      ConstructorName,
+      RacerName,
+      SeasonName,
+      TrackName,
+    } from "@/types";
+
+    document.addEventListener("astro:page-load", () => {
+      const driversButton = document.getElementById("chart-show-drivers");
+      const constructorsButton = document.getElementById(
+        "chart-show-constructors"
+      );
+      const driversChart = document.getElementById("standings-chart");
+      const constructorsChart = document.getElementById("constructors-chart");
+
+      driversButton?.addEventListener("click", () => {
+        driversButton.dataset.active = "true";
+        if (constructorsButton) {
+          constructorsButton.dataset.active = "false";
+        }
+        driversChart?.classList.remove("!hidden");
+        constructorsChart?.classList.add("!hidden");
+      });
+
+      constructorsButton?.addEventListener("click", () => {
+        constructorsButton.dataset.active = "true";
+        if (driversButton) {
+          driversButton.dataset.active = "false";
+        }
+        driversChart?.classList.add("!hidden");
+        constructorsChart?.classList.remove("!hidden");
+      });
+
+      const standingsCtx = document.getElementById(
+        "standings-chart"
+      ) as HTMLCanvasElement | null;
+
+      const constructorsCtx = document.getElementById(
+        "constructors-chart"
+      ) as HTMLCanvasElement | null;
+
+      const params = window.location.pathname.split("/").filter(Boolean);
+      const season = params[1] as SeasonName;
+      const track = params[2] as TrackName;
+
+      const seasonStandingKeys = Object.keys(standings[season]);
+      const seasonStandingValues = Object.values(standings[season]);
+
+      const driverData = Object.keys(seasonRacers[season])
+        .map((driver) => ({
+          driver,
+          standings: seasonStandingValues
+            .slice(0, seasonStandingKeys.indexOf(track) + 1)
+            .map((standing) => standing[driver as RacerName]?.points),
+        }))
+        .sort((a, b) =>
+          drivers[a.driver as RacerName].name.localeCompare(
+            drivers[b.driver as RacerName].name
+          )
+        );
+
+      const constructorData =
+        Object.keys(constructorsStandings[season]).length > 0
+          ? Array.from(
+              new Set(
+                Object.values(seasonRacers[season]).flatMap((racer) => [
+                  racer.car,
+                  ...Object.values(racer.otherTeams ?? {}).map(
+                    (otherTeam) => otherTeam.car
+                  ),
+                ])
+              )
+            ).map((constructor) => ({
+              constructor,
+              standings: Object.values(constructorsStandings[season])
+                .slice(0, seasonStandingKeys.indexOf(track) + 1)
+                .map((standing) => standing[constructor]?.points),
+            }))
+          : [];
+
+      const commonConfig: any = {
+        type: "line",
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+            tooltip: {
+              itemSort: (a: { raw: number }, b: { raw: number }) => {
+                return b.raw - a.raw;
+              },
+            },
+          },
+          interaction: {
+            mode: "nearest",
+            axis: "x",
+            intersect: false,
+          },
+        },
+        data: {
+          labels: seasonStandingKeys
+            .slice(0, seasonStandingKeys.indexOf(track) + 1)
+            .map((track) => tracks[track as TrackName].name),
+        },
+      };
+
+      if (standingsCtx) {
+        new Chart(standingsCtx, {
+          ...commonConfig,
+          data: {
+            ...commonConfig.data,
+            datasets: driverData.map((data) => ({
+              label: drivers[data.driver as RacerName].name,
+              data: data.standings,
+              borderWidth: 2,
+            })),
+          },
+        });
+      }
+
+      if (constructorsCtx && constructorData.length > 0) {
+        new Chart(constructorsCtx, {
+          ...commonConfig,
+          data: {
+            ...commonConfig.data,
+            datasets: constructorData.map((data) => ({
+              label: constructors[data.constructor as ConstructorName].name,
+              data: data.standings,
+              borderWidth: 2,
+              borderColor: constructors[data.constructor].teamColor,
+            })),
+          },
+        });
+      }
+    });
+  </script>
 </Card>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const driversButton = document.getElementById("chart-show-drivers");
-    const constructorsButton = document.getElementById(
-      "chart-show-constructors"
-    );
-    if (!driversButton || !constructorsButton) return;
-
-    driversButton.addEventListener("click", () => {
-      driversButton.dataset.active = "true";
-      constructorsButton.dataset.active = "false";
-    });
-
-    constructorsButton.addEventListener("click", () => {
-      constructorsButton.dataset.active = "true";
-      driversButton.dataset.active = "false";
-    });
-  });
-</script>

@@ -17,10 +17,10 @@
   </svg>
 </button>
 
-<script is:inline>
+<script>
   const theme = (() => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
+      return localStorage.getItem("theme") ?? "light";
     }
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
@@ -45,8 +45,9 @@
   };
 
   document.addEventListener("astro:page-load", () => {
-    document
-      .getElementById("themeToggle")
-      .addEventListener("click", handleToggleClick);
+    const themeToggleButton = document.getElementById("themeToggle");
+    if (themeToggleButton) {
+      themeToggleButton.addEventListener("click", handleToggleClick);
+    }
   });
 </script>
