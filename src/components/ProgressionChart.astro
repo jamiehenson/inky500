@@ -182,6 +182,9 @@ const chartButtons = ["s4", "s5"].includes(season)
             }))
           : [];
 
+      const fontFamily =
+        'Archivo, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+
       const commonConfig: any = {
         type: "line",
         options: {
@@ -190,11 +193,29 @@ const chartButtons = ["s4", "s5"].includes(season)
           scales: {
             y: {
               beginAtZero: true,
+              ticks: {
+                font: {
+                  family: fontFamily,
+                },
+              },
+            },
+            x: {
+              ticks: {
+                font: {
+                  family: fontFamily,
+                },
+              },
             },
           },
           plugins: {
             legend: {
               position: "bottom",
+              labels: {
+                font: {
+                  size: 14,
+                  family: fontFamily,
+                },
+              },
             },
             tooltip: {
               itemSort: (a: { raw: number }, b: { raw: number }) => {
