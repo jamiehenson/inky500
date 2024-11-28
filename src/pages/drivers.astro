@@ -10,7 +10,7 @@ import Layout from "@/layouts/Layout.astro";
 import { cn } from "@/lib/utils";
 import type { ConstructorName, RacerName } from "@/types";
 import { carImages } from "@/utils";
-import { ArrowDownUp } from "lucide-astro";
+import { ArrowDownUp, ArrowUpFromLine, ArrowDownFromLine } from "lucide-astro";
 
 const resultPositionSuffix = (position: number) => {
   if (!position) {
@@ -130,11 +130,17 @@ const data = Object.keys(drivers)
               >
                 <div
                   class={cn("flex gap-1 items-center", {
-                    "cursor-pointer": header.sortable,
+                    "cursor-pointer select-none": header.sortable,
                   })}
                 >
                   {header.label}
-                  {header.sortable ? <ArrowDownUp class="h-5" /> : null}
+                  {header.sortable ? (
+                    <>
+                      <ArrowDownUp class="h-5 arrow-unsorted" />
+                      <ArrowUpFromLine class="h-5 arrow-asc hidden" />
+                      <ArrowDownFromLine class="h-5 arrow-desc hidden" />
+                    </>
+                  ) : null}
                 </div>
               </TableHead>
             ))
@@ -190,6 +196,32 @@ const data = Object.keys(drivers)
 
     // Toggle sort order
     sortOrder[columnIndex] = !sortOrder[columnIndex];
+
+    const heads = Array.from(document.querySelectorAll("th"));
+
+    document.querySelectorAll(".arrow-unsorted").forEach((arrow) => {
+      arrow.classList.remove("hidden");
+    });
+
+    document.querySelectorAll(".arrow-desc, .arrow-asc").forEach((arrow) => {
+      arrow.classList.add("hidden");
+    });
+
+    if (sortOrder[columnIndex]) {
+      heads[columnIndex]
+        .querySelector(".arrow-unsorted")
+        .classList.add("hidden");
+      heads[columnIndex].querySelector(".arrow-asc").classList.remove("hidden");
+      heads[columnIndex].querySelector(".arrow-desc").classList.add("hidden");
+    } else {
+      heads[columnIndex]
+        .querySelector(".arrow-unsorted")
+        .classList.add("hidden");
+      heads[columnIndex].querySelector(".arrow-asc").classList.add("hidden");
+      heads[columnIndex]
+        .querySelector(".arrow-desc")
+        .classList.remove("hidden");
+    }
 
     // Remove existing rows
     while (tbody.firstChild) {
