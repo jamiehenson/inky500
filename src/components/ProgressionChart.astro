@@ -147,8 +147,8 @@ const chartButtons = ["s4", "s5"].includes(season)
       const season = params[1] as SeasonName;
       const track = params[2] as TrackName;
 
-      const seasonStandingKeys = Object.keys(standings[season]);
-      const seasonStandingValues = Object.values(standings[season]);
+      const seasonStandingKeys = Object.keys(standings[season] ?? {});
+      const seasonStandingValues = Object.values(standings[season] ?? {});
 
       const driverData = Object.keys(seasonRacers[season])
         .map((driver) => ({
@@ -178,7 +178,7 @@ const chartButtons = ["s4", "s5"].includes(season)
               constructor,
               standings: Object.values(constructorsStandings[season])
                 .slice(0, seasonStandingKeys.indexOf(track) + 1)
-                .map((standing) => standing[constructor]?.points),
+                .map((standing) => standing[constructor]?.normalisedPoints),
             }))
           : [];
 
