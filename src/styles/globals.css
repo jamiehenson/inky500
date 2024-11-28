@@ -11,8 +11,24 @@
     --chart-5: hsl(27 87% 67%);
   }
 
+  @font-face {
+    font-family: "Archivo";
+    src: url("/inky500/fonts/Archivo-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Archivo";
+    src: url("/inky500/fonts/Archivo-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
   html {
-    font-family: "Helvetica", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+    font-size: 18px;
   }
 
   * {
