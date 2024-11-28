@@ -28,11 +28,12 @@ const { season } = Astro.params as { season: SeasonName };
 const tracksData = Object.entries(results[season]).map((track) => {
   const trackData = tracks[track[0] as TrackName];
 
-  if (!track[1]) {
+  if (!track[1]?.results) {
     return {
       name: trackData?.name ?? "unknown",
       location: trackData?.location ?? "unknown",
       countryCode: trackData?.countryCode ?? "gb",
+      date: track[1]?.date,
     };
   }
 
@@ -55,6 +56,7 @@ const tracksData = Object.entries(results[season]).map((track) => {
     link: `/${season}/${track[0]}`,
     countryCode: trackData?.countryCode ?? "gb",
     winners,
+    date: track[1].date,
   };
 });
 
@@ -95,7 +97,10 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
                   </>
                 ) : null}
               </div>
-              <StatusBadge status={track.winners ? "complete" : "upcoming"} />
+              <StatusBadge
+                status={track.winners ? "complete" : "upcoming"}
+                date={track.date}
+              />
             </ConstructorCard>
           )
       )

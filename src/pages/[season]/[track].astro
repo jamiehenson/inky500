@@ -22,7 +22,7 @@ export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
   Object.entries(results).forEach((season) => {
     Object.entries(season[1]).forEach((track) => {
-      if (track[1]) {
+      if (track[1]?.results) {
         races.push({ season: season[0], track: track[0] });
       }
     });

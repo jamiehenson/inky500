@@ -1,6 +1,6 @@
 {
   "oulton-park": {
-    "date": "April 3, 2024",
+    "date": "April 3rd, 2024",
     "results": {
       "bigtimebosco": "46:24.684",
       "graeme": "8.953",
@@ -27,7 +27,7 @@
     "data": "https://inky500.emperorservers.com/results/240403_213655_R"
   },
   "monza": {
-    "date": "April 17, 2024",
+    "date": "April 17th, 2024",
     "results": {
       "cousinbenson": "45:15.932",
       "bigtimebosco": "29.737",
@@ -49,7 +49,7 @@
     "data": "https://inky500.emperorservers.com/results/240417_214235_R"
   },
   "laguna-seca": {
-    "date": "May 1, 2024",
+    "date": "May 1st, 2024",
     "results": {
       "michael": "45:43.576",
       "xnpxbirdy": "18.999",
@@ -71,7 +71,7 @@
     "data": "https://inky500.emperorservers.com/results/240501_213714_R"
   },
   "nurburgring": {
-    "date": "May 15, 2024",
+    "date": "May 15th, 2024",
     "results": {
       "cousinbenson": "45:53.683",
       "graeme": "26.259",
@@ -93,7 +93,7 @@
     "data": "https://inky500.emperorservers.com/results/240515_214146_R"
   },
   "paul-ricard": {
-    "date": "May 29, 2024",
+    "date": "May 29th, 2024",
     "results": {
       "xnpxbirdy": "45:34.885",
       "bigtimebosco": "17.645",
@@ -113,7 +113,7 @@
     "data": "https://inky500.emperorservers.com/results/240529_213805_R"
   },
   "brands-hatch": {
-    "date": "June 12, 2024",
+    "date": "June 12th, 2024",
     "results": {
       "michael": "45:52.338",
       "cousinbenson": "11.912",
@@ -133,7 +133,7 @@
     "data": "https://inky500.emperorservers.com/results/240612_213425_R"
   },
   "barcelona": {
-    "date": "June 26, 2024",
+    "date": "June 26th, 2024",
     "results": {
       "bigtimebosco": "45:36.127",
       "xnpxbirdy": "0.982",
@@ -153,7 +153,7 @@
     "data": "https://inky500.emperorservers.com/results/240626_213745_R"
   },
   "spa": {
-    "date": "July 10, 2024",
+    "date": "July 10th, 2024",
     "results": {
       "bigtimebosco": "47:13.602",
       "michael": "0.903",
@@ -173,7 +173,7 @@
     "fastestLap": { "racerId": "bigtimebosco", "time": "02:38.770" }
   },
   "hungaroring": {
-    "date": "July 24, 2024",
+    "date": "July 24th, 2024",
     "results": {
       "bigtimebosco": "45:10.928",
       "michael": "9.432",
@@ -193,7 +193,7 @@
     "data": "https://inky500.emperorservers.com/results/240724_213551_R"
   },
   "silverstone": {
-    "date": "August 7, 2024",
+    "date": "August 7th, 2024",
     "results": {
       "xnpxbirdy": "45:15.769",
       "cousinbenson": "17.229",
@@ -211,7 +211,7 @@
     "data": "https://inky500.emperorservers.com/results/240807_213701_R"
   },
   "zolder": {
-    "date": "August 21, 2024",
+    "date": "August 21st, 2024",
     "results": {
       "cannonmandan": "45:35.579",
       "michael": "7.083",
@@ -230,7 +230,7 @@
     "data": "https://inky500.emperorservers.com/results/240821_213425_R"
   },
   "suzuka": {
-    "date": "September 4, 2024",
+    "date": "September 4th, 2024",
     "results": {
       "xnpxbirdy": "45:50.782",
       "michael": "4.526",
@@ -249,7 +249,7 @@
     "data": "https://inky500.emperorservers.com/results/240904_213624_R"
   },
   "mt-panorama": {
-    "date": "September 18, 2024",
+    "date": "September 18th, 2024",
     "results": {
       "michael": "45:55.776",
       "bigtimebosco": "12.428",
@@ -270,7 +270,7 @@
     "data": "https://inky500.emperorservers.com/results/240918_213850_R"
   },
   "donington": {
-    "date": "October 2, 2024",
+    "date": "October 2nd, 2024",
     "results": {
       "roberts": "45:55.279",
       "xnpxbirdy": "15.651",
@@ -289,7 +289,7 @@
     "data": "https://inky500.emperorservers.com/results/241002_213504_R"
   },
   "cota": {
-    "date": "October 16, 2024",
+    "date": "October 16th, 2024",
     "results": {
       "bigtimebosco": "45:06.621",
       "michael": "19.020",

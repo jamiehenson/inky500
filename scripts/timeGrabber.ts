@@ -7,6 +7,35 @@ import {
   type RacerName,
 } from "@/types";
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const day = date.getUTCDate();
+  const month = monthNames[date.getUTCMonth()];
+  const year = date.getUTCFullYear();
+
+  const getOrdinal = (n: number) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return s[(v - 20) % 10] || s[v] || s[0];
+  };
+
+  return `${month} ${day}${getOrdinal(day)}, ${year}`;
+};
+
 export const timeGrabber = async (
   season: SeasonName,
   race: TrackName,
@@ -19,6 +48,10 @@ export const timeGrabber = async (
       .replace(/<style([\S\s]*?)>([\S\s]*?)<\/style>/gim, "")
       .replace(/<script([\S\s]*?)>([\S\s]*?)<\/script>/gim, "")
   );
+
+  const dateElement =
+    dom.window.document.querySelector("h1")?.nextElementSibling?.textContent;
+  const date = dateElement ? formatDate(dateElement) : null;
 
   const table = dom.window.document.querySelector("table");
 
@@ -119,5 +152,5 @@ export const timeGrabber = async (
     {}
   );
 
-  return { results: orderedResults, fastestLap, data: link };
+  return { results: orderedResults, fastestLap, data: link, date };
 };

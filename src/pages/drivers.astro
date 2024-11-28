@@ -45,7 +45,7 @@ const calculateDriverData = (driver: RacerName) => {
           fastestLaps++;
         }
 
-        return race === null
+        return race === null || race.results === null
           ? -1
           : Object.keys(race.results).indexOf(driver) + 1;
       });

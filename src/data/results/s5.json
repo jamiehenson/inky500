@@ -1,20 +1,110 @@
 {
-  "red-bull-ring": null,
-  "misano": null,
-  "paul-ricard": null,
-  "nurburgring": null,
-  "brands-hatch": null,
-  "zolder": null,
-  "kyalami": null,
-  "hungaroring": null,
-  "barcelona": null,
-  "imola": null,
-  "snetterton": null,
-  "suzuka": null,
-  "indianapolis": null,
-  "watkins-glen": null,
-  "spa": null,
-  "silverstone": null,
-  "donington": null,
-  "monza": null
+  "red-bull-ring": {
+    "date": "December 4th, 2024",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "misano": {
+    "date": "January 8th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "paul-ricard": {
+    "date": "February 5th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "nurburgring": {
+    "date": "March 5th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "brands-hatch": {
+    "date": "April 2nd, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "zolder": {
+    "date": "April 30th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "kyalami": {
+    "date": "May 28th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "hungaroring": {
+    "date": "June 25th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "barcelona": {
+    "date": "July 23rd, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "imola": {
+    "date": "December 18th, 2024",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "snetterton": {
+    "date": "January 22nd, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "suzuka": {
+    "date": "February 19th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "indianapolis": {
+    "date": "March 19th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "watkins-glen": {
+    "date": "April 16th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "spa": {
+    "date": "May 14th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "silverstone": {
+    "date": "June 11th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "donington": {
+    "date": "July 9th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  },
+  "monza": {
+    "date": "August 6th, 2025",
+    "results": null,
+    "fastestLap": "",
+    "data": ""
+  }
 }

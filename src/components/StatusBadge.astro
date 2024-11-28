@@ -6,6 +6,7 @@ export type Status = "complete" | "upcoming";
 
 type Props = {
   status: Status;
+  date?: string;
 };
 
 const statuses: Record<Status, { color: string; label: string }> = {
@@ -13,13 +14,13 @@ const statuses: Record<Status, { color: string; label: string }> = {
   upcoming: { color: "bg-yellow-600", label: "Upcoming" },
 };
 
-const { status } = Astro.props;
+const { status, date } = Astro.props;
 ---
 
 <div class="absolute bottom-3 right-3">
   <Badge
     className={cn(statuses[status].color, "opacity-90 pointer-events-none")}
   >
-    {statuses[status].label}
+    {statuses[status].label}{date ? ` - ${date}` : ""}
   </Badge>
 </div>
