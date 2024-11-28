@@ -8,14 +8,14 @@ type Props = {
 const { delta } = Astro.props;
 ---
 
-<div class="flex items-center">
+<div class="flex items-center text-green-500">
   {
     delta > 0 ? (
-      <ChevronUp color="green" />
+      <ChevronUp class="stroke-green-500" />
     ) : delta < 0 ? (
-      <ChevronDown color="red" />
+      <ChevronDown class="stroke-red-500" />
     ) : (
-      <Minus color="darkgray" />
+      <Minus class="stroke-gray-500" />
     )
   }
 
