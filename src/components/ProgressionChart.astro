@@ -174,12 +174,20 @@ const chartButtons = ["s4", "s5"].includes(season)
                   ),
                 ])
               )
-            ).map((constructor) => ({
-              constructor,
-              standings: Object.values(constructorsStandings[season])
-                .slice(0, seasonStandingKeys.indexOf(track) + 1)
-                .map((standing) => standing[constructor]?.normalisedPoints),
-            }))
+            )
+              .map((constructor) => ({
+                constructor,
+                standings: Object.values(constructorsStandings[season])
+                  .slice(0, seasonStandingKeys.indexOf(track) + 1)
+                  .map((standing) => standing[constructor]?.normalisedPoints),
+              }))
+              .sort((a, b) =>
+                constructors[
+                  a.constructor as ConstructorName
+                ].name.localeCompare(
+                  constructors[b.constructor as ConstructorName].name
+                )
+              )
           : [];
 
       const fontFamily =
