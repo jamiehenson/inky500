@@ -89,12 +89,23 @@ const calculateDriverData = (driver: RacerName) => {
     averageResult: Number.isNaN(averageResult)
       ? "N/A"
       : resultPositionSuffix(Math.round(averageResult)),
+    championships: Object.entries(standings)
+      .map((seasonStandings) => {
+        const seasonStandingValues = Object.values(seasonStandings[1]);
+        return driver ===
+          Object.keys(seasonStandingValues[seasonStandingValues.length - 1])[0]
+          ? seasonStandings[0].toUpperCase()
+          : null;
+      })
+      .filter(Boolean)
+      .join(", "),
   };
 };
 
 const headers = [
-  { id: "name", label: "Name", sortable: false },
+  { id: "name", label: "Name", sortable: true },
   { id: "teams", label: "Teams", sortable: false },
+  { id: "championships", label: "Championships", sortable: true },
   { id: "points", label: "Points", sortable: true },
   { id: "wins", label: "Wins", sortable: true },
   { id: "podiums", label: "Podiums", sortable: true },
