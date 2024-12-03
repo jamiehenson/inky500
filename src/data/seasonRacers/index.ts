@@ -8,7 +8,6 @@ import s5 from "./s5.json";
 export type SeasonRacer = {
   team: string;
   car: ConstructorName;
-  teamColor?: string;
   otherTeams?: {
     [index: string]: {
       team: string;

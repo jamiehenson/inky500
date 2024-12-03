@@ -1,22 +1,18 @@
 {
   "bigtimebosco": {
     "team": "L'Écurie Des Prongles",
-    "teamColor": "#7bd3fb",
     "car": "alpine"
   },
   "eugenegoat": {
     "team": "Goatetta",
-    "teamColor": "white",
     "car": "ginetta"
   },
   "diego": {
     "team": "Mercedeez Nutz",
-    "teamColor": "black",
     "car": "mercedes"
   },
   "inkubusjaymz": {
     "team": "Dörr Motorsports",
-    "teamColor": "#2e4c46",
     "car": "astonmartin",
     "otherTeams": {
       "oulton-park": { "car": "mclaren", "team": "Dörr Motorsports" }
@@ -24,47 +20,38 @@
   },
   "graeme": {
     "team": "We Race As Baguette Pride",
-    "teamColor": "#aaf0d1",
     "car": "alpine"
   },
   "wobbleboss": {
     "team": "Lucky Best Wash",
-    "teamColor": "#bda3ce",
     "car": "astonmartin"
   },
   "snicks": {
     "team": "FischerCross",
-    "teamColor": "#fff644",
     "car": "mclaren"
   },
   "xnpxbirdy": {
     "team": "NPB",
-    "teamColor": "#646464",
     "car": "bmw"
   },
   "kruthal": {
     "team": "KDA",
-    "teamColor": "white",
     "car": "ginetta"
   },
   "atlas": {
     "team": "Atlas Performance",
-    "teamColor": "#2847ac",
     "car": "bmw"
   },
   "cousinbenson": {
     "team": "Scuderia Munchies",
-    "teamColor": "#f79524",
     "car": "porsche"
   },
   "michael": {
     "team": "Team Race Fastest",
-    "teamColor": "white",
     "car": "porsche"
   },
   "roberts": {
     "team": "DCRoberts",
-    "teamColor": "#2e0d92",
     "car": "astonmartin",
     "otherTeams": {
       "oulton-park": { "car": "chevrolet", "team": "DCRoberts" },
@@ -75,22 +62,18 @@
   },
   "calamitysam": {
     "team": "Scuderia Greggs",
-    "teamColor": "#03639f",
     "car": "astonmartin"
   },
   "bouncingczech": {
     "team": "Crypto Bros",
-    "teamColor": "#FFD700",
     "car": "mercedes"
   },
   "rafa4xx": {
     "team": "FTW",
-    "teamColor": "black",
     "car": "porsche"
   },
   "mcdonoli": {
     "team": "Ya BOIIIIII",
-    "teamColor": "purple",
     "car": "mercedes",
     "otherTeams": {
       "oulton-park": { "car": "astonmartin", "team": "Ya BOIIIIII" },
@@ -99,7 +82,6 @@
   },
   "cannonmandan": {
     "team": "Mercedes AMG GT4",
-    "teamColor": "cyan",
     "car": "mercedes"
   },
   "subhaac": {
