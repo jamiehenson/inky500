@@ -29,10 +29,10 @@ const { data, title, season, track, className, link } = Astro.props;
 
 <TableCard title={title} className={className} link={link}>
   {
-    Object.entries(data.results).map((result, index) => {
+    Object.entries(data.results ?? {}).map((result, index) => {
       const seasonDriver = seasonRacers[season][result[0] as RacerName];
       const driver = drivers[result[0] as RacerName];
-      const hasFastestLap = data.fastestLap.racerId === result[0];
+      const hasFastestLap = data.fastestLap?.racerId === result[0];
 
       if (driver && seasonDriver) {
         const pointsAdded = ["DNF", "DSQ", "-"].includes(result[1])

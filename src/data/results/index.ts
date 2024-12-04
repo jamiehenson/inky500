@@ -6,11 +6,11 @@ import s4 from "./s4.json";
 import s5 from "./s5.json";
 
 export type RacerResult = {
-  results: Partial<Record<RacerName, string>>;
+  results: Partial<Record<RacerName, string>> | null;
   fastestLap: {
     racerId: RacerName;
     time: string;
-  };
+  } | null;
   data?: string;
   date?: string;
 };

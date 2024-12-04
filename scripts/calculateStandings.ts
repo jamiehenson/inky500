@@ -48,7 +48,7 @@ export const calculateStandings = (season: SeasonName) => {
               const dnf = pointslessResults.includes(item[1]);
               const cumulativePoints =
                 (pointsScheme[season][currentIndex] ?? 0) +
-                (raceResults.fastestLap.racerId === item[0] ? 1 : 0);
+                (raceResults.fastestLap?.racerId === item[0] ? 1 : 0);
 
               return (obj[item[0]] = dnf ? 0 : cumulativePoints), obj;
             },

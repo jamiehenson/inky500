@@ -1,1 +1,133 @@
-{"red-bull-ring":{"results":{"xnpxbirdy":"46:02.301","bigtimebosco":"5.570","cousinbenson":"0.650","cal":"9.507","hunt":"3.866","rafa4xx":"1.243","cosmo":"4.381","roberts":"0.401","inkubusjaymz":"24.905","smolzie":"1.772","michael":"8.105","atlas":"2.201","eugenegoat":"9.641","snicks":"9.821","wobbleboss":"1 lap","mcdonoli":"1 lap","diego":"1 lap","graeme":"1 lap","phelps":"2 laps","blex":"2 laps","kruthal":"DNF","greenway":"DNF"},"fastestLap":{"racerId":"xnpxbirdy","time":"01:28.885"},"data":"https://inky500.emperorservers.com/results/241204_214005_R","date":"December 4th, 2024"},"misano":{"date":"January 8th, 2025","results":null,"fastestLap":"","data":""},"paul-ricard":{"date":"February 5th, 2025","results":null,"fastestLap":"","data":""},"nurburgring":{"date":"March 5th, 2025","results":null,"fastestLap":"","data":""},"brands-hatch":{"date":"April 2nd, 2025","results":null,"fastestLap":"","data":""},"zolder":{"date":"April 30th, 2025","results":null,"fastestLap":"","data":""},"kyalami":{"date":"May 28th, 2025","results":null,"fastestLap":"","data":""},"hungaroring":{"date":"June 25th, 2025","results":null,"fastestLap":"","data":""},"barcelona":{"date":"July 23rd, 2025","results":null,"fastestLap":"","data":""},"imola":{"date":"December 18th, 2024","results":null,"fastestLap":"","data":""},"snetterton":{"date":"January 22nd, 2025","results":null,"fastestLap":"","data":""},"suzuka":{"date":"February 19th, 2025","results":null,"fastestLap":"","data":""},"indianapolis":{"date":"March 19th, 2025","results":null,"fastestLap":"","data":""},"watkins-glen":{"date":"April 16th, 2025","results":null,"fastestLap":"","data":""},"spa":{"date":"May 14th, 2025","results":null,"fastestLap":"","data":""},"silverstone":{"date":"June 11th, 2025","results":null,"fastestLap":"","data":""},"donington":{"date":"July 9th, 2025","results":null,"fastestLap":"","data":""},"monza":{"date":"August 6th, 2025","results":null,"fastestLap":"","data":""}}
+{
+  "red-bull-ring": {
+    "results": {
+      "xnpxbirdy": "46:02.301",
+      "bigtimebosco": "5.570",
+      "cousinbenson": "0.650",
+      "cal": "9.507",
+      "hunt": "3.866",
+      "rafa4xx": "1.243",
+      "cosmo": "4.381",
+      "roberts": "0.401",
+      "inkubusjaymz": "24.905",
+      "smolzie": "1.772",
+      "michael": "8.105",
+      "atlas": "2.201",
+      "eugenegoat": "9.641",
+      "snicks": "9.821",
+      "wobbleboss": "1 lap",
+      "mcdonoli": "1 lap",
+      "diego": "1 lap",
+      "graeme": "1 lap",
+      "phelps": "2 laps",
+      "blex": "2 laps",
+      "kruthal": "DNF",
+      "greenway": "DNF"
+    },
+    "fastestLap": { "racerId": "xnpxbirdy", "time": "01:28.885" },
+    "data": "https://inky500.emperorservers.com/results/241204_214005_R",
+    "date": "December 4th, 2024"
+  },
+  "misano": {
+    "date": "January 8th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "paul-ricard": {
+    "date": "February 5th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "nurburgring": {
+    "date": "March 5th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "brands-hatch": {
+    "date": "April 2nd, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "zolder": {
+    "date": "April 30th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "kyalami": {
+    "date": "May 28th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "hungaroring": {
+    "date": "June 25th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "barcelona": {
+    "date": "July 23rd, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "imola": {
+    "date": "December 18th, 2024",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "snetterton": {
+    "date": "January 22nd, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "suzuka": {
+    "date": "February 19th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "indianapolis": {
+    "date": "March 19th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "watkins-glen": {
+    "date": "April 16th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "spa": {
+    "date": "May 14th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "silverstone": {
+    "date": "June 11th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "donington": {
+    "date": "July 9th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  },
+  "monza": {
+    "date": "August 6th, 2025",
+    "results": null,
+    "fastestLap": null,
+    "data": ""
+  }
+}

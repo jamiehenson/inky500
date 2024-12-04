@@ -41,7 +41,7 @@ const calculateDriverData = (driver: RacerName) => {
     .flatMap((seasonResults) => {
       const raceResults = Object.values(seasonResults);
       return raceResults.map((race) => {
-        if (race?.fastestLap.racerId === driver) {
+        if (race?.fastestLap?.racerId === driver) {
           fastestLaps++;
         }
 

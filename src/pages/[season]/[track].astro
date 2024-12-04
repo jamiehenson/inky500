@@ -47,7 +47,7 @@ const trackConstructors = ["s4", "s5"].includes(season)
   : null;
 
 const winnerId = trackResults
-  ? (Object.keys(trackResults.results) as RacerName[])[0]
+  ? (Object.keys(trackResults.results ?? {}) as RacerName[])[0]
   : "unknown";
 const winner = seasonRacers[season][winnerId];
 const winnerName = drivers[winnerId].name;
