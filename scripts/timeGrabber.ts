@@ -1,11 +1,6 @@
 import { JSDOM } from "jsdom";
-import { penalties } from "@/data";
-import {
-  type SeasonName,
-  type TrackName,
-  drivers,
-  type RacerName,
-} from "@/types";
+import { drivers, penalties } from "@/data";
+import { type SeasonName, type TrackName, type RacerName } from "@/types";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);

@@ -1,1 +1,102 @@
-{}
+{
+  "bigtimebosco": {
+    "team": "Panic! in the Nismo",
+    "car": "nissan"
+  },
+  "eugenegoat": {
+    "team": "JohnGoat",
+    "car": "lamborghini"
+  },
+  "diego": {
+    "team": "Inkyshire Constabulary",
+    "car": "mclaren"
+  },
+  "inkubusjaymz": {
+    "team": "Attempto Racing",
+    "car": "audi"
+  },
+  "graeme": {
+    "team": "Rosa Schwein",
+    "car": "porsche"
+  },
+  "wobbleboss": {
+    "team": "ADSR Racing",
+    "car": "lamborghini"
+  },
+  "snicks": {
+    "team": "FischerCrossGT3",
+    "car": "mclaren"
+  },
+  "xnpxbirdy": {
+    "team": "Gulf Oil Racing",
+    "car": "mclaren"
+  },
+  "kruthal": {
+    "team": "KDA-Moto",
+    "car": "bmw"
+  },
+  "atlas": {
+    "team": "ATLAS Performance Most Wanted",
+    "car": "bmw"
+  },
+  "cousinbenson": {
+    "team": "The Estate",
+    "car": "ford"
+  },
+  "michael": {
+    "team": "Team Race Fastest",
+    "car": "mclaren"
+  },
+  "roberts": {
+    "team": "DCRacing",
+    "car": "astonmartin"
+  },
+  "mcdonoli": {
+    "team": "Technical Difficulties",
+    "car": "mclaren"
+  },
+  "cannonmandan": {
+    "team": "Team Dolmio",
+    "car": "ferrari"
+  },
+  "blex": {
+    "team": "Swift Apocalypse",
+    "car": "audi"
+  },
+  "howell": {
+    "team": "BMW M4 GT3",
+    "car": "bmw"
+  },
+  "smolzie": {
+    "team": "SmolzieRacing",
+    "car": "ferrari"
+  },
+  "fletcher": {
+    "team": "Madpanda Motorsport",
+    "car": "mercedes"
+  },
+  "cal": {
+    "team": "McLaren 720S GT3",
+    "car": "mclaren"
+  },
+  "cosmo": {
+    "team": "COSMO Paradox",
+    "car": "porsche"
+  },
+  "rafa4xx": {
+    "team": "Mind The Gap",
+    "car": "astonmartin"
+  },
+  "phelps": {
+    "team": "BimmerWorld",
+    "car": "bmw"
+  },
+  "greenway": {
+    "team": "Team WRT",
+    "car": "bmw"
+  },
+  "hunt": {
+    "team": "Emil Frey Racing",
+    "car": "ferrari"
+  }
+}

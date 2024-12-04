@@ -2,7 +2,7 @@ import { results, seasonRacers } from "@/data";
 import type { SeasonName, TrackName, RacerName } from "@/types";
 import { pointslessResults } from "./standings";
 import type { RaceResults } from "@/data/results";
-import { pointsScheme } from "@/utils";
+import { pointsScheme } from "@/points";
 
 type GeneratedRaceStandings = {
   [index: string]: number;
@@ -38,7 +38,7 @@ export const calculateStandings = (season: SeasonName) => {
     (racesObj: GeneratedStandings, race: string) => {
       const raceResults = (results[season] as RaceResults)[race as TrackName];
 
-      const pts = raceResults
+      const pts = raceResults?.results
         ? Object.entries(raceResults.results).reduce(
             (
               obj: GeneratedRaceStandings,
