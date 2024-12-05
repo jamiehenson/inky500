@@ -45,7 +45,7 @@ const { data, title, season, track, className, link } = Astro.props;
         return (
           <TableRow>
             <TableCell>
-              <Badge className="mr-2">{index + 1}</Badge>
+              <Badge className="hidden sm:inline-flex mr-2">{index + 1}</Badge>
               <span class={`rounded-sm mr-1 fi fi-${driver.countryCode}`} />
               {driver.name}
             </TableCell>
