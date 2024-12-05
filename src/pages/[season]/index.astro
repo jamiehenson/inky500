@@ -86,7 +86,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
               index={index + 1}
               subtitle={[track.location, track.countryCode]}
               link={track.link}
-              car={track.winners?.[0].car}
+              car={track.winners?.[0].car ?? "unknown"}
             >
               <div class="flex flex-col gap-2 mb-4">
                 {track.winners ? (
