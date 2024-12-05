@@ -34,7 +34,8 @@ const { season, track, data, trackResults } = Astro.props;
             ? racer[1].otherTeams[track].car === result[0]
             : racer[1].car === result[0]
         )
-        .map((racer) => [racer[0], drivers[racer[0] as RacerName].name]);
+        .map((racer) => [racer[0], drivers[racer[0] as RacerName].name])
+        .toSorted((a, b) => a[1].localeCompare(b[1]));
 
       if (constructor && constructorDrivers.length > 0) {
         return (

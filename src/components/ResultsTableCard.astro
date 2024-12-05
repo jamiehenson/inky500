@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { drivers, seasonRacers } from "@/data";
+import { drivers, pointsPenalties, seasonRacers } from "@/data";
 import {
   type RacerName,
   type ConstructorName,
@@ -14,6 +14,8 @@ import Badge from "./ui/Badge.astro";
 import type { RacerResult } from "@/data/results";
 import TableCell from "./ui/table/TableCell.astro";
 import TableRow from "./ui/table/TableRow.astro";
+import type { Penalties } from "@/data/penalties";
+import { cn } from "@/lib/utils";
 
 type Props = {
   data: RacerResult;
@@ -30,21 +32,26 @@ const { data, title, season, track, className, link } = Astro.props;
 <TableCard title={title} className={className} link={link}>
   {
     Object.entries(data.results ?? {}).map((result, index) => {
-      const seasonDriver = seasonRacers[season][result[0] as RacerName];
-      const driver = drivers[result[0] as RacerName];
+      const racer = result[0] as RacerName;
+      const seasonDriver = seasonRacers[season][racer];
+      const driver = drivers[racer];
       const hasFastestLap = data.fastestLap?.racerId === result[0];
 
       if (driver && seasonDriver) {
+        const pointsDeducted =
+          (pointsPenalties as Penalties)[season][track]?.[racer] ?? 0;
+
         const pointsAdded = ["DNF", "DSQ", "-"].includes(result[1])
           ? 0
           : Number(pointsScheme[season][index] ?? "0") +
-            (hasFastestLap ? 1 : 0);
+            (hasFastestLap ? 1 : 0) -
+            pointsDeducted;
 
         const currentTeam = seasonDriver.otherTeams?.[track] ?? seasonDriver;
 
         return (
           <TableRow>
-            <TableCell>
+            <TableCell className="flex items-center">
               <Badge className="hidden sm:inline-flex mr-2">{index + 1}</Badge>
               <span class={`rounded-sm mr-1 fi fi-${driver.countryCode}`} />
               {driver.name}
@@ -59,20 +66,27 @@ const { data, title, season, track, className, link } = Astro.props;
                 <span>{currentTeam.team}</span>
               </div>
             </TableCell>
-            <TableCell className="font-bold text-right">
-              <span>
-                {[".", "lap"].some(
-                  (el) => result[1].toString().includes(el) && index !== 0
-                )
-                  ? "+"
-                  : ""}
-              </span>
-              {result[1]}
+            <TableCell className="font-bold flex items-center justify-end flex-col sm:flex-row">
+              <div>
+                <span>
+                  {[".", "lap"].some(
+                    (el) => result[1].toString().includes(el) && index !== 0
+                  )
+                    ? "+"
+                    : ""}
+                </span>
+                <span class="mr-1 sm:mr-0">{result[1]}</span>
+              </div>
               <Badge
-                className={`ml-2 ${hasFastestLap ? "bg-blue-100 dark:bg-blue-950" : ""}`}
+                className={cn(
+                  "ml-2 my-1 sm:my-0",
+                  { "bg-blue-100 dark:bg-blue-950": hasFastestLap },
+                  { "bg-red-100 dark:bg-red-950": pointsDeducted }
+                )}
                 variant="outline"
               >
                 +{`${pointsAdded} ${pointsAdded === 1 ? "pt" : "pts"}`}
+                {pointsDeducted ? ` (-${pointsDeducted})` : null}
               </Badge>
             </TableCell>
           </TableRow>

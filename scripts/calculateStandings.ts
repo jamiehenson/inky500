@@ -1,8 +1,9 @@
-import { results, seasonRacers } from "@/data";
+import { pointsPenalties, results, seasonRacers } from "@/data";
 import type { SeasonName, TrackName, RacerName } from "@/types";
 import { pointslessResults } from "./standings";
 import type { RaceResults } from "@/data/results";
 import { pointsScheme } from "@/points";
+import type { Penalties } from "@/data/penalties";
 
 type GeneratedRaceStandings = {
   [index: string]: number;
@@ -48,7 +49,10 @@ export const calculateStandings = (season: SeasonName) => {
               const dnf = pointslessResults.includes(item[1]);
               const cumulativePoints =
                 (pointsScheme[season][currentIndex] ?? 0) +
-                (raceResults.fastestLap?.racerId === item[0] ? 1 : 0);
+                (raceResults.fastestLap?.racerId === item[0] ? 1 : 0) -
+                ((pointsPenalties as Penalties)[season][race as TrackName]?.[
+                  item[0] as RacerName
+                ] ?? 0);
 
               return (obj[item[0]] = dnf ? 0 : cumulativePoints), obj;
             },

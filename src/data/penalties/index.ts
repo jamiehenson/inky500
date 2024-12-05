@@ -1,6 +1,11 @@
 import type { RacerName, SeasonName, TrackName } from "@/types";
 
-export const penalties = {
+export type Penalties = Record<
+  SeasonName,
+  Partial<Record<TrackName, Partial<Record<RacerName, number>>>>
+>;
+
+export const gridPenalties = {
   s1: {},
   s2: {},
   s3: {},
@@ -12,4 +17,17 @@ export const penalties = {
       wobbleboss: -3,
     },
   },
-} as Record<SeasonName, Record<TrackName, Record<RacerName, number>>>;
+  s5: {},
+} satisfies Penalties;
+
+export const pointsPenalties = {
+  s1: {},
+  s2: {},
+  s3: {},
+  s4: {},
+  s5: {
+    "red-bull-ring": {
+      wobbleboss: 5,
+    },
+  },
+} satisfies Penalties;

@@ -5,7 +5,7 @@ import { constructorsStandings } from "./constructorsStandings";
 import { constructors } from "./constructors";
 import { standings } from "./standings";
 import { results } from "./results";
-import { penalties } from "./penalties";
+import { gridPenalties, pointsPenalties } from "./penalties";
 
 export {
   seasonRacers,
@@ -15,5 +15,6 @@ export {
   constructors,
   constructorsStandings,
   results,
-  penalties,
+  gridPenalties,
+  pointsPenalties,
 };

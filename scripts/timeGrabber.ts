@@ -1,6 +1,7 @@
 import { JSDOM } from "jsdom";
-import { drivers, penalties } from "@/data";
+import { drivers, gridPenalties } from "@/data";
 import { type SeasonName, type TrackName, type RacerName } from "@/types";
+import type { Penalties } from "@/data/penalties";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -132,7 +133,7 @@ export const timeGrabber = async (
   const resultsKeys = Object.keys(results) as RacerName[];
   const copy = [...resultsKeys];
   copy.forEach((result, index) => {
-    const penalty = penalties[season]?.[race]?.[result];
+    const penalty = (gridPenalties as Penalties)[season]?.[race]?.[result];
 
     if (penalty) {
       resultsKeys.splice(index, 1);
