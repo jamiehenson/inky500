@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import gghqLogo from "../assets/gghq.png";
+import inkyLogo from "../assets/logo.png";
 import { ViewTransitions } from "astro:transitions";
 import "@/styles/globals.css";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -63,15 +64,29 @@ const { title, description } = Astro.props;
   </head>
   <body class="bg-white dark:bg-zinc-900">
     <div class="flex items-center justify-between px-3 py-2">
-      <div class="flex gap-8">
+      <div class="flex gap-4">
         <a href={withBase()} class="flex items-center">
-          <Image src={gghqLogo} alt="GGHQ" class="w-8 h-8" loading="eager" />
-          <span class="font-extrabold">Inky 500</span>
+          <Image
+            src={inkyLogo}
+            alt="Inky 500"
+            class="h-8 w-20 dark:invert transition"
+            loading="eager"
+          />
         </a>
         <NavLink href={withBase()} class="mr-3">Seasons</NavLink>
         <NavLink href={withBase("/drivers")} class="mr-3">Drivers</NavLink>
       </div>
-      <ThemeIcon />
+      <div class="flex gap-4">
+        <a
+          href="https://gghq.io"
+          target="_blank"
+          rel="noreferrer"
+          class="flex items-center"
+        >
+          <Image src={gghqLogo} alt="GGHQ" class="w-10 h-10" loading="eager" />
+        </a>
+        <ThemeIcon />
+      </div>
     </div>
     <div class="container mx-auto mb-16 p-3 overflow-hidden">
       <slot />
