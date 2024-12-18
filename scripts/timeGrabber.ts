@@ -96,7 +96,7 @@ export const timeGrabber = async (
       if (Number(time[3]) > highestLapCount) {
         highestLapCount = Number(time[3]);
       } else if (Number(time[3]) <= highestLapCount - 5) {
-        parsedTime = "DNF";
+        // parsedTime = "DNF"; let's not do this for now
       } else {
         if (index > 0) {
           parsedTime = (
