@@ -29,10 +29,31 @@
     "date": "December 4th, 2024"
   },
   "misano": {
-    "date": "December 18th, 2024",
-    "results": null,
-    "fastestLap": null,
-    "data": ""
+    "results": {
+      "xnpxbirdy": "45:32.985",
+      "cal": "6.443",
+      "bigtimebosco": "13.289",
+      "cannonmandan": "6.117",
+      "michael": "6.258",
+      "cosmo": "3.178",
+      "snicks": "33.519",
+      "mcdonoli": "0.772",
+      "wobbleboss": "17.262",
+      "smolzie": "2.137",
+      "kruthal": "5.206",
+      "graeme": "1 lap",
+      "atlas": "1 lap",
+      "roberts": "1 lap",
+      "diego": "1 lap",
+      "inkubusjaymz": "1 lap",
+      "eugenegoat": "1 lap",
+      "blyzr": "1 lap",
+      "cousinbenson": "28:50.880",
+      "phelps": "DSQ"
+    },
+    "fastestLap": { "racerId": "xnpxbirdy", "time": "01:34.022" },
+    "data": "https://inky500.emperorservers.com/results/241218_213756_R",
+    "date": "December 18th, 2024"
   },
   "paul-ricard": {
     "date": "January 8th, 2025",

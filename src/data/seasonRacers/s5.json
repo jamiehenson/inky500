@@ -98,5 +98,9 @@
   "hunt": {
     "team": "Emil Frey Racing",
     "car": "ferrari"
+  },
+  "blyzr": {
+    "team": "Ferrari 488 GT3",
+    "car": "ferrari"
   }
 }
