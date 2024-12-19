@@ -1,11 +1,12 @@
 ---
 import ConstructorCard from "../components/ConstructorCard.astro";
 import Layout from "../layouts/Layout.astro";
-import type { ConstructorName } from "@/types";
+import type { ConstructorName, SeasonName } from "@/types";
 import { Image } from "astro:assets";
 import type { Status } from "@/components/StatusBadge.astro";
 import StatusBadge from "@/components/StatusBadge.astro";
 import { carImages } from "@/utils";
+import { seasonRacers } from "@/data";
 
 interface SeasonInfo {
   car?: ConstructorName;
@@ -18,32 +19,17 @@ interface SeasonInfo {
   winners?: string[];
 }
 
-const seasonCars: { [key: string]: string[] } = {
-  s1: ["ginetta"],
-  s2: ["renault", "mercedes", "bmw"],
-  s3: ["bmw"],
-  s4: [
-    "alpine",
-    "astonmartin",
-    "bmw",
-    "chevrolet",
-    "ginetta",
-    "mclaren",
-    "mercedes",
-    "porsche",
-  ],
-  s5: [
-    "astonmartin",
-    "audi",
-    "bmw",
-    "ferrari",
-    "ford",
-    "lamborghini",
-    "mclaren",
-    "nissan",
-    "porsche",
-  ],
-};
+const seasonCars = (season: SeasonName) =>
+  Array.from(
+    new Set(
+      Object.values(seasonRacers[season]).flatMap((racer) => [
+        racer.car,
+        ...(racer.otherTeams
+          ? Object.values(racer.otherTeams).map((team) => team.car)
+          : []),
+      ])
+    )
+  ).toSorted();
 
 export const seasonInfo: SeasonInfo[] = [
   {
@@ -114,7 +100,7 @@ export const seasonInfo: SeasonInfo[] = [
             car={season.car}
           >
             <div class="flex items-center gap-2 flex-wrap -mt-4 mb-4">
-              {seasonCars[season.key].map((car: string) => (
+              {seasonCars(season.key as SeasonName).map((car: string) => (
                 <Image
                   src={carImages[car as ConstructorName]}
                   alt={car}
