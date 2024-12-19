@@ -162,13 +162,17 @@ export const calculateStandings = (season: SeasonName) => {
       .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
 
     // Calculate deltas for standings
-    const driverKeys = Object.keys(points[race]);
+    const driverKeys = Object.entries(points[race])
+      .filter((driver) => driver[1] !== undefined)
+      .map((driver) => driver[0]);
     const previousDriverKeys = Object.keys(
       index > 0 ? points[raceKeys[index - 1]] ?? {} : driverKeys
     );
     driverKeys.forEach((driver) => {
       const delta =
-        previousDriverKeys.indexOf(driver) - driverKeys.indexOf(driver);
+        previousDriverKeys.indexOf(driver) === -1
+          ? driverKeys.length - driverKeys.indexOf(driver)
+          : previousDriverKeys.indexOf(driver) - driverKeys.indexOf(driver);
 
       if (points[race] !== null && points[race][driver] !== undefined) {
         driverPoints[race] = {
@@ -188,8 +192,10 @@ export const calculateStandings = (season: SeasonName) => {
     );
     constructorKeys.forEach((constructor) => {
       const delta =
-        constructorPreviousKeys.indexOf(constructor) -
-        constructorKeys.indexOf(constructor);
+        constructorPreviousKeys.indexOf(constructor) === -1
+          ? constructorKeys.length - constructorKeys.indexOf(constructor)
+          : constructorPreviousKeys.indexOf(constructor) -
+            constructorKeys.indexOf(constructor);
 
       if (constructorPoints[race] !== null) {
         constructorPoints[race] = {
