@@ -6,6 +6,7 @@ import CardContent from "./ui/card/CardContent.astro";
 import CardDescription from "./ui/card/CardDescription.astro";
 import CardHeader from "./ui/card/CardHeader.astro";
 import CardTitle from "./ui/card/CardTitle.astro";
+import Button from "./ui/Button.astro";
 
 type Props = {
   season: SeasonName;
@@ -32,13 +33,17 @@ const chartButtons = ["s4", "s5"].includes(season)
 
 <Card className="col-span-2">
   <CardHeader
-    className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row"
+    className="flex flex-col items-stretch space-y-0 border-b p-0 md:flex-row"
   >
     <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
       <CardTitle>Progression</CardTitle>
       <CardDescription>
         Showing progression as of {tracks[track].name}
       </CardDescription>
+    </div>
+    <div class="flex flex-col z-10 mt-4 sm:mt-0 p-2 gap-2 justify-center">
+      <Button variant="outline" id="toggle-points">Sort by Points</Button>
+      <Button variant="outline" id="toggle-rank">Sort by Rank</Button>
     </div>
     <div class="flex">
       {
@@ -48,7 +53,7 @@ const chartButtons = ["s4", "s5"].includes(season)
             <button
               id={`chart-show-${key}`}
               data-active={`${key === "drivers"}`}
-              class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l last:sm:rounded-tr-lg sm:border-l sm:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+              class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l last:sm:rounded-tr-lg sm:border-l md:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700"
             >
               <span class="text-lg text-muted-foreground">
                 {chartConfig[chart].label}
@@ -59,219 +64,244 @@ const chartButtons = ["s4", "s5"].includes(season)
       }
     </div>
   </CardHeader>
-  <CardContent className="relative px-2 sm:p-6 flex justify-center h-[600px]">
+  <CardContent
+    className="relative px-2 sm:p-6 flex items-start justify-center h-[600px]"
+  >
     <canvas
       id="standings-chart"
       transition:name="chart-view"
       class="absolute inset-x-0 inset-y-6 sm:inset-6 w-full transition-opacity duration-500 ease-in-out"
     ></canvas>
-    {
-      Object.keys(constructorsStandings[season]).length > 0 ? (
-        <canvas
-          id="constructors-chart"
-          transition:name="chart-view"
-          class="absolute inset-x-0 inset-y-6 sm:inset-6 w-full transition-opacity duration-500 ease-in-out !hidden"
-        />
-      ) : null
-    }
   </CardContent>
+</Card>
 
-  <script>
-    import Chart from "chart.js/auto";
-    import {
-      constructors,
-      constructorsStandings,
-      drivers,
-      seasonRacers,
-      standings,
-      tracks,
-    } from "@/data";
-    import type {
-      ConstructorName,
-      RacerName,
-      SeasonName,
-      TrackName,
-    } from "@/types";
+<script>
+  import Chart, { type ChartConfiguration } from "chart.js/auto";
+  import {
+    constructors,
+    constructorsStandings,
+    drivers,
+    seasonRacers,
+    standings,
+    tracks,
+  } from "@/data";
+  import type {
+    ConstructorName,
+    RacerName,
+    SeasonName,
+    TrackName,
+  } from "@/types";
 
-    document.addEventListener("astro:page-load", () => {
-      const driversButton = document.getElementById("chart-show-drivers");
-      const constructorsButton = document.getElementById(
-        "chart-show-constructors"
+  document.addEventListener("astro:page-load", () => {
+    const driversButton = document.getElementById("chart-show-drivers");
+    const constructorsButton = document.getElementById(
+      "chart-show-constructors"
+    );
+
+    const standingsCtx = document.getElementById(
+      "standings-chart"
+    ) as HTMLCanvasElement | null;
+
+    const params = window.location.pathname.split("/").filter(Boolean);
+    const season = params[1] as SeasonName;
+    const track = params[2] as TrackName;
+
+    const seasonStandingKeys = Object.keys(standings[season] ?? {});
+    const seasonStandingValues = Object.values(standings[season] ?? {});
+
+    const driverData = Object.keys(seasonRacers[season])
+      .map((driver) => ({
+        driver,
+        standings: seasonStandingValues
+          .slice(0, seasonStandingKeys.indexOf(track) + 1)
+          .map((standing) => standing[driver as RacerName]?.points),
+        rankings: seasonStandingValues
+          .slice(0, seasonStandingKeys.indexOf(track) + 1)
+          .map((standing) => {
+            const rank = Object.keys(standing).indexOf(driver) + 1;
+            return rank === 0 ? undefined : rank;
+          }),
+      }))
+      .sort((a, b) =>
+        drivers[a.driver as RacerName].name.localeCompare(
+          drivers[b.driver as RacerName].name
+        )
       );
-      const driversChart = document.getElementById("standings-chart");
-      const constructorsChart = document.getElementById("constructors-chart");
 
-      const switchCharts = (showDrivers: boolean) => {
-        if (showDrivers) {
-          constructorsChart?.classList.add("opacity-0");
-          driversChart?.classList.remove("opacity-0");
-          setTimeout(() => {
-            driversChart?.classList.remove("!hidden");
-            constructorsChart?.classList.add("!hidden");
-          }, 250);
-        } else {
-          driversChart?.classList.add("opacity-0");
-          constructorsChart?.classList.remove("opacity-0");
-          setTimeout(() => {
-            constructorsChart?.classList.remove("!hidden");
-            driversChart?.classList.add("!hidden");
-          }, 250);
-        }
-      };
-
-      driversButton?.addEventListener("click", () => {
-        driversButton.dataset.active = "true";
-        if (constructorsButton) {
-          constructorsButton.dataset.active = "false";
-        }
-        switchCharts(true);
-      });
-
-      constructorsButton?.addEventListener("click", () => {
-        constructorsButton.dataset.active = "true";
-        if (driversButton) {
-          driversButton.dataset.active = "false";
-        }
-        switchCharts(false);
-      });
-
-      const standingsCtx = document.getElementById(
-        "standings-chart"
-      ) as HTMLCanvasElement | null;
-
-      const constructorsCtx = document.getElementById(
-        "constructors-chart"
-      ) as HTMLCanvasElement | null;
-
-      const params = window.location.pathname.split("/").filter(Boolean);
-      const season = params[1] as SeasonName;
-      const track = params[2] as TrackName;
-
-      const seasonStandingKeys = Object.keys(standings[season] ?? {});
-      const seasonStandingValues = Object.values(standings[season] ?? {});
-
-      const driverData = Object.keys(seasonRacers[season])
-        .map((driver) => ({
-          driver,
-          standings: seasonStandingValues
-            .slice(0, seasonStandingKeys.indexOf(track) + 1)
-            .map((standing) => standing[driver as RacerName]?.points),
-        }))
-        .sort((a, b) =>
-          drivers[a.driver as RacerName].name.localeCompare(
-            drivers[b.driver as RacerName].name
+    const constructorData =
+      Object.keys(constructorsStandings[season]).length > 0
+        ? Array.from(
+            new Set(
+              Object.values(seasonRacers[season]).flatMap((racer) => [
+                racer.car,
+                ...Object.values(racer.otherTeams ?? {}).map(
+                  (otherTeam) => otherTeam.car
+                ),
+              ])
+            )
           )
-        );
-
-      const constructorData =
-        Object.keys(constructorsStandings[season]).length > 0
-          ? Array.from(
-              new Set(
-                Object.values(seasonRacers[season]).flatMap((racer) => [
-                  racer.car,
-                  ...Object.values(racer.otherTeams ?? {}).map(
-                    (otherTeam) => otherTeam.car
-                  ),
-                ])
+            .map((constructor) => ({
+              constructor,
+              standings: Object.values(constructorsStandings[season])
+                .slice(0, seasonStandingKeys.indexOf(track) + 1)
+                .map((standing) => standing[constructor]?.normalisedPoints),
+              rankings: Object.values(constructorsStandings[season])
+                .slice(0, seasonStandingKeys.indexOf(track) + 1)
+                .map((standing) => {
+                  const rank = Object.keys(standing).indexOf(constructor) + 1;
+                  return rank === 0 ? undefined : rank;
+                }),
+            }))
+            .sort((a, b) =>
+              constructors[a.constructor as ConstructorName].name.localeCompare(
+                constructors[b.constructor as ConstructorName].name
               )
             )
-              .map((constructor) => ({
-                constructor,
-                standings: Object.values(constructorsStandings[season])
-                  .slice(0, seasonStandingKeys.indexOf(track) + 1)
-                  .map((standing) => standing[constructor]?.normalisedPoints),
-              }))
-              .sort((a, b) =>
-                constructors[
-                  a.constructor as ConstructorName
-                ].name.localeCompare(
-                  constructors[b.constructor as ConstructorName].name
-                )
-              )
-          : [];
+        : [];
 
-      const fontFamily =
-        'Archivo, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+    const fontFamily =
+      'Archivo, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
 
-      const commonConfig: any = {
-        type: "line",
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                font: {
-                  family: fontFamily,
-                },
-              },
-            },
-            x: {
-              ticks: {
-                font: {
-                  family: fontFamily,
-                },
+    const commonConfig: ChartConfiguration<
+      "line",
+      (number | undefined)[],
+      string
+    > = {
+      type: "line",
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: {
+                family: fontFamily,
               },
             },
           },
-          plugins: {
-            legend: {
-              position: "bottom",
-              labels: {
-                font: {
-                  size: 14,
-                  family: fontFamily,
-                },
+          x: {
+            ticks: {
+              font: {
+                family: fontFamily,
               },
             },
-            tooltip: {
-              itemSort: (a: { raw: number }, b: { raw: number }) => {
-                return b.raw - a.raw;
-              },
-            },
-          },
-          interaction: {
-            mode: "nearest",
-            axis: "x",
-            intersect: false,
           },
         },
-        data: {
-          labels: seasonStandingKeys
-            .slice(0, seasonStandingKeys.indexOf(track) + 1)
-            .map((track) => tracks[track as TrackName].name),
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              font: {
+                size: 14,
+                family: fontFamily,
+              },
+            },
+          },
+          tooltip: {
+            itemSort: (a: any, b: any) => {
+              return b.raw - a.raw;
+            },
+          },
         },
-      };
+        interaction: {
+          mode: "nearest",
+          axis: "x",
+          intersect: false,
+        },
+      },
+      data: {
+        datasets: [],
+        labels: seasonStandingKeys
+          .slice(0, seasonStandingKeys.indexOf(track) + 1)
+          .map((track) => tracks[track as TrackName].name),
+      },
+    };
 
-      if (standingsCtx) {
-        new Chart(standingsCtx, {
-          ...commonConfig,
-          data: {
-            ...commonConfig.data,
-            datasets: driverData.map((data) => ({
-              label: drivers[data.driver as RacerName].name,
-              data: data.standings,
-              borderWidth: 2,
-            })),
-          },
-        });
-      }
+    const chartInstance = standingsCtx
+      ? new Chart(standingsCtx, commonConfig)
+      : null;
 
-      if (constructorsCtx && constructorData.length > 0) {
-        new Chart(constructorsCtx, {
-          ...commonConfig,
-          data: {
-            ...commonConfig.data,
-            datasets: constructorData.map((data) => ({
-              label: constructors[data.constructor as ConstructorName].name,
-              data: data.standings,
-              borderWidth: 2,
-              borderColor: constructors[data.constructor].teamColor,
-            })),
-          },
-        });
+    const updateChartData = (
+      type: "drivers" | "constructors",
+      usePoints: boolean
+    ) => {
+      if (chartInstance) {
+        const data = type === "drivers" ? driverData : constructorData;
+        chartInstance.data.datasets = data.map((item, index) => ({
+          label:
+            type === "drivers" && "driver" in item
+              ? drivers[item.driver as RacerName].name
+              : constructors[item.constructor as ConstructorName].name,
+          data: usePoints ? item.standings : item.rankings,
+          borderWidth: 2,
+          backgroundColor:
+            type === "drivers"
+              ? undefined
+              : constructors[item.constructor as ConstructorName].teamColor,
+          borderColor:
+            type === "drivers"
+              ? undefined
+              : constructors[item.constructor as ConstructorName].teamColor,
+        }));
+
+        if (chartInstance.options.scales) {
+          chartInstance.options.scales.y = {
+            ...chartInstance.options.scales.y,
+            min: usePoints ? 0 : 1,
+            reverse: !usePoints,
+          };
+        }
+
+        if (chartInstance.options.plugins) {
+          chartInstance.options.plugins.tooltip = {
+            ...chartInstance.tooltip,
+            itemSort: (a: any, b: any) => {
+              return usePoints ? b.raw - a.raw : a.raw - b.raw;
+            },
+          };
+        }
+
+        chartInstance.update();
       }
+    };
+
+    driversButton?.addEventListener("click", () => {
+      driversButton.dataset.active = "true";
+      if (constructorsButton) {
+        constructorsButton.dataset.active = "false";
+      }
+      updateChartData("drivers", true);
     });
-  </script>
-</Card>
+
+    constructorsButton?.addEventListener("click", () => {
+      constructorsButton.dataset.active = "true";
+      if (driversButton) {
+        driversButton.dataset.active = "false";
+      }
+      updateChartData("constructors", true);
+    });
+
+    const togglePointsButton = document.getElementById("toggle-points");
+    const toggleRankButton = document.getElementById("toggle-rank");
+
+    togglePointsButton?.addEventListener("click", () => {
+      const activeButton = document.querySelector('[data-active="true"]');
+      const type = activeButton?.id.includes("drivers")
+        ? "drivers"
+        : "constructors";
+      updateChartData(type, true);
+    });
+
+    toggleRankButton?.addEventListener("click", () => {
+      const activeButton = document.querySelector('[data-active="true"]');
+      const type = activeButton?.id.includes("drivers")
+        ? "drivers"
+        : "constructors";
+      updateChartData(type, false);
+    });
+
+    // Initialize with drivers data
+    updateChartData("drivers", true);
+  });
+</script>
