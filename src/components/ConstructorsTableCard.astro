@@ -24,7 +24,7 @@ type Props = {
 const { season, track, data, trackResults } = Astro.props;
 ---
 
-<TableCard title="Constructors' Standings" className="col-span-2 sm:col-span-1">
+<TableCard title="Constructors' Standings" className="col-span-2 lg:col-span-1">
   {
     Object.entries(data).map((result) => {
       const constructor = constructors[result[0] as ConstructorName];

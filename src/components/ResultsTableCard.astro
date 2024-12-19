@@ -85,7 +85,7 @@ const { data, title, season, track, className, link } = Astro.props;
                 )}
                 variant="outline"
               >
-                +{`${pointsAdded} ${pointsAdded === 1 ? "pt" : "pts"}`}
+                +{pointsAdded}
                 {pointsDeducted ? ` (-${pointsDeducted})` : null}
               </Badge>
             </TableCell>

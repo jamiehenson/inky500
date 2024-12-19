@@ -33,7 +33,10 @@
   },
   "kruthal": {
     "team": "KDA-Moto",
-    "car": "bmw"
+    "car": "lamborghini",
+    "otherTeams": {
+      "red-bull-ring": { "car": "bmw", "team": "KDA-Moto" }
+    }
   },
   "atlas": {
     "team": "ATLAS Performance Most Wanted",
