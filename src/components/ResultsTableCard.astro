@@ -53,7 +53,9 @@ const { data, title, season, track, className, link } = Astro.props;
           <TableRow>
             <TableCell className="flex items-center">
               <Badge className="hidden sm:inline-flex mr-2">{index + 1}</Badge>
-              <span class={`rounded-sm mr-1 fi fi-${driver.countryCode}`} />
+              <span
+                class={`!hidden sm:!inline-flex rounded-sm mr-1 fi fi-${driver.countryCode}`}
+              />
               {driver.name}
             </TableCell>
             <TableCell>
@@ -66,7 +68,7 @@ const { data, title, season, track, className, link } = Astro.props;
                 <span>{currentTeam.team}</span>
               </div>
             </TableCell>
-            <TableCell className="font-bold flex items-center justify-end flex-col sm:flex-row">
+            <TableCell className="font-bold flex items-end sm:items-center justify-end flex-col sm:flex-row">
               <div>
                 <span>
                   {[".", "lap"].some(
