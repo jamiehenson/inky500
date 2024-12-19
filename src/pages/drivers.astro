@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import type { ConstructorName, RacerName } from "@/types";
 import { carImages } from "@/utils";
 import { ArrowDownUp, ArrowUpFromLine, ArrowDownFromLine } from "lucide-astro";
+import { seasonInfo } from "./index.astro";
 
 const resultPositionSuffix = (position: number) => {
   if (!position) {
@@ -97,7 +98,12 @@ const calculateDriverData = (driver: RacerName) => {
           ? seasonStandings[0].toUpperCase()
           : null;
       })
-      .filter(Boolean)
+      .filter(
+        (season) =>
+          season &&
+          seasonInfo.find((info) => info.key.toUpperCase() === season)
+            ?.status === "complete"
+      )
       .join(", "),
   };
 };
