@@ -46,7 +46,7 @@ const tracksData = Object.entries(results[season]).map((track) => {
         name: drivers[id].name,
         nationality: drivers[id].countryCode,
         team: racer?.team ?? "unknown",
-        car: racer?.car ?? "unknown",
+        car: racer?.otherTeams?.[track[0]]?.car || racer?.car || "unknown",
       };
     });
 

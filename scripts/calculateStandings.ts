@@ -121,13 +121,11 @@ export const calculateStandings = (season: SeasonName) => {
         (raceConstructors) => {
           if (index > 0) {
             raceConstructors[1].points +=
-              constructorPoints[raceKeys[index - 1]][
-                raceConstructors[0]
-              ].points;
+              constructorPoints[raceKeys[index - 1]][raceConstructors[0]]
+                ?.points ?? 0;
             raceConstructors[1].normalisedPoints +=
-              constructorPoints[raceKeys[index - 1]][
-                raceConstructors[0]
-              ].normalisedPoints;
+              constructorPoints[raceKeys[index - 1]][raceConstructors[0]]
+                ?.normalisedPoints ?? 0;
           }
 
           return raceConstructors;

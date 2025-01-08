@@ -12,8 +12,12 @@
     "car": "mclaren"
   },
   "inkubusjaymz": {
-    "team": "Attempto Racing",
-    "car": "audi"
+    "team": "Big Girl",
+    "car": "bentley",
+    "otherTeams": {
+      "red-bull-ring": { "car": "audi", "team": "Attempto Racing" },
+      "misano": { "car": "audi", "team": "Attempto Racing" }
+    }
   },
   "graeme": {
     "team": "Rosa Schwein",
@@ -28,11 +32,15 @@
     "car": "mclaren"
   },
   "xnpxbirdy": {
-    "team": "Gulf Oil Racing",
-    "car": "mclaren"
+    "team": "Bentley Team M-Sport",
+    "car": "bentley",
+    "otherTeams": {
+      "red-bull-ring": { "car": "mclaren", "team": "Gulf Oil Racing" },
+      "misano": { "car": "mclaren", "team": "Gulf Oil Racing" }
+    }
   },
   "kruthal": {
-    "team": "KDA-Moto",
+    "team": "KDAuto",
     "car": "lamborghini",
     "otherTeams": {
       "red-bull-ring": { "car": "bmw", "team": "KDA-Moto" }
@@ -79,7 +87,7 @@
     "car": "mercedes"
   },
   "cal": {
-    "team": "McLaren 720S GT3",
+    "team": "Large Greasy Nuts",
     "car": "mclaren"
   },
   "cosmo": {
@@ -91,7 +99,7 @@
     "car": "astonmartin"
   },
   "phelps": {
-    "team": "BimmerWorld",
+    "team": "Team WRT",
     "car": "bmw"
   },
   "greenway": {

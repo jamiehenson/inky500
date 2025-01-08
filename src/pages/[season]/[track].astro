@@ -51,9 +51,8 @@ const winnerId = trackResults
   : "unknown";
 const winner = seasonRacers[season][winnerId];
 const winnerName = drivers[winnerId].name;
-
-const carTeamColor =
-  constructors[winner?.car ?? "unknown"]?.teamColor ?? "transparent";
+const winnerCar = winner?.otherTeams?.[track]?.car || winner?.car || "unknown";
+const carTeamColor = constructors[winnerCar]?.teamColor ?? "transparent";
 
 const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
 ---
@@ -79,11 +78,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
     <div class="absolute top-3 right-3 opacity-50">
       {
         winner && (
-          <Image
-            src={carImages[winner?.car ?? "unknown"]}
-            alt={winner.car}
-            class="w-16 h-16"
-          />
+          <Image src={carImages[winnerCar]} alt={winnerCar} class="w-16 h-16" />
         )
       }
     </div>
