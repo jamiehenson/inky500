@@ -1,12 +1,12 @@
 ---
 import ConstructorCard from "../components/ConstructorCard.astro";
 import Layout from "../layouts/Layout.astro";
-import type { ConstructorName, SeasonName } from "@/types";
+import type { ConstructorName, RacerName, SeasonName } from "@/types";
 import { Image } from "astro:assets";
 import type { Status } from "@/components/StatusBadge.astro";
 import StatusBadge from "@/components/StatusBadge.astro";
 import { carImages } from "@/utils";
-import { seasonRacers } from "@/data";
+import { drivers, seasonRacers, standings } from "@/data";
 
 interface SeasonInfo {
   car?: ConstructorName;
@@ -31,6 +31,14 @@ const seasonCars = (season: SeasonName) =>
     )
   ).toSorted();
 
+const getSeasonWinners = (season: SeasonName) => {
+  return Object.keys(
+    Object.values(standings[season])[Object.keys(standings[season]).length - 1]
+  )
+    .slice(0, 3)
+    .map((racer) => drivers[racer as RacerName].name);
+};
+
 export const seasonInfo: SeasonInfo[] = [
   {
     key: "s1",
@@ -38,7 +46,6 @@ export const seasonInfo: SeasonInfo[] = [
     subtitle: "Ginetta Juniors",
     game: "Project Cars 2",
     raceCount: 6,
-    winners: ["Graeme", "Cannon Man Dan", "InkubusJaymz"],
     car: "ginetta",
     status: "complete",
   },
@@ -48,7 +55,6 @@ export const seasonInfo: SeasonInfo[] = [
     subtitle: "Touring Cars",
     game: "Project Cars 2",
     raceCount: 12,
-    winners: ["Cannon Man Dan", "Atlas", "Kruthal"],
     car: "bmw",
     status: "complete",
   },
@@ -58,7 +64,6 @@ export const seasonInfo: SeasonInfo[] = [
     subtitle: "TCX",
     game: "ACC",
     raceCount: 10,
-    winners: ["N. Bird", "Cousin Bob", "Big Time Bosco"],
     car: "bmw",
     status: "complete",
   },
@@ -68,7 +73,6 @@ export const seasonInfo: SeasonInfo[] = [
     subtitle: "GT4",
     game: "ACC",
     raceCount: 15,
-    winners: ["Big Time Bosco", "N. Bird", "Michael Smith"],
     car: "alpine",
     status: "complete",
   },
@@ -111,13 +115,16 @@ export const seasonInfo: SeasonInfo[] = [
             </div>
 
             <div class="flex flex-col gap-2 mb-4">
-              {season.winners ? (
-                <>
-                  <p>🥇 {season.winners[0]}</p>
-                  <p>🥈 {season.winners[1]}</p>
-                  <p>🥉 {season.winners[2]}</p>
-                </>
-              ) : null}
+              {season.status === "complete"
+                ? getSeasonWinners(season.key as SeasonName).map(
+                    (winner, index) => (
+                      <p>
+                        {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}{" "}
+                        {winner}
+                      </p>
+                    )
+                  )
+                : null}
             </div>
             <StatusBadge status={season.status} />
           </ConstructorCard>
