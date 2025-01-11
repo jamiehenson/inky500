@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { seasonRacers, drivers, constructors } from "@/data";
+import { seasonRacers, drivers, constructors, results } from "@/data";
 import {
   type ConstructorName,
   type RacerName,
@@ -13,6 +13,7 @@ import TableCard from "./TableCard.astro";
 import type { ConstructorResults } from "@/data/constructorsStandings";
 import TableCell from "./ui/table/TableCell.astro";
 import TableRow from "./ui/table/TableRow.astro";
+import Button from "./ui/Button.astro";
 
 type Props = {
   season: SeasonName;
@@ -67,7 +68,14 @@ const { season, track, data, trackResults } = Astro.props;
               ))}
             </TableCell>
             <TableCell className="font-bold text-right">
-              {result[1].normalisedPoints}
+              <span class="font-bold">{result[1].normalisedPoints}</span>{" "}
+              {Object.keys(results).indexOf(track) >=
+                Object.keys(results).length - 3 &&
+              result[1].netNormalisedPoints ? (
+                <span class="font-light text-xs">
+                  ({result[1].netNormalisedPoints})
+                </span>
+              ) : null}
             </TableCell>
           </TableRow>
         );

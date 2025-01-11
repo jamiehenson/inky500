@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { drivers, seasonRacers } from "@/data";
+import { drivers, results, seasonRacers } from "@/data";
 import {
   type RacerName,
   type ConstructorName,
@@ -51,7 +51,11 @@ const { data, title, season, track, className } = Astro.props;
               </div>
             </TableCell>
             <TableCell className="font-bold text-right">
-              {result[1].points}
+              <span class="font-bold">{result[1].points}</span>{" "}
+              {Object.keys(results).indexOf(track) >=
+                Object.keys(results).length - 3 && result[1].netPoints ? (
+                <span class="font-light text-xs">({result[1].netPoints})</span>
+              ) : null}
             </TableCell>
           </TableRow>
         );

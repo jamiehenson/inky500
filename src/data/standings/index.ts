@@ -8,6 +8,7 @@ import s5 from "./s5.json";
 export type StandingResult = {
   points: number;
   delta: number;
+  netPoints?: number;
 };
 
 type Standings = Record<

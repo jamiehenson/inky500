@@ -19,7 +19,7 @@ export const calculateStandings = (season: SeasonName) => {
   const seasonRaces = Object.keys(results[season]);
   const driverPoints: Record<
     string,
-    Record<string, { points: number; delta: number }>
+    Record<string, { points: number; netPoints: number; delta: number }>
   > = {};
   const constructorPoints: Record<
     string,
@@ -28,6 +28,8 @@ export const calculateStandings = (season: SeasonName) => {
       {
         points: number;
         normalisedPoints: number;
+        netPoints: number;
+        netNormalisedPoints: number;
         driverCount: number;
         delta: number;
       }
@@ -65,6 +67,29 @@ export const calculateStandings = (season: SeasonName) => {
     {}
   );
 
+  const worstResults: Record<string, Record<string, number>> = {};
+
+  Object.keys(points).forEach((race, raceIndex) => {
+    worstResults[race] = {};
+
+    Object.keys(points[race] ?? {}).forEach((driver) => {
+      const resultsSoFar = Object.keys(points)
+        .slice(0, raceIndex + 1)
+        .map((raceKey) => points[raceKey]?.[driver])
+        .filter((points) => points !== undefined);
+
+      const worstTwoResults =
+        resultsSoFar.length > 2
+          ? resultsSoFar
+              .toSorted((a, b) => b - a)
+              .slice(seasonRaces.length - 3, seasonRaces.length - 1)
+              .reduce((a, b) => a + b, 0)
+          : 0;
+
+      worstResults[race][driver] = worstTwoResults;
+    });
+  });
+
   // Add the points for each driver and team cumulatively, and reorder
   const raceKeys = Object.keys(points) as TrackName[];
 
@@ -90,6 +115,8 @@ export const calculateStandings = (season: SeasonName) => {
         [car]: {
           points: addedConstructorPoints,
           normalisedPoints: addedConstructorPoints,
+          netPoints: addedConstructorPoints,
+          netNormalisedPoints: addedConstructorPoints,
           driverCount: (constructorPoints[race]?.[car]?.driverCount ?? 0) + 1,
           delta: 0,
         },
@@ -120,12 +147,36 @@ export const calculateStandings = (season: SeasonName) => {
       const cumulativePoints = Object.entries(constructorPoints[race]).map(
         (raceConstructors) => {
           if (index > 0) {
+            const worstResultsOffset = Object.entries(
+              worstResults[raceKeys[index]]
+            )
+              .filter((driver) => {
+                const seasonRacer =
+                  seasonRacers[season][driver[0] as RacerName];
+                const car =
+                  seasonRacer?.otherTeams?.[raceKeys[index - 1]]?.car ??
+                  seasonRacer?.car ??
+                  "unknown";
+                return car === raceConstructors[0];
+              })
+              .map((driver) => driver[1])
+              .reduce((a, b) => a + b, 0);
+
             raceConstructors[1].points +=
               constructorPoints[raceKeys[index - 1]][raceConstructors[0]]
                 ?.points ?? 0;
             raceConstructors[1].normalisedPoints +=
               constructorPoints[raceKeys[index - 1]][raceConstructors[0]]
                 ?.normalisedPoints ?? 0;
+            raceConstructors[1].netPoints +=
+              (constructorPoints[raceKeys[index - 1]][raceConstructors[0]]
+                ?.points ?? 0) - worstResultsOffset;
+
+            raceConstructors[1].netNormalisedPoints = Math.round(
+              raceConstructors[1].netPoints *
+                (raceConstructors[1].normalisedPoints /
+                  raceConstructors[1].points)
+            );
           }
 
           return raceConstructors;
@@ -177,6 +228,7 @@ export const calculateStandings = (season: SeasonName) => {
           ...driverPoints[race],
           [driver]: {
             points: points[race][driver] ?? 0,
+            netPoints: points[race][driver] - (worstResults[race][driver] ?? 0),
             delta: index > 0 ? delta : 0,
           },
         };

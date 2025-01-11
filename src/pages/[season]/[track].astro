@@ -17,6 +17,7 @@ import ConstructorsTableCard from "@/components/ConstructorsTableCard.astro";
 import StandingsTableCard from "@/components/StandingsTableCard.astro";
 import ProgressionChart from "@/components/ProgressionChart.astro";
 import Button from "@/components/ui/Button.astro";
+import type { ConstructorResults } from "@/data/constructorsStandings";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
@@ -43,7 +44,7 @@ const trackResults = results[season][track];
 const trackStandings = standings[season][track];
 
 const trackConstructors = ["s4", "s5"].includes(season)
-  ? constructorsStandings[season][track]
+  ? (constructorsStandings[season][track] as ConstructorResults)
   : null;
 
 const winnerId = trackResults

@@ -5,6 +5,7 @@ import type { ConstructorName, SeasonName, TrackName } from "@/types";
 export type ConstructorResult = {
   points: number;
   normalisedPoints: number;
+  netNormalisedPoints?: number;
   driverCount: number;
   delta: number;
 };
@@ -14,11 +15,11 @@ export type ConstructorResults = {
 };
 
 export type ConstructorsResults = {
-  [track in TrackName]: ConstructorResults;
+  [track in TrackName]: Partial<ConstructorResults>;
 };
 
 type ConstructorsStandings = {
-  [season in SeasonName]: ConstructorsResults;
+  [season in SeasonName]: Partial<ConstructorsResults>;
 };
 
 export const constructorsStandings = {
