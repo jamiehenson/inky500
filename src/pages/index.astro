@@ -9,14 +9,10 @@ import { carImages } from "@/utils";
 import { drivers, seasonRacers, standings } from "@/data";
 
 interface SeasonInfo {
-  car?: ConstructorName;
   game: string;
-  key: string;
-  raceCount: number;
+  key: SeasonName;
   status: Status;
   subtitle: string;
-  title: string;
-  winners?: string[];
 }
 
 const seasonCars = (season: SeasonName) =>
@@ -31,58 +27,44 @@ const seasonCars = (season: SeasonName) =>
     )
   ).toSorted();
 
-const getSeasonWinners = (season: SeasonName) => {
-  return Object.keys(
-    Object.values(standings[season])[Object.keys(standings[season]).length - 1]
-  )
-    .slice(0, 3)
-    .map((racer) => drivers[racer as RacerName].name);
-};
+const getSeasonWinners = (season: SeasonName): RacerName[] =>
+  (
+    Object.keys(
+      Object.values(standings[season])[
+        Object.keys(standings[season]).length - 1
+      ]
+    ) as RacerName[]
+  ).slice(0, 3);
 
 export const seasonInfo: SeasonInfo[] = [
   {
     key: "s1",
-    title: "Season 1",
     subtitle: "Ginetta Juniors",
     game: "Project Cars 2",
-    raceCount: 6,
-    car: "ginetta",
     status: "complete",
   },
   {
     key: "s2",
-    title: "Season 2",
     subtitle: "Touring Cars",
     game: "Project Cars 2",
-    raceCount: 12,
-    car: "bmw",
     status: "complete",
   },
   {
     key: "s3",
-    title: "Season 3",
     subtitle: "TCX",
     game: "ACC",
-    raceCount: 10,
-    car: "bmw",
     status: "complete",
   },
   {
     key: "s4",
-    title: "Season 4",
     subtitle: "GT4",
     game: "ACC",
-    raceCount: 15,
-    car: "alpine",
     status: "complete",
   },
   {
     key: "s5",
-    title: "Season 5",
     subtitle: "GT3",
     game: "ACC",
-    raceCount: 18,
-    car: "unknown",
     status: "in-progress",
   },
 ];
@@ -98,13 +80,18 @@ export const seasonInfo: SeasonInfo[] = [
       {
         seasonInfo.map((season) => (
           <ConstructorCard
-            title={season.title}
-            subtitle={`${season.subtitle} - ${season.raceCount} races`}
+            title={`Season ${season.key.slice(1)}`}
+            subtitle={`${season.subtitle} - ${Object.keys(standings[season.key]).filter((race) => race).length} races`}
             link={`/${season.key}`}
-            car={season.car}
+            car={
+              season.status === "complete"
+                ? (seasonRacers[season.key]?.[getSeasonWinners(season.key)[0]]
+                    ?.car ?? "unknown")
+                : "unknown"
+            }
           >
             <div class="flex items-center gap-2 flex-wrap -mt-4 mb-4">
-              {seasonCars(season.key as SeasonName).map((car: string) => (
+              {seasonCars(season.key).map((car: string) => (
                 <Image
                   src={carImages[car as ConstructorName]}
                   alt={car}
@@ -120,7 +107,7 @@ export const seasonInfo: SeasonInfo[] = [
                     (winner, index) => (
                       <p>
                         {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}{" "}
-                        {winner}
+                        {drivers[winner].name}
                       </p>
                     )
                   )
