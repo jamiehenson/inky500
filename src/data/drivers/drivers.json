@@ -189,9 +189,9 @@
     "tableNames": ["Josh S"]
   },
   "fletcher": {
-    "name": "Fletcher",
+    "name": "J. Fletcher",
     "countryCode": "gb",
-    "tableNames": ["Fletch"]
+    "tableNames": ["Fletch", "James F"]
   },
   "cal": {
     "name": "R. Cal",
@@ -202,6 +202,16 @@
     "name": "C. Marsh",
     "countryCode": "gb",
     "tableNames": ["Cosmo M"]
+  },
+  "erikain": {
+    "name": "E. McC",
+    "countryCode": "gb",
+    "tableNames": ["Erik M"]
+  },
+  "ward": {
+    "name": "M. Ward",
+    "countryCode": "gb",
+    "tableNames": ["Mackenzie W"]
   },
   "unknown": {
     "name": "Unknown"
