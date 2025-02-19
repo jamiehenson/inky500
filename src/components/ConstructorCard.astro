@@ -23,7 +23,10 @@ const { link, car, title, subtitle, index } = Astro.props;
 const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
 ---
 
-<a href={withBase(link ?? "#")} class={link ? "" : "cursor-not-allowed"}>
+<a
+  href={withBase(link ?? "#")}
+  class={link ? "cursor-pointer" : "cursor-not-allowed"}
+>
   <Card
     className={link
       ? "hover:bg-zinc-100 hover:dark:bg-zinc-800 transition-colors"
