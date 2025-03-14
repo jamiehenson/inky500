@@ -54,14 +54,21 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
     <div class="relative z-10 h-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          {index ? <Badge className="rounded-lg">{index}</Badge> : null}
+          {
+            index ? (
+              <Badge className="rounded-lg pointer-events-none">{index}</Badge>
+            ) : null
+          }
           {title}</CardTitle
         >
         <CardDescription
           >{
             Array.isArray(subtitle) ? (
               <div>
-                <Badge className="rounded-lg" variant="secondary">
+                <Badge
+                  className="rounded-lg pointer-events-none"
+                  variant="secondary"
+                >
                   <span class={`mr-1 rounded-sm fi fi-${subtitle[1]}`} />
                   {subtitle[0]}
                 </Badge>
