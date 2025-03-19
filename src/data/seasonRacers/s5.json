@@ -1,7 +1,16 @@
 {
   "bigtimebosco": {
-    "team": "Panic! in the Nismo",
-    "car": "nissan"
+    "team": "AF Corse",
+    "car": "ferrari",
+    "otherTeams": {
+      "red-bull-ring": { "car": "nissan", "team": "Panic! in the Nismo" },
+      "misano": { "car": "nissan", "team": "Panic! in the Nismo" },
+      "paul-ricard": { "car": "nissan", "team": "Panic! in the Nismo" },
+      "nurburgring": { "car": "nissan", "team": "Panic! in the Nismo" },
+      "brands-hatch": { "car": "nissan", "team": "Panic! in the Nismo" },
+      "zolder": { "car": "nissan", "team": "Panic! in the Nismo" },
+      "kyalami": { "car": "nissan", "team": "Panic! in the Nismo" }
+    }
   },
   "eugenegoat": {
     "team": "JohnGoat",
