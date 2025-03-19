@@ -56,7 +56,7 @@ const { data, title, season, track, className } = Astro.props;
                   alt={currentTeam.car}
                   class="w-6 h-6"
                 />
-                <span>{currentTeam.team}</span>
+                <span class="hidden sm:block">{currentTeam.team}</span>
               </div>
             </TableCell>
             <TableCell className="font-bold text-right">

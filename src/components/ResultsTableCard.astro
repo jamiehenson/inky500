@@ -70,10 +70,10 @@ const { data, title, season, track, className, link } = Astro.props;
                   alt={currentTeam.car}
                   class="w-6 h-6"
                 />
-                <span>{currentTeam.team}</span>
+                <span class="hidden sm:block">{currentTeam.team}</span>
               </div>
             </TableCell>
-            <TableCell className="font-bold flex items-end sm:items-center justify-end flex-col sm:flex-row">
+            <TableCell className="font-bold flex items-center justify-end">
               <div>
                 <span>
                   {[".", "lap"].some(

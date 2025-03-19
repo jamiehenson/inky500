@@ -60,7 +60,7 @@ const { season, track, data, trackResults } = Astro.props;
                 alt={result[0]}
                 class="w-6 h-6"
               />
-              {constructor.name}
+              <span class="hidden sm:block">{constructor.name}</span>
             </TableCell>
             <TableCell>
               {constructorDrivers.map((driver) => (
