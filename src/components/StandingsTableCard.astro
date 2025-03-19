@@ -39,7 +39,10 @@ const { data, title, season, track, className } = Astro.props;
           <TableRow>
             <TableCell>
               <div class="flex items-center">
-                <Badge className="w-8 justify-center mr-2 pointer-events-none">
+                <Badge
+                  variant="secondary"
+                  className="w-8 justify-center mr-2 pointer-events-none"
+                >
                   {index + 1}
                 </Badge>
                 <DeltaMarker delta={result[1].delta} />
