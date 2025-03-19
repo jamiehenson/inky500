@@ -65,7 +65,7 @@ const chartButtons = ["s4", "s5"].includes(season)
     </div>
   </CardHeader>
   <CardContent
-    className="relative px-2 sm:p-6 flex items-start justify-center h-[600px]"
+    className="relative px-2 sm:p-6 sm:pb-0 flex items-start justify-center h-[600px]"
   >
     <canvas
       id="standings-chart"
@@ -73,6 +73,10 @@ const chartButtons = ["s4", "s5"].includes(season)
       class="absolute inset-x-0 inset-y-6 sm:inset-6 w-full transition-opacity duration-500 ease-in-out"
     ></canvas>
   </CardContent>
+  <div class="flex justify-center gap-3 p-3">
+    <Button id="select-all" variant="outline">Select All</Button>
+    <Button id="select-none" variant="outline">Select None</Button>
+  </div>
 </Card>
 
 <script>
@@ -97,6 +101,8 @@ const chartButtons = ["s4", "s5"].includes(season)
     const constructorsButton = document.getElementById(
       "chart-show-constructors"
     );
+    const selectAllButton = document.getElementById("select-all");
+    const selectNoneButton = document.getElementById("select-none");
 
     const standingsCtx = document.getElementById(
       "standings-chart"
@@ -303,5 +309,26 @@ const chartButtons = ["s4", "s5"].includes(season)
 
     // Initialize with drivers data
     updateChartData("drivers", true);
+
+    const toggleAllDatasets = (show: boolean) => {
+      if (chartInstance) {
+        // Update dataset visibility
+        chartInstance.data.datasets.forEach((dataset) => {
+          dataset.hidden = !show;
+        });
+
+        chartInstance.legend?.legendItems?.forEach((_, index) => {
+          if (chartInstance.legend) {
+            chartInstance.legend.options.display = true;
+          }
+          chartInstance.setDatasetVisibility(index, show);
+        });
+
+        chartInstance.update();
+      }
+    };
+
+    selectAllButton?.addEventListener("click", () => toggleAllDatasets(true));
+    selectNoneButton?.addEventListener("click", () => toggleAllDatasets(false));
   });
 </script>
