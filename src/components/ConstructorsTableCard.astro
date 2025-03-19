@@ -13,6 +13,7 @@ import TableCard from "./TableCard.astro";
 import type { ConstructorResults } from "@/data/constructorsStandings";
 import TableCell from "./ui/table/TableCell.astro";
 import TableRow from "./ui/table/TableRow.astro";
+import Badge from "./ui/Badge.astro";
 
 type Props = {
   season: SeasonName;
@@ -26,7 +27,7 @@ const { season, track, data, trackResults } = Astro.props;
 
 <TableCard title="Constructors' Standings" className="col-span-2 lg:col-span-1">
   {
-    Object.entries(data).map((result) => {
+    Object.entries(data).map((result, index) => {
       const constructor = constructors[result[0] as ConstructorName];
       const constructorDrivers = Object.entries(seasonRacers[season])
         .filter((racer) =>
@@ -42,7 +43,12 @@ const { season, track, data, trackResults } = Astro.props;
           <TableRow>
             {typeof result[1] !== "string" ? (
               <TableCell>
-                <DeltaMarker delta={result[1].delta} />
+                <div class="flex items-center">
+                  <Badge className="w-8 justify-center mr-2 pointer-events-none">
+                    {index + 1}
+                  </Badge>
+                  <DeltaMarker delta={result[1].delta} />
+                </div>
               </TableCell>
             ) : null}
             <TableCell className="flex items-center gap-2">
