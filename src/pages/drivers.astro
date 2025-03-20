@@ -10,7 +10,7 @@ import Layout from "@/layouts/Layout.astro";
 import { cn } from "@/lib/utils";
 import type { ConstructorName, RacerName } from "@/types";
 import { carImages } from "@/utils";
-import { ArrowDownUp, ArrowUpFromLine, ArrowDownFromLine } from "lucide-astro";
+import * as Icon from "@astropub/icons";
 import { seasonInfo } from "./index.astro";
 
 const resultPositionSuffix = (position: number) => {
@@ -153,9 +153,9 @@ const data = Object.keys(drivers)
                   {header.label}
                   {header.sortable ? (
                     <>
-                      <ArrowDownUp class="h-5 arrow-unsorted" />
-                      <ArrowUpFromLine class="h-5 arrow-asc hidden" />
-                      <ArrowDownFromLine class="h-5 arrow-desc hidden" />
+                      <Icon.Height size="24" class="arrow-unsorted" />
+                      <Icon.ArrowUp size="24" class="arrow-asc hidden" />
+                      <Icon.ArrowDown size="24" class="arrow-desc hidden" />
                     </>
                   ) : null}
                 </div>
