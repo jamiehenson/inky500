@@ -14,6 +14,9 @@ importers:
       '@astrojs/svelte':
         specifier: ^7.0.6
         version: 7.0.6(@types/node@22.8.6)(astro@5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0))(jiti@2.4.2)(lightningcss@1.29.2)(svelte@5.23.2)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0)
+      '@astropub/icons':
+        specifier: ^0.2.0
+        version: 0.2.0(astro@5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0))
       '@tailwindcss/vite':
         specifier: ^4.0.14
         version: 4.0.14(vite@6.2.2(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.2)(yaml@2.6.0))
@@ -32,9 +35,6 @@ importers:
       flag-icons:
         specifier: ^7.2.3
         version: 7.2.3
-      lucide-astro:
-        specifier: ^0.461.0
-        version: 0.461.0(astro@5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0))
       svelte:
         specifier: ^5.23.2
         version: 5.23.2
@@ -118,6 +118,11 @@ packages:
 
   '@astrojs/yaml2ts@0.2.2':
     resolution: {integrity: sha512-GOfvSr5Nqy2z5XiwqTouBBpy5FyI6DEe+/g/Mk5am9SjILN1S5fOEvYK0GuWHg98yS/dobP4m8qyqw/URW35fQ==}
+
+  '@astropub/icons@0.2.0':
+    resolution: {integrity: sha512-qM/ldW/9rVHULNOZgz/23Yzgm2r3Iy2JJ1FuvJB6sFU67n61o1ImuXdHiaWSNoEHubD+IUkD9WG0hbhINgszqA==}
+    peerDependencies:
+      astro: '*'
 
   '@babel/helper-string-parser@7.25.9':
     resolution: {integrity: sha512-4A/SCr/2KLd5jrtOMFzaKjVtAei3+2r/NChoBNoZ3EyP/+GlhoaEGoWOZUmFmoITP7zOJyHIMm+DYRd8o3PvHA==}
@@ -1472,11 +1477,6 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  lucide-astro@0.461.0:
-    resolution: {integrity: sha512-AY24QN+jQ+JqDeKbkRYEq9RF8SFYTsuWBDSo0DjBvP8MstVsc8ReA9qvbpDMnsz6nE4aA9vfTn/EGKVLbt+Vtw==}
-    peerDependencies:
-      astro: '>=2.7.1'
-
   magic-string@0.30.12:
     resolution: {integrity: sha512-Ea8I3sQMVXr8JhN4z+H/d8zwo+tYDgHE9+5G4Wnrwhs0gaK9fXTKx0Tw5Xwsd/bCPTTZNRAdpyzvoeORe9LYpw==}
 
@@ -2483,6 +2483,10 @@ snapshots:
   '@astrojs/yaml2ts@0.2.2':
     dependencies:
       yaml: 2.6.0
+
+  '@astropub/icons@0.2.0(astro@5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0))':
+    dependencies:
+      astro: 5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0)
 
   '@babel/helper-string-parser@7.25.9': {}
 
@@ -3766,10 +3770,6 @@ snapshots:
       tslib: 2.8.0
 
   lru-cache@10.4.3: {}
-
-  lucide-astro@0.461.0(astro@5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0)):
-    dependencies:
-      astro: 5.5.3(@types/node@22.8.6)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.2)(typescript@5.8.2)(yaml@2.6.0)
 
   magic-string@0.30.12:
     dependencies:

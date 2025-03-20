@@ -1,5 +1,5 @@
 ---
-import { ChevronDown, ChevronUp, Minus } from "lucide-astro";
+import * as Icon from "@astropub/icons";
 
 type Props = {
   delta: number;
@@ -8,14 +8,14 @@ type Props = {
 const { delta } = Astro.props;
 ---
 
-<div class="flex items-center text-green-500">
+<div class="flex items-center text-green-500 gap-1">
   {
     delta > 0 ? (
-      <ChevronUp class="stroke-green-500" />
+      <Icon.ChevronUp size="24" class="stroke-green-500" />
     ) : delta < 0 ? (
-      <ChevronDown class="stroke-red-500" />
+      <Icon.ChevronDown size="24" class="stroke-red-500" />
     ) : (
-      <Minus class="stroke-gray-500" />
+      <Icon.Minus size="24" class="stroke-gray-500" />
     )
   }
 

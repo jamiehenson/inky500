@@ -4,7 +4,7 @@ import { drivers, tracks, seasonRacers } from "@/data";
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { type RacerName, type SeasonName, type TrackName } from "../../types";
-import { ChevronLeft, ChevronRight } from "lucide-astro";
+import * as Icon from "@astropub/icons";
 import {
   results,
   standings,
@@ -69,7 +69,7 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
 >
   <a href={withBase(`/${season}`)} class="absolute z-10">
     <Button variant="outline">
-      <ChevronLeft className="h-4 w-4" aria-label="Back" />
+      <Icon.ChevronLeft size="24" aria-label="Back" />
       Season {season[season.length - 1].toUpperCase()}
     </Button>
   </a>
@@ -105,7 +105,7 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
         results[season][previousTrack]?.results ? (
           <a href={withBase(`/${season}/${previousTrack}`)}>
             <Button variant="outline">
-              <ChevronLeft className="h-4 w-4" aria-label="Previous Race" />
+              <Icon.ChevronLeft size="24" aria-label="Previous Race" />
               <span
                 class={`rounded-sm mr-1 fi fi-${tracks[previousTrack].countryCode}`}
               />
@@ -124,7 +124,7 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
                 class={`rounded-sm ml-1 fi fi-${tracks[nextTrack].countryCode}`}
               />
               <span class="hidden sm:block">{tracks[nextTrack].name}</span>
-              <ChevronRight className="h-4 w-4" aria-label="Next Race" />
+              <Icon.ChevronRight size="24" aria-label="Next Race" />
             </Button>
           </a>
         ) : null
