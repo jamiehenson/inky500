@@ -4,7 +4,7 @@ import { drivers, tracks, seasonRacers } from "@/data";
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { type RacerName, type SeasonName, type TrackName } from "../../types";
-import { ChevronLeft } from "lucide-astro";
+import { ChevronLeft, ChevronRight } from "lucide-astro";
 import {
   results,
   standings,
@@ -56,6 +56,12 @@ const winnerCar = winner?.otherTeams?.[track]?.car || winner?.car || "unknown";
 const carTeamColor = constructors[winnerCar]?.teamColor ?? "transparent";
 
 const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
+
+const trackIndex = Object.keys(results[season]).findIndex((t) => t === track);
+const nextTrack = Object.keys(results[season])[trackIndex + 1] as TrackName;
+const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
+
+console.log(results[season][nextTrack]);
 ---
 
 <Layout
@@ -84,7 +90,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
       }
     </div>
     <div class="p-3 mb-8">
-      <h1>
+      <h1 class="mt-9">
         {trackName}
         <span class={`rounded-sm ml-3 fi fi-${trackCountryCode}`}></span>
       </h1>
@@ -94,6 +100,36 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
       <h3 class="text-center text-lg">
         Winner: <span class="font-bold">{winnerName}</span>
       </h3>
+    </div>
+    <div class="absolute bottom-3 left-3">
+      {
+        results[season][previousTrack]?.results ? (
+          <a href={withBase(`/${season}/${previousTrack}`)}>
+            <Button variant="outline">
+              <ChevronLeft className="h-4 w-4" aria-label="Previous Race" />
+              <span
+                class={`rounded-sm mr-1 fi fi-${tracks[previousTrack].countryCode}`}
+              />
+              <span class="hidden sm:block">{tracks[previousTrack].name}</span>
+            </Button>
+          </a>
+        ) : null
+      }
+    </div>
+    <div class="absolute bottom-3 right-3">
+      {
+        results[season][nextTrack]?.results ? (
+          <a href={withBase(`/${season}/${nextTrack}`)}>
+            <Button variant="outline">
+              <span
+                class={`rounded-sm ml-1 fi fi-${tracks[nextTrack].countryCode}`}
+              />
+              <span class="hidden sm:block">{tracks[nextTrack].name}</span>
+              <ChevronRight className="h-4 w-4" aria-label="Next Race" />
+            </Button>
+          </a>
+        ) : null
+      }
     </div>
   </div>
 

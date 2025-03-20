@@ -7,7 +7,7 @@ import type {
   SeasonName,
   TrackName,
 } from "../../types";
-import { ChevronLeft } from "lucide-astro";
+import { ChevronLeft, ChevronRight } from "lucide-astro";
 import { seasonRacers, drivers, tracks, results } from "@/data";
 import { carImages, withBase } from "@/utils";
 import StatusBadge from "@/components/StatusBadge.astro";
@@ -61,7 +61,8 @@ const tracksData = Object.entries(results[season]).map((track) => {
   };
 });
 
-const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
+const seasonNumber = parseInt(season.slice(1));
+const seasonTitle = `Season ${seasonNumber.toString().toUpperCase()}`;
 ---
 
 <Layout
@@ -74,9 +75,37 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
       Seasons
     </Button>
   </a>
-  <h1>
-    Season {season[season.length - 1].toUpperCase()}
-  </h1>
+  <div class="relative">
+    {
+      seasonNumber > 1 && (
+        <a
+          href={withBase(`/s${seasonNumber - 1}`)}
+          class="absolute top-1/2 left-0 -translate-y-1/2"
+        >
+          <Button variant="outline">
+            <ChevronLeft className="h-4 w-4" aria-label="Previous Season" />
+            <span>S{seasonNumber - 1}</span>
+          </Button>
+        </a>
+      )
+    }
+    <h1 class="flex items-center justify-center gap-6 mt-12">
+      {seasonTitle}
+    </h1>
+    {
+      seasonNumber < Object.keys(results).length && (
+        <a
+          href={withBase(`/s${seasonNumber + 1}`)}
+          class="absolute top-1/2 right-0 -translate-y-1/2"
+        >
+          <Button variant="outline">
+            <span>S{seasonNumber + 1}</span>
+            <ChevronRight className="h-4 w-4" aria-label="Next Season" />
+          </Button>
+        </a>
+      )
+    }
+  </div>
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
     {
       tracksData.map(
