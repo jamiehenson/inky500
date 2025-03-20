@@ -60,8 +60,6 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
 const trackIndex = Object.keys(results[season]).findIndex((t) => t === track);
 const nextTrack = Object.keys(results[season])[trackIndex + 1] as TrackName;
 const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
-
-console.log(results[season][nextTrack]);
 ---
 
 <Layout
