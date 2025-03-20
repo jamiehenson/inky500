@@ -18,6 +18,7 @@ import StandingsTableCard from "@/components/StandingsTableCard.astro";
 import ProgressionChart from "@/components/ProgressionChart.astro";
 import Button from "@/components/ui/Button.astro";
 import type { ConstructorResults } from "@/data/constructorsStandings";
+import Standings from "@/components/standings.svelte";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
@@ -144,6 +145,7 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
         />
       ) : null
     }
+    <Standings />
     {
       trackStandings ? (
         <StandingsTableCard

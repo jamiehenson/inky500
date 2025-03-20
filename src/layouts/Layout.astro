@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import gghqLogo from "../assets/gghq.png";
 import inkyLogo from "../assets/logo.png";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import "@/styles/globals.css";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { withBase } from "@/utils";
@@ -60,7 +60,7 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.ico")} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="bg-white dark:bg-zinc-900">
     <div class="flex items-center justify-between px-3 py-2">
