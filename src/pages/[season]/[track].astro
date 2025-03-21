@@ -12,13 +12,9 @@ import {
   constructorsStandings,
 } from "@/data";
 import { carImages, withBase } from "@/utils";
-import ResultsTableCard from "@/components/ResultsTableCard.astro";
-import ConstructorsTableCard from "@/components/ConstructorsTableCard.astro";
-import StandingsTableCard from "@/components/StandingsTableCard.astro";
-import ProgressionChart from "@/components/ProgressionChart.astro";
 import Button from "@/components/ui/Button.astro";
 import type { ConstructorResults } from "@/data/constructorsStandings";
-import Standings from "@/components/standings.svelte";
+import Standings from "@/components/Standings.svelte";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
@@ -135,40 +131,13 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
   </div>
 
   <div class="grid md:grid-cols-2 gap-8">
-    {
-      trackResults ? (
-        <ResultsTableCard
-          title="Results"
-          season={season}
-          track={track}
-          data={trackResults}
-          link={trackResults.data}
-          className="col-span-2"
-        />
-      ) : null
-    }
-    <Standings />
-    {
-      trackStandings ? (
-        <StandingsTableCard
-          title="Drivers' Standings"
-          season={season}
-          track={track}
-          data={trackStandings}
-          className={`${trackConstructors ? "col-span-2 lg:col-span-1" : "col-span-2"}`}
-        />
-      ) : null
-    }
-    {
-      trackConstructors ? (
-        <ConstructorsTableCard
-          season={season}
-          track={track}
-          data={trackConstructors}
-          trackResults={trackResults?.results ?? {}}
-        />
-      ) : null
-    }
-    <ProgressionChart season={season} track={track} />
+    <Standings
+      client:only="svelte"
+      season={season}
+      track={track}
+      trackStandings={trackStandings}
+      trackConstructors={trackConstructors}
+      trackResults={trackResults}
+    />
   </div>
 </Layout>

@@ -3,17 +3,10 @@ import ConstructorCard from "../components/ConstructorCard.astro";
 import Layout from "../layouts/Layout.astro";
 import type { ConstructorName, RacerName, SeasonName } from "@/types";
 import { Image } from "astro:assets";
-import type { Status } from "@/components/StatusBadge.astro";
 import StatusBadge from "@/components/StatusBadge.astro";
 import { carImages } from "@/utils";
 import { drivers, seasonRacers, standings } from "@/data";
-
-interface SeasonInfo {
-  game: string;
-  key: SeasonName;
-  status: Status;
-  subtitle: string;
-}
+import { seasonInfo } from "@/data/seasons";
 
 const seasonCars = (season: SeasonName) =>
   Array.from(
@@ -35,39 +28,6 @@ const getSeasonWinners = (season: SeasonName): RacerName[] =>
       ]
     ) as RacerName[]
   ).slice(0, 3);
-
-export const seasonInfo: SeasonInfo[] = [
-  {
-    key: "s1",
-    subtitle: "Ginetta Juniors",
-    game: "Project Cars 2",
-    status: "complete",
-  },
-  {
-    key: "s2",
-    subtitle: "Touring Cars",
-    game: "Project Cars 2",
-    status: "complete",
-  },
-  {
-    key: "s3",
-    subtitle: "TCX",
-    game: "ACC",
-    status: "complete",
-  },
-  {
-    key: "s4",
-    subtitle: "GT4",
-    game: "ACC",
-    status: "complete",
-  },
-  {
-    key: "s5",
-    subtitle: "GT3",
-    game: "ACC",
-    status: "in-progress",
-  },
-];
 ---
 
 <Layout

@@ -30,4 +30,4 @@ export const pointsPenalties = {
       wobbleboss: 5,
     },
   },
-} satisfies Penalties;
+} as Penalties;
