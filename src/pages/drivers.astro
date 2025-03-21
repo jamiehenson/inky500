@@ -8,5 +8,5 @@ import Layout from "@/layouts/Layout.astro";
   description={`View statistics for all the drivers in the Inky 500 🛞`}
 >
   <h1>Drivers</h1>
-  <DriversTable client:only="svelte" />
+  <DriversTable client:load />
 </Layout>

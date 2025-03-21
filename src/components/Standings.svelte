@@ -1,12 +1,13 @@
 <script lang="ts">
   import DriversStandings from "@/components/DriversStandings.svelte";
   import ConstructorsStandings from "@/components/ConstructorsStandings.svelte";
-  import ProgressionChart from "./ProgressionChart.svelte";
-  import Results from "./Results.svelte";
+  import Progression from "./Progression.svelte";
   import type { SeasonName, TrackName } from "@/types";
   import type { StandingResult } from "@/data/standings";
   import type { RacerResult } from "@/data/results";
   import type { ConstructorResults } from "@/data/constructorsStandings";
+  import { FormSwitch } from "./ui/form-switch";
+  import { Button } from "./ui/button";
 
   type Props = {
     season: SeasonName;
@@ -23,9 +24,16 @@
     trackConstructors,
     trackResults,
   }: Props = $props();
+
+  let netPoints = $state(false);
 </script>
 
-<Results {season} {track} data={trackResults} link={trackResults.data} />
+<FormSwitch
+  label="Show net points"
+  description="This championship uses net points, which means the worst two results will be dropped."
+  checked={netPoints}
+  onCheck={(value) => (netPoints = value)}
+/>
 {#if trackStandings}
   <DriversStandings {season} {track} data={trackStandings} />
 {/if}
@@ -37,4 +45,3 @@
     trackResults={trackResults?.results ?? {}}
   />
 {/if}
-<ProgressionChart {season} {track} />

@@ -23,8 +23,8 @@
   const { data, season, track, link = undefined }: Props = $props();
 </script>
 
-<div class="flex flex-col gap-4 col-span-2 border rounded-lg">
-  <h2 class="text-2xl font-bold">Results</h2>
+<div id="results" class="flex flex-col gap-4 col-span-2 border rounded-lg">
+  <h2 class="text-2xl font-bold">Race Results</h2>
   <Table.Root>
     {#each Object.entries(data.results ?? {}) as [racerId, result], index}
       {@const racer = racerId as RacerName}
@@ -50,9 +50,9 @@
               {index + 1}
             </Badge>
             <span
-              class={`hidden! sm:inline-flex! rounded-sm mr-1 fi fi-${driver.countryCode}`}
+              class={`!hidden sm:!inline-flex rounded-sm mr-1 fi fi-${driver.countryCode}`}
             ></span>
-            <span class="hidden sm:block">{driver.name}</span>
+            <span>{driver.name}</span>
           </Table.Cell>
           <Table.Cell>
             <div class="flex items-center gap-2">

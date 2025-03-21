@@ -7,7 +7,7 @@
   import type { ConstructorName, RacerName } from "@/types";
   import * as Card from "@/components/ui/card";
   import { Button } from "@/components/ui/button";
-  import { chartConfig, commonConfig, type ChartType } from "./chart-utils";
+  import { chartConfig, commonConfig, type ChartType } from "./utils";
 
   type Props = {
     season: SeasonName;
@@ -165,57 +165,59 @@
   });
 </script>
 
-<Card.Root class="col-span-2">
-  <Card.Header
-    class="flex flex-col items-stretch space-y-0 border-b p-0 md:flex-row"
-  >
-    <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-      <Card.Title>Progression</Card.Title>
-      <Card.Description>
-        Showing progression as of {tracks[track].name}
-      </Card.Description>
-    </div>
-    <div class="flex flex-col z-10 mt-4 sm:mt-0 p-2 gap-2 justify-center">
-      <Button
-        variant="outline"
-        onclick={() => updateChartData(activeChartType, true)}
-        >Sort by Points</Button
-      >
-      <Button
-        variant="outline"
-        onclick={() => updateChartData(activeChartType, false)}
-        >Sort by Rank</Button
-      >
-    </div>
-    <div class="flex">
-      {#each chartButtons as chart}
-        <button
-          onclick={() => updateChartData(chart, usePoints)}
-          data-active={`${activeChartType === chart}`}
-          class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:last:rounded-tr-lg sm:border-l md:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+<div id="progression" class="col-span-2">
+  <Card.Root>
+    <Card.Header
+      class="flex flex-col items-stretch space-y-0 border-b p-0 md:flex-row"
+    >
+      <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
+        <Card.Title>Progression</Card.Title>
+        <Card.Description>
+          Showing progression as of {tracks[track].name}
+        </Card.Description>
+      </div>
+      <div class="flex flex-col z-10 mt-4 sm:mt-0 p-2 gap-2 justify-center">
+        <Button
+          variant="outline"
+          onclick={() => updateChartData(activeChartType, true)}
+          >Sort by Points</Button
         >
-          <span class="text-lg text-muted-foreground">
-            {chartConfig[chart].label}
-          </span>
-        </button>
-      {/each}
+        <Button
+          variant="outline"
+          onclick={() => updateChartData(activeChartType, false)}
+          >Sort by Rank</Button
+        >
+      </div>
+      <div class="flex">
+        {#each chartButtons as chart}
+          <button
+            onclick={() => updateChartData(chart, usePoints)}
+            data-active={`${activeChartType === chart}`}
+            class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:last:rounded-tr-lg sm:border-l md:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+          >
+            <span class="text-lg text-muted-foreground">
+              {chartConfig[chart].label}
+            </span>
+          </button>
+        {/each}
+      </div>
+    </Card.Header>
+    <Card.Content
+      class="relative px-2 sm:p-6 sm:pb-0 flex items-start justify-center h-[600px]"
+    >
+      <canvas
+        bind:this={standingsCtx}
+        id="standings-chart"
+        class="absolute inset-x-0 inset-y-6 sm:inset-6 w-full transition-opacity duration-500 ease-in-out"
+      ></canvas>
+    </Card.Content>
+    <div class="flex justify-center gap-3 p-3">
+      <Button onclick={() => toggleAllDatasets(true)} variant="outline"
+        >Show All</Button
+      >
+      <Button onclick={() => toggleAllDatasets(false)} variant="outline"
+        >Show None</Button
+      >
     </div>
-  </Card.Header>
-  <Card.Content
-    class="relative px-2 sm:p-6 sm:pb-0 flex items-start justify-center h-[600px]"
-  >
-    <canvas
-      bind:this={standingsCtx}
-      id="standings-chart"
-      class="absolute inset-x-0 inset-y-6 sm:inset-6 w-full transition-opacity duration-500 ease-in-out"
-    ></canvas>
-  </Card.Content>
-  <div class="flex justify-center gap-3 p-3">
-    <Button onclick={() => toggleAllDatasets(true)} variant="outline"
-      >Show All</Button
-    >
-    <Button onclick={() => toggleAllDatasets(false)} variant="outline"
-      >Show None</Button
-    >
-  </div>
-</Card.Root>
+  </Card.Root>
+</div>

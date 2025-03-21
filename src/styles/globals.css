@@ -86,7 +86,7 @@
   }
   
   h2 {
-    @apply text-center text-2xl my-6 font-bold;
+    @apply text-center text-2xl mt-6 mb-2 font-bold;
   }
 
   @font-face {
