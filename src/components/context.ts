@@ -6,6 +6,7 @@ export const setStandingsContext = ({
   season,
   track,
   netPoints,
+  setNetPoints,
   chartType,
   setChartType,
   showType,
@@ -15,7 +16,8 @@ export const setStandingsContext = ({
 }: {
   season: SeasonName;
   track: TrackName;
-  netPoints: boolean;
+  netPoints: () => boolean;
+  setNetPoints: (netPoints: boolean) => void;
   chartType: () => ChartType;
   setChartType: (chartType: ChartType) => void;
   showType: () => ShowType;
@@ -25,7 +27,8 @@ export const setStandingsContext = ({
 }) => {
   setContext<SeasonName>("season", season);
   setContext<TrackName>("track", track);
-  setContext<boolean>("netPoints", netPoints);
+  setContext<() => boolean>("netPoints", netPoints);
+  setContext<(netPoints: boolean) => void>("setNetPoints", setNetPoints);
   setContext<() => ChartType>("chartType", chartType);
   setContext<(type: ChartType) => void>("setChartType", setChartType);
   setContext<() => ShowType>("showType", showType);
@@ -37,7 +40,8 @@ export const setStandingsContext = ({
 export const getStandingsContext = () => ({
   season: getContext<SeasonName>("season"),
   track: getContext<TrackName>("track"),
-  netPoints: getContext<boolean>("netPoints"),
+  netPoints: getContext<() => boolean>("netPoints"),
+  setNetPoints: getContext<(netPoints: boolean) => void>("setNetPoints"),
   chartType: getContext<() => ChartType>("chartType"),
   setChartType: getContext<(type: ChartType) => void>("setChartType"),
   showType: getContext<() => ShowType>("showType"),

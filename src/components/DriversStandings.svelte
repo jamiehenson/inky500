@@ -12,14 +12,20 @@
   };
 
   let { data }: Props = $props();
-  let { season, track, setShowType, setChartType } = getStandingsContext();
+  let { season, track, setShowType, setChartType, netPoints } =
+    getStandingsContext();
 </script>
 
 <div
   id="drivers"
   class="flex flex-col gap-4 col-span-2 lg:col-span-1 border rounded-lg"
 >
-  <h2 class="text-2xl font-bold">Drivers' Standings</h2>
+  <div>
+    <h2 class="text-2xl font-bold">Drivers' Standings</h2>
+    <h3 class="text-sm text-center text-muted-foreground">
+      ({netPoints() ? "net points" : "total points"})
+    </h3>
+  </div>
   <div class="flex justify-center items-center gap-2">
     <Badge
       variant="outline"

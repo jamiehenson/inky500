@@ -14,21 +14,27 @@
   };
 
   let { data, trackResults }: Props = $props();
-  const { season, track, setShowType, setChartType } = getStandingsContext();
+  const { season, track, setShowType, setChartType, netPoints } =
+    getStandingsContext();
 </script>
 
 <div
   id="constructors"
   class="flex flex-col gap-4 col-span-2 lg:col-span-1 border rounded-lg"
 >
-  <h2 class="text-2xl font-bold">Constructors' Standings</h2>
+  <div>
+    <h2 class="text-2xl font-bold">Constructors' Standings</h2>
+    <h3 class="text-sm text-center text-muted-foreground">
+      ({netPoints() ? "net points" : "total points"})
+    </h3>
+  </div>
   <div class="flex justify-center items-center gap-2">
     <Badge
       variant="outline"
       class="cursor-pointer"
       onclick={() => {
         setShowType("chart");
-        setChartType("drivers");
+        setChartType("constructors");
         document
           .getElementById("progression")
           ?.scrollIntoView({ behavior: "smooth" });
@@ -41,7 +47,7 @@
       class="cursor-pointer"
       onclick={() => {
         setShowType("table");
-        setChartType("drivers");
+        setChartType("constructors");
         document
           .getElementById("progression")
           ?.scrollIntoView({ behavior: "smooth" });

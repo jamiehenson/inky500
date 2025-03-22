@@ -29,11 +29,13 @@
   let chartType = $state<ChartType>("drivers");
   let showType = $state<ShowType>("chart");
   let sortType = $state<SortType>("points");
+  let netPoints = $state(false);
 
   setStandingsContext({
     season,
     track,
-    netPoints: false,
+    netPoints: () => netPoints,
+    setNetPoints: (value: boolean) => (netPoints = value),
     showType: () => showType,
     setShowType: (value: ShowType) => (showType = value),
     sortType: () => sortType,

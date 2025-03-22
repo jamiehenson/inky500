@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getContext, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { constructorsStandings, tracks } from "@/data";
-  import { type SeasonName, type TrackName } from "@/types";
+  import { type TrackName } from "@/types";
   import Chart, { type ChartConfiguration } from "chart.js/auto";
   import { constructors, drivers, seasonRacers, standings } from "@/data";
   import type { ConstructorName, RacerName } from "@/types";
@@ -27,6 +27,10 @@
     setSortType,
   } = getStandingsContext();
 
+  const chart = $derived(chartType());
+  const sort = $derived(sortType());
+  const show = $derived(showType());
+
   const seasonStandingKeys = Object.keys(standings[season] ?? {});
 
   const config: ChartConfiguration<"line", number[], string> = {
@@ -39,105 +43,101 @@
     },
   };
 
-  function updateChartData(chartType: ChartType, sortType: SortType) {
-    chartType = chartType;
-    sortType = sortType;
+  // Derive data based on current state
+  const driverData = Object.keys(seasonRacers[season])
+    .map((driver) => ({
+      driver,
+      standings: Object.values(standings[season] ?? {})
+        .slice(0, seasonStandingKeys.indexOf(track) + 1)
+        .map((standing) => standing[driver as RacerName]?.points),
+      rankings: Object.values(standings[season] ?? {})
+        .slice(0, seasonStandingKeys.indexOf(track) + 1)
+        .map((standing) => {
+          const rank = Object.keys(standing).indexOf(driver) + 1;
+          return rank === 0 ? -1 : rank;
+        }),
+    }))
+    .sort((a, b) =>
+      drivers[a.driver as RacerName].name.localeCompare(
+        drivers[b.driver as RacerName].name,
+      ),
+    );
 
-    if (chartInstance) {
-      const seasonStandingValues = Object.values(standings[season] ?? {});
-
-      const driverData = Object.keys(seasonRacers[season])
-        .map((driver) => ({
-          driver,
-          standings: seasonStandingValues
-            .slice(0, seasonStandingKeys.indexOf(track) + 1)
-            .map((standing) => standing[driver as RacerName]?.points),
-          rankings: seasonStandingValues
-            .slice(0, seasonStandingKeys.indexOf(track) + 1)
-            .map((standing) => {
-              const rank = Object.keys(standing).indexOf(driver) + 1;
-              return rank === 0 ? -1 : rank;
-            }),
-        }))
-        .sort((a, b) =>
-          drivers[a.driver as RacerName].name.localeCompare(
-            drivers[b.driver as RacerName].name,
-          ),
-        );
-
-      const constructorData =
-        Object.keys(constructorsStandings[season]).length > 0
-          ? Array.from(
-              new Set(
-                Object.values(seasonRacers[season]).flatMap((racer) => [
-                  racer.car,
-                  ...Object.values(racer.otherTeams ?? {}).map(
-                    (otherTeam) => otherTeam.car,
-                  ),
-                ]),
+  const constructorData =
+    Object.keys(constructorsStandings[season]).length > 0
+      ? Array.from(
+          new Set(
+            Object.values(seasonRacers[season]).flatMap((racer) => [
+              racer.car,
+              ...Object.values(racer.otherTeams ?? {}).map(
+                (otherTeam) => otherTeam.car,
               ),
-            )
-              .map((constructor) => ({
-                constructor,
-                standings: Object.values(constructorsStandings[season])
-                  .slice(0, seasonStandingKeys.indexOf(track) + 1)
-                  .map(
-                    (standing) => standing[constructor]?.normalisedPoints ?? 0,
-                  ),
-                rankings: Object.values(constructorsStandings[season])
-                  .slice(0, seasonStandingKeys.indexOf(track) + 1)
-                  .map((standing) => {
-                    const rank = Object.keys(standing).indexOf(constructor) + 1;
-                    return rank === 0 ? -1 : rank;
-                  }),
-              }))
-              .sort((a, b) =>
-                constructors[
-                  a.constructor as ConstructorName
-                ].name.localeCompare(
-                  constructors[b.constructor as ConstructorName].name,
-                ),
-              )
-          : [];
+            ]),
+          ),
+        )
+          .map((constructor) => ({
+            constructor,
+            standings: Object.values(constructorsStandings[season])
+              .slice(0, seasonStandingKeys.indexOf(track) + 1)
+              .map((standing) => standing[constructor]?.normalisedPoints ?? 0),
+            rankings: Object.values(constructorsStandings[season])
+              .slice(0, seasonStandingKeys.indexOf(track) + 1)
+              .map((standing) => {
+                const rank = Object.keys(standing).indexOf(constructor) + 1;
+                return rank === 0 ? -1 : rank;
+              }),
+          }))
+          .sort((a, b) =>
+            constructors[a.constructor as ConstructorName].name.localeCompare(
+              constructors[b.constructor as ConstructorName].name,
+            ),
+          )
+      : [];
 
-      const data = chartType === "drivers" ? driverData : constructorData;
-      chartInstance.data.datasets = data.map((item) => ({
-        label:
-          chartType === "drivers" && "driver" in item
-            ? drivers[item.driver as RacerName].name
-            : constructors[item.constructor as ConstructorName].name,
-        data: sortType === "points" ? item.standings : item.rankings,
-        borderWidth: 2,
-        backgroundColor:
-          chartType === "drivers"
-            ? undefined
-            : constructors[item.constructor as ConstructorName].teamColor,
-        borderColor:
-          chartType === "drivers"
-            ? undefined
-            : constructors[item.constructor as ConstructorName].teamColor,
-      }));
-
-      if (chartInstance.options.scales) {
-        chartInstance.options.scales.y = {
-          ...chartInstance.options.scales.y,
-          min: sortType === "points" ? 0 : 1,
-          reverse: sortType === "rank",
-        };
-      }
-
-      if (chartInstance.options.plugins) {
-        chartInstance.options.plugins.tooltip = {
-          ...chartInstance.options.plugins.tooltip,
-          itemSort: (a: any, b: any) => {
-            return sortType === "points" ? b.raw - a.raw : a.raw - b.raw;
-          },
-        };
-      }
-
-      chartInstance.update();
+  // Effect to update chart when data changes
+  $effect(() => {
+    if (!chartInstance) {
+      chartInstance = new Chart(standingsCtx, config);
     }
-  }
+
+    const data = chart === "drivers" ? driverData : constructorData;
+
+    chartInstance.data.datasets = data.map((item) => ({
+      label:
+        chart === "drivers" && "driver" in item
+          ? drivers[item.driver as RacerName].name
+          : constructors[item.constructor as ConstructorName].name,
+      data: sort === "points" ? item.standings : item.rankings,
+      borderWidth: 2,
+      backgroundColor:
+        chart === "drivers"
+          ? undefined
+          : constructors[item.constructor as ConstructorName].teamColor,
+      borderColor:
+        chart === "drivers"
+          ? undefined
+          : constructors[item.constructor as ConstructorName].teamColor,
+    }));
+
+    if (chartInstance.options.scales) {
+      chartInstance.options.scales.y = {
+        ...chartInstance.options.scales.y,
+        min: sort === "points" ? 0 : 1,
+        reverse: sort === "rank",
+      };
+    }
+
+    if (chartInstance.options.plugins) {
+      chartInstance.options.plugins.tooltip = {
+        ...chartInstance.options.plugins.tooltip,
+        itemSort: (a: any, b: any) => {
+          return sort === "points" ? b.raw - a.raw : a.raw - b.raw;
+        },
+      };
+    }
+
+    chartInstance.update();
+  });
 
   function toggleAllDatasets(show: boolean) {
     if (chartInstance) {
@@ -156,13 +156,6 @@
       chartInstance.update();
     }
   }
-
-  onMount(() => {
-    if (standingsCtx) {
-      chartInstance = new Chart(standingsCtx, config);
-      updateChartData(chartType(), sortType());
-    }
-  });
 </script>
 
 <div
@@ -187,9 +180,6 @@
             value={chartType()}
             onValueChange={(value) => {
               setChartType(value as ChartType);
-              if (showType() === "chart") {
-                updateChartData(chartType(), sortType());
-              }
             }}
           >
             <Select.Trigger class="w-36">{chartType()}</Select.Trigger>
@@ -208,9 +198,6 @@
             value={showType()}
             onValueChange={(value) => {
               setShowType(value as ShowType);
-              if (showType() === "chart") {
-                updateChartData(chartType(), sortType());
-              }
             }}
           >
             <Select.Trigger class="w-36">{showType()}</Select.Trigger>
@@ -227,9 +214,6 @@
             value={sortType()}
             onValueChange={(value) => {
               setSortType(value as SortType);
-              if (showType() === "chart") {
-                updateChartData(chartType(), sortType());
-              }
             }}
             disabled={showType() === "table"}
           >
