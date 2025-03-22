@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { getContext, onMount } from "svelte";
   import { constructorsStandings, tracks } from "@/data";
   import { type SeasonName, type TrackName } from "@/types";
   import Chart, { type ChartConfiguration } from "chart.js/auto";
@@ -11,25 +11,21 @@
   import { commonConfig } from "./utils";
   import { cn } from "@/lib/utils";
   import ResultsTable from "./ResultsTable.svelte";
-
-  type Props = {
-    season: SeasonName;
-    track: TrackName;
-  };
-
-  export type ChartType = "drivers" | "constructors";
-
-  type ShowType = "chart" | "table";
-
-  type SortType = "points" | "rank";
-
-  const { season, track }: Props = $props();
+  import type { ChartType, SortType, ShowType } from "./types";
+  import { getStandingsContext } from "./context";
 
   let standingsCtx: HTMLCanvasElement;
   let chartInstance: Chart;
-  let chartType: ChartType = $state("constructors");
-  let sortType: SortType = $state("points");
-  let showType: ShowType = $state("table");
+  let {
+    chartType,
+    sortType,
+    showType,
+    season,
+    track,
+    setShowType,
+    setChartType,
+    setSortType,
+  } = getStandingsContext();
 
   const seasonStandingKeys = Object.keys(standings[season] ?? {});
 
@@ -164,7 +160,7 @@
   onMount(() => {
     if (standingsCtx) {
       chartInstance = new Chart(standingsCtx, config);
-      updateChartData("drivers", "points");
+      updateChartData(chartType(), sortType());
     }
   });
 </script>
@@ -188,15 +184,15 @@
           <div>Show me</div>
           <Select.Root
             type="single"
-            value={chartType}
+            value={chartType()}
             onValueChange={(value) => {
-              chartType = value as ChartType;
-              if (showType === "chart") {
-                updateChartData(chartType, sortType);
+              setChartType(value as ChartType);
+              if (showType() === "chart") {
+                updateChartData(chartType(), sortType());
               }
             }}
           >
-            <Select.Trigger class="w-36">{chartType}</Select.Trigger>
+            <Select.Trigger class="w-36">{chartType()}</Select.Trigger>
             <Select.Content>
               <Select.Item value="drivers">drivers</Select.Item>
               {#if ["s4", "s5"].includes(season)}
@@ -209,15 +205,15 @@
           <div>as a</div>
           <Select.Root
             type="single"
-            value={showType}
+            value={showType()}
             onValueChange={(value) => {
-              showType = value as ShowType;
-              if (showType === "chart") {
-                updateChartData(chartType, sortType);
+              setShowType(value as ShowType);
+              if (showType() === "chart") {
+                updateChartData(chartType(), sortType());
               }
             }}
           >
-            <Select.Trigger class="w-36">{showType}</Select.Trigger>
+            <Select.Trigger class="w-36">{showType()}</Select.Trigger>
             <Select.Content>
               <Select.Item value="chart">chart</Select.Item>
               <Select.Item value="table">table</Select.Item>
@@ -228,17 +224,17 @@
           <div>and sort by</div>
           <Select.Root
             type="single"
-            value={sortType}
+            value={sortType()}
             onValueChange={(value) => {
-              sortType = value as SortType;
-              if (showType === "chart") {
-                updateChartData(chartType, sortType);
+              setSortType(value as SortType);
+              if (showType() === "chart") {
+                updateChartData(chartType(), sortType());
               }
             }}
-            disabled={showType === "table"}
+            disabled={showType() === "table"}
           >
             <Select.Trigger class="w-36"
-              >{showType === "chart" ? sortType : "n/a"}</Select.Trigger
+              >{showType() === "chart" ? sortType() : "n/a"}</Select.Trigger
             >
             <Select.Content>
               <Select.Item value="points">points</Select.Item>
@@ -249,15 +245,15 @@
       </div>
     </Card.Header>
     <Card.Content>
-      <div class={cn("h-[600px]", showType === "chart" ? "flex" : "hidden")}>
+      <div class={cn("h-[600px]", showType() === "chart" ? "flex" : "hidden")}>
         <canvas bind:this={standingsCtx} id="standings-chart"></canvas>
       </div>
-      {#if showType === "table"}
-        <ResultsTable {season} {track} {chartType} />
+      {#if showType() === "table"}
+        <ResultsTable />
       {/if}
     </Card.Content>
     <Card.Footer class="flex justify-center gap-3 p-3">
-      {#if showType === "chart"}
+      {#if showType() === "chart"}
         <Button onclick={() => toggleAllDatasets(true)} variant="outline"
           >Show All</Button
         >

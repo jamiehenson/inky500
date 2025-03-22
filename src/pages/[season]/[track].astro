@@ -15,10 +15,9 @@ import { carImages, withBase } from "@/utils";
 import Button from "@/components/ui/Button.astro";
 import type { ConstructorResults } from "@/data/constructorsStandings";
 import NavRow from "@/components/NavRow.svelte";
-import Results from "@/components/Results.svelte";
+import RaceResults from "@/components/RaceResults.svelte";
 import Standings from "@/components/Standings.svelte";
 import Progression from "@/components/Progression.svelte";
-import ResultsTable from "@/components/ResultsTable.svelte";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
@@ -138,7 +137,7 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
     <NavRow client:load />
     {
       trackResults && (
-        <Results
+        <RaceResults
           {season}
           {track}
           data={trackResults}
@@ -154,6 +153,5 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
       trackConstructors={trackConstructors}
       trackResults={trackResults}
     />
-    <Progression {season} {track} client:load />
   </div>
 </Layout>

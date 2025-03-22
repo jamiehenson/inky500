@@ -14,17 +14,12 @@
     type RacerName,
     type ConstructorName,
   } from "@/types";
-  import { type ChartType } from "./Progression.svelte";
-  import * as Table from "./ui/table";
-  import { Badge } from "./ui/badge";
+  import * as Table from "@/components/ui/table";
+  import { Badge } from "@/components/ui/badge";
   import { cn } from "@/lib/utils";
   import { carImages } from "@/utils";
-
-  type Props = {
-    season: SeasonName;
-    track: TrackName;
-    chartType: ChartType;
-  };
+  import type { ChartType } from "@/components/types";
+  import { getStandingsContext } from "./context";
 
   type ConstructorResults = Record<
     TrackName,
@@ -33,7 +28,7 @@
 
   type ConstructorTotals = Record<TrackName, Record<ConstructorName, number>>;
 
-  const { season, track, chartType }: Props = $props();
+  const { season, track, chartType } = getStandingsContext();
 
   const cellColor = (pos: number) => {
     if (pos === 0) return "";
@@ -97,7 +92,7 @@
     <Table.Row>
       <Table.Head>Pos.</Table.Head>
       <Table.Head
-        >{chartType === "drivers" ? "Driver" : "Constructor"}</Table.Head
+        >{chartType() === "drivers" ? "Driver" : "Constructor"}</Table.Head
       >
       {#each Object.entries(results[season] ?? {}) as [track, result]}
         {@const trackData = tracks[track as TrackName]}
@@ -113,7 +108,7 @@
     </Table.Row>
   </Table.Header>
   <Table.Body>
-    {#if chartType === "drivers"}
+    {#if chartType() === "drivers"}
       {#each Object.keys(standings[season][track] ?? {}) as driver, index}
         <Table.Row>
           <Table.Cell>
@@ -140,7 +135,7 @@
           </Table.Cell>
         </Table.Row>
       {/each}
-    {:else if chartType === "constructors"}
+    {:else if chartType() === "constructors"}
       {#each Object.keys(constructorsStandings[season][track] ?? {}) as constructor, index}
         <Table.Row>
           <Table.Cell>

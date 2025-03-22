@@ -6,8 +6,9 @@
   import type { StandingResult } from "@/data/standings";
   import type { RacerResult } from "@/data/results";
   import type { ConstructorResults } from "@/data/constructorsStandings";
-  import { FormSwitch } from "./ui/form-switch";
-  import { Button } from "./ui/button";
+  import type { ChartType, ShowType, SortType } from "@/components/types";
+  import { setStandingsContext } from "@/components/context";
+  import Switches from "./Switches.svelte";
 
   type Props = {
     season: SeasonName;
@@ -25,23 +26,31 @@
     trackResults,
   }: Props = $props();
 
-  let netPoints = $state(false);
+  let chartType = $state<ChartType>("drivers");
+  let showType = $state<ShowType>("chart");
+  let sortType = $state<SortType>("points");
+
+  setStandingsContext({
+    season,
+    track,
+    netPoints: false,
+    showType: () => showType,
+    setShowType: (value: ShowType) => (showType = value),
+    sortType: () => sortType,
+    setSortType: (value: SortType) => (sortType = value),
+    chartType: () => chartType,
+    setChartType: (value: ChartType) => (chartType = value),
+  });
 </script>
 
-<FormSwitch
-  label="Show net points"
-  description="This championship uses net points, which means the worst two results will be dropped."
-  checked={netPoints}
-  onCheck={(value) => (netPoints = value)}
-/>
+<Switches />
 {#if trackStandings}
-  <DriversStandings {season} {track} data={trackStandings} />
+  <DriversStandings data={trackStandings} />
 {/if}
 {#if trackConstructors}
   <ConstructorsStandings
-    {season}
-    {track}
     data={trackConstructors}
     trackResults={trackResults?.results ?? {}}
   />
 {/if}
+<Progression />

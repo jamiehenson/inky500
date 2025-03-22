@@ -6,14 +6,13 @@
   import * as Table from "@/components/ui/table";
   import { Badge } from "@/components/ui/badge";
   import DeltaMarker from "@/components/ui/DeltaMarker.svelte";
-
+  import { getStandingsContext } from "@/components/context";
   type Props = {
     data: Record<string, StandingResult>;
-    season: SeasonName;
-    track: TrackName;
   };
 
-  let { data, season, track }: Props = $props();
+  let { data }: Props = $props();
+  let { season, track, setShowType, setChartType } = getStandingsContext();
 </script>
 
 <div
@@ -21,6 +20,34 @@
   class="flex flex-col gap-4 col-span-2 lg:col-span-1 border rounded-lg"
 >
   <h2 class="text-2xl font-bold">Drivers' Standings</h2>
+  <div class="flex justify-center items-center gap-2">
+    <Badge
+      variant="outline"
+      class="cursor-pointer"
+      onclick={() => {
+        setShowType("chart");
+        setChartType("drivers");
+        document
+          .getElementById("progression")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }}
+    >
+      Go to progression chart 📈
+    </Badge>
+    <Badge
+      variant="outline"
+      class="cursor-pointer"
+      onclick={() => {
+        setShowType("table");
+        setChartType("drivers");
+        document
+          .getElementById("progression")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }}
+    >
+      Go to overview table 🥇
+    </Badge>
+  </div>
   <Table.Root>
     <Table.Body>
       {#each Object.entries(data) as [key, result], index}
