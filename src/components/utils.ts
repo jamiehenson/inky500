@@ -1,7 +1,5 @@
 import type { ChartConfiguration } from "chart.js/auto";
 
-export type ChartType = "drivers" | "constructors";
-
 export const chartConfig = {
   drivers: {
     label: "Drivers",
@@ -68,26 +66,3 @@ export const commonConfig: ChartConfiguration<
     datasets: [],
   },
 };
-
-export const sections = [
-  {
-    id: "results",
-    label: "Race Results 🏎️",
-  },
-  {
-    id: "drivers",
-    label: "Driver's Standings 🏆",
-  },
-  {
-    id: "constructors",
-    label: "Constructors' Standings ⚙️",
-  },
-  {
-    id: "progression",
-    label: "Progression 📈",
-  },
-  {
-    id: "table",
-    label: "Table 🏅",
-  },
-];

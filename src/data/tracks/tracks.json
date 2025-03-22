@@ -2,131 +2,157 @@
   "brands-hatch": {
     "name": "Brands Hatch",
     "location": "West Kingsdown, United Kingdom",
-    "countryCode": "gb"
+    "countryCode": "gb",
+    "abbreviation": "BRH"
   },
   "monza": {
     "name": "Monza",
     "location": "Monza, Italy",
-    "countryCode": "it"
+    "countryCode": "it",
+    "abbreviation": "MON"
   },
   "barcelona": {
     "name": "Barcelona",
     "location": "Montmeló, Spain",
-    "countryCode": "es"
+    "countryCode": "es",
+    "abbreviation": "BAR"
   },
   "zolder": {
     "name": "Zolder",
     "location": "Heusden-Zolder, Belgium",
-    "countryCode": "be"
+    "countryCode": "be",
+    "abbreviation": "ZOL"
   },
   "silverstone": {
     "name": "Silverstone",
     "location": "Silverstone, United Kingdom",
-    "countryCode": "gb"
+    "countryCode": "gb",
+    "abbreviation": "SIL"
   },
   "zandvoort": {
     "name": "Zandvoort",
     "location": "Zandvoort, Netherlands",
-    "countryCode": "nl"
+    "countryCode": "nl",
+    "abbreviation": "ZAN"
   },
   "misano": {
     "name": "Misano",
     "location": "Misano Adriatico, Italy",
-    "countryCode": "it"
+    "countryCode": "it",
+    "abbreviation": "MIS"
   },
   "hungaroring": {
     "name": "Hungaroring",
     "location": "Mogyoród, Hungary",
-    "countryCode": "hu"
+    "countryCode": "hu",
+    "abbreviation": "HUN"
   },
   "nurburgring": {
     "name": "Nürburgring",
     "location": "Nürburg, Germany",
-    "countryCode": "de"
+    "countryCode": "de",
+    "abbreviation": "NUR"
   },
   "spa": {
     "name": "Spa Francorchamps",
     "location": "Stavelot, Belgium",
-    "countryCode": "be"
+    "countryCode": "be",
+    "abbreviation": "SPA"
   },
   "algarve": {
     "name": "Algarve",
     "location": "Portimão, Portugal",
-    "countryCode": "pt"
+    "countryCode": "pt",
+    "abbreviation": "ALG"
   },
   "donington": {
     "name": "Donington",
     "location": "Castle Donington, United Kingdom",
-    "countryCode": "gb"
+    "countryCode": "gb",
+    "abbreviation": "DON"
   },
   "hockenheim": {
     "name": "Hockenheim",
     "location": "Hockenheim, Germany",
-    "countryCode": "de"
+    "countryCode": "de",
+    "abbreviation": "HOC"
   },
   "knockhill": {
     "name": "Knockhill",
     "location": "Dunfermline, Scotland",
-    "countryCode": "gb-sct"
+    "countryCode": "gb-sct",
+    "abbreviation": "KNO"
   },
   "laguna-seca": {
     "name": "Laguna Seca",
     "location": "Monterey, United States",
-    "countryCode": "us"
+    "countryCode": "us",
+    "abbreviation": "LAG"
   },
   "oulton-park": {
     "name": "Oulton Park",
     "location": "Little Budworth, United Kingdom",
-    "countryCode": "gb"
+    "countryCode": "gb",
+    "abbreviation": "OUL"
   },
   "snetterton": {
     "name": "Snetterton",
     "location": "Norfolk, United Kingdom",
-    "countryCode": "gb"
+    "countryCode": "gb",
+    "abbreviation": "SNE"
   },
   "paul-ricard": {
     "name": "Paul Ricard",
     "location": "Le Castellet, France",
-    "countryCode": "fr"
+    "countryCode": "fr",
+    "abbreviation": "PAU"
   },
   "suzuka": {
     "name": "Suzuka",
     "location": "Suzuka, Japan",
-    "countryCode": "jp"
+    "countryCode": "jp",
+    "abbreviation": "SUZ"
   },
   "mt-panorama": {
     "name": "Mt. Panorama",
     "location": "Bathurst, Australia",
-    "countryCode": "au"
+    "countryCode": "au",
+    "abbreviation": "MTP"
   },
   "cota": {
     "name": "COTA",
     "location": "Austin, United States",
-    "countryCode": "us"
+    "countryCode": "us",
+    "abbreviation": "COT"
   },
   "red-bull-ring": {
     "name": "Red Bull Ring",
     "location": "Spielberg, Austria",
-    "countryCode": "at"
+    "countryCode": "at",
+    "abbreviation": "RBR"
   },
   "kyalami": {
     "name": "Kyalami",
     "location": "Midrand, South Africa",
-    "countryCode": "za"
+    "countryCode": "za",
+    "abbreviation": "KYA"
   },
   "imola": {
     "name": "Imola",
     "location": "Imola, Italy",
-    "countryCode": "it"
+    "countryCode": "it",
+    "abbreviation": "IMO"
   },
   "indianapolis": {
     "name": "Indianapolis",
     "location": "Indianapolis, United States",
-    "countryCode": "us"
+    "countryCode": "us",
+    "abbreviation": "IND"
   },
   "watkins-glen": {
     "name": "Watkins Glen",
     "location": "Watkins Glen, United States",
-    "countryCode": "us"
+    "countryCode": "us",
+    "abbreviation": "WAT"
   }
 }

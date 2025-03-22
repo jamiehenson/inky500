@@ -5,6 +5,7 @@ type Track = {
   name: string;
   location: string;
   countryCode: string;
+  abbreviation: string;
 };
 
 type Tracks = Record<TrackName, Track>;

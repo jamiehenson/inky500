@@ -1,6 +1,24 @@
 <script lang="ts">
-  import { sections } from "./utils";
   import { Button } from "./ui/button";
+
+  export const sections = [
+    {
+      id: "results",
+      label: "Race Results 🏎️",
+    },
+    {
+      id: "drivers",
+      label: "Driver's Standings 🏆",
+    },
+    {
+      id: "constructors",
+      label: "Constructors' Standings ⚙️",
+    },
+    {
+      id: "progression",
+      label: "Progression 📈",
+    },
+  ];
 </script>
 
 <div

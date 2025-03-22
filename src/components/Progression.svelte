@@ -7,26 +7,31 @@
   import type { ConstructorName, RacerName } from "@/types";
   import * as Card from "@/components/ui/card";
   import { Button } from "@/components/ui/button";
-  import { chartConfig, commonConfig, type ChartType } from "./utils";
+  import * as Select from "@/components/ui/select";
+  import { commonConfig } from "./utils";
+  import { cn } from "@/lib/utils";
+  import ResultsTable from "./ResultsTable.svelte";
 
   type Props = {
     season: SeasonName;
     track: TrackName;
   };
 
+  export type ChartType = "drivers" | "constructors";
+
+  type ShowType = "chart" | "table";
+
+  type SortType = "points" | "rank";
+
   const { season, track }: Props = $props();
 
   let standingsCtx: HTMLCanvasElement;
   let chartInstance: Chart;
-  let activeChartType: ChartType = $state("drivers");
-  let usePoints = $state(true);
+  let chartType: ChartType = $state("constructors");
+  let sortType: SortType = $state("points");
+  let showType: ShowType = $state("table");
 
   const seasonStandingKeys = Object.keys(standings[season] ?? {});
-  const seasonStandingValues = Object.values(standings[season] ?? {});
-
-  const chartButtons: ChartType[] = ["s4", "s5"].includes(season)
-    ? ["drivers", "constructors"]
-    : ["drivers"];
 
   const config: ChartConfiguration<"line", number[], string> = {
     ...commonConfig,
@@ -38,12 +43,11 @@
     },
   };
 
-  function updateChartData(type: "drivers" | "constructors", points: boolean) {
-    activeChartType = type;
-    usePoints = points;
+  function updateChartData(chartType: ChartType, sortType: SortType) {
+    chartType = chartType;
+    sortType = sortType;
 
     if (chartInstance) {
-      const seasonStandingKeys = Object.keys(standings[season] ?? {});
       const seasonStandingValues = Object.values(standings[season] ?? {});
 
       const driverData = Object.keys(seasonRacers[season])
@@ -100,20 +104,20 @@
               )
           : [];
 
-      const data = type === "drivers" ? driverData : constructorData;
+      const data = chartType === "drivers" ? driverData : constructorData;
       chartInstance.data.datasets = data.map((item) => ({
         label:
-          type === "drivers" && "driver" in item
+          chartType === "drivers" && "driver" in item
             ? drivers[item.driver as RacerName].name
             : constructors[item.constructor as ConstructorName].name,
-        data: points ? item.standings : item.rankings,
+        data: sortType === "points" ? item.standings : item.rankings,
         borderWidth: 2,
         backgroundColor:
-          type === "drivers"
+          chartType === "drivers"
             ? undefined
             : constructors[item.constructor as ConstructorName].teamColor,
         borderColor:
-          type === "drivers"
+          chartType === "drivers"
             ? undefined
             : constructors[item.constructor as ConstructorName].teamColor,
       }));
@@ -121,8 +125,8 @@
       if (chartInstance.options.scales) {
         chartInstance.options.scales.y = {
           ...chartInstance.options.scales.y,
-          min: points ? 0 : 1,
-          reverse: !points,
+          min: sortType === "points" ? 0 : 1,
+          reverse: sortType === "rank",
         };
       }
 
@@ -130,7 +134,7 @@
         chartInstance.options.plugins.tooltip = {
           ...chartInstance.options.plugins.tooltip,
           itemSort: (a: any, b: any) => {
-            return points ? b.raw - a.raw : a.raw - b.raw;
+            return sortType === "points" ? b.raw - a.raw : a.raw - b.raw;
           },
         };
       }
@@ -160,64 +164,107 @@
   onMount(() => {
     if (standingsCtx) {
       chartInstance = new Chart(standingsCtx, config);
-      updateChartData("drivers", true);
+      updateChartData("drivers", "points");
     }
   });
 </script>
 
-<div id="progression" class="col-span-2">
+<div
+  id="progression"
+  class="col-span-2 max-w-[calc(100vw-1.5rem)] md:max-w-none"
+>
   <Card.Root>
     <Card.Header
-      class="flex flex-col items-stretch space-y-0 border-b p-0 md:flex-row"
+      class="flex flex-col items-stretch space-y-0 border-b p-0 md:flex-row px-6 py-5 sm:py-6"
     >
-      <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
+      <div class="flex flex-1 flex-col justify-center gap-1">
         <Card.Title>Progression</Card.Title>
         <Card.Description>
           Showing progression as of {tracks[track].name}
         </Card.Description>
       </div>
-      <div class="flex flex-col z-10 mt-4 sm:mt-0 p-2 gap-2 justify-center">
-        <Button
-          variant="outline"
-          onclick={() => updateChartData(activeChartType, true)}
-          >Sort by Points</Button
-        >
-        <Button
-          variant="outline"
-          onclick={() => updateChartData(activeChartType, false)}
-          >Sort by Rank</Button
-        >
-      </div>
-      <div class="flex">
-        {#each chartButtons as chart}
-          <button
-            onclick={() => updateChartData(chart, usePoints)}
-            data-active={`${activeChartType === chart}`}
-            class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:last:rounded-tr-lg sm:border-l md:border-t-0 sm:px-8 sm:py-6 transition-colors data-[active=true]:bg-zinc-100 dark:data-[active=true]:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+      <div class="flex items-center gap-4 !mt-3 md:!mt-0">
+        <div class="flex flex-col gap-2">
+          <div>Show me</div>
+          <Select.Root
+            type="single"
+            value={chartType}
+            onValueChange={(value) => {
+              chartType = value as ChartType;
+              if (showType === "chart") {
+                updateChartData(chartType, sortType);
+              }
+            }}
           >
-            <span class="text-lg text-muted-foreground">
-              {chartConfig[chart].label}
-            </span>
-          </button>
-        {/each}
+            <Select.Trigger class="w-36">{chartType}</Select.Trigger>
+            <Select.Content>
+              <Select.Item value="drivers">drivers</Select.Item>
+              {#if ["s4", "s5"].includes(season)}
+                <Select.Item value="constructors">constructors</Select.Item>
+              {/if}
+            </Select.Content>
+          </Select.Root>
+        </div>
+        <div class="flex flex-col gap-2">
+          <div>as a</div>
+          <Select.Root
+            type="single"
+            value={showType}
+            onValueChange={(value) => {
+              showType = value as ShowType;
+              if (showType === "chart") {
+                updateChartData(chartType, sortType);
+              }
+            }}
+          >
+            <Select.Trigger class="w-36">{showType}</Select.Trigger>
+            <Select.Content>
+              <Select.Item value="chart">chart</Select.Item>
+              <Select.Item value="table">table</Select.Item>
+            </Select.Content>
+          </Select.Root>
+        </div>
+        <div class="flex flex-col gap-2">
+          <div>and sort by</div>
+          <Select.Root
+            type="single"
+            value={sortType}
+            onValueChange={(value) => {
+              sortType = value as SortType;
+              if (showType === "chart") {
+                updateChartData(chartType, sortType);
+              }
+            }}
+            disabled={showType === "table"}
+          >
+            <Select.Trigger class="w-36"
+              >{showType === "chart" ? sortType : "n/a"}</Select.Trigger
+            >
+            <Select.Content>
+              <Select.Item value="points">points</Select.Item>
+              <Select.Item value="rank">rank</Select.Item>
+            </Select.Content>
+          </Select.Root>
+        </div>
       </div>
     </Card.Header>
-    <Card.Content
-      class="relative px-2 sm:p-6 sm:pb-0 flex items-start justify-center h-[600px]"
-    >
-      <canvas
-        bind:this={standingsCtx}
-        id="standings-chart"
-        class="absolute inset-x-0 inset-y-6 sm:inset-6 w-full transition-opacity duration-500 ease-in-out"
-      ></canvas>
+    <Card.Content>
+      <div class={cn("h-[600px]", showType === "chart" ? "flex" : "hidden")}>
+        <canvas bind:this={standingsCtx} id="standings-chart"></canvas>
+      </div>
+      {#if showType === "table"}
+        <ResultsTable {season} {track} {chartType} />
+      {/if}
     </Card.Content>
-    <div class="flex justify-center gap-3 p-3">
-      <Button onclick={() => toggleAllDatasets(true)} variant="outline"
-        >Show All</Button
-      >
-      <Button onclick={() => toggleAllDatasets(false)} variant="outline"
-        >Show None</Button
-      >
-    </div>
+    <Card.Footer class="flex justify-center gap-3 p-3">
+      {#if showType === "chart"}
+        <Button onclick={() => toggleAllDatasets(true)} variant="outline"
+          >Show All</Button
+        >
+        <Button onclick={() => toggleAllDatasets(false)} variant="outline"
+          >Show None</Button
+        >
+      {/if}
+    </Card.Footer>
   </Card.Root>
 </div>
