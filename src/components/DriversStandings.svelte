@@ -14,6 +14,16 @@
   let { data }: Props = $props();
   let { season, track, setShowType, setChartType, netPoints } =
     getStandingsContext();
+
+  const useNetPoints = $derived(netPoints());
+
+  const sortedData = $derived(
+    Object.entries(data).sort(([, a], [, b]) => {
+      return useNetPoints
+        ? (b.netPoints ?? 0) - (a.netPoints ?? 0)
+        : (b.points ?? 0) - (a.points ?? 0);
+    }),
+  );
 </script>
 
 <div
@@ -23,7 +33,7 @@
   <div>
     <h2 class="text-2xl font-bold">Drivers' Standings</h2>
     <h3 class="text-sm text-center text-muted-foreground">
-      ({netPoints() ? "net points" : "total points"})
+      ({useNetPoints ? "net points" : "total points"})
     </h3>
   </div>
   <div class="flex justify-center items-center gap-2">
@@ -56,14 +66,13 @@
   </div>
   <Table.Root>
     <Table.Body>
-      {#each Object.entries(data) as [key, result], index}
+      {#each sortedData as [key, result], index}
         {@const seasonDriver = seasonRacers[season][key as RacerName]}
         {@const driver = drivers[key as RacerName]}
 
         {#if driver && seasonDriver}
           {@const currentTeam =
             seasonDriver.otherTeams?.[track as TrackName] ?? seasonDriver}
-
           <Table.Row>
             <Table.Cell>
               <div class="flex items-center">
@@ -73,7 +82,11 @@
                 >
                   {index + 1}
                 </Badge>
-                <DeltaMarker delta={result.delta} />
+                <DeltaMarker
+                  delta={useNetPoints
+                    ? (result?.netDelta ?? 0)
+                    : (result?.delta ?? 0)}
+                />
               </div>
             </Table.Cell>
             <Table.Cell>{driver.name}</Table.Cell>
@@ -88,13 +101,13 @@
               </div>
             </Table.Cell>
             <Table.Cell class="font-bold text-right">
-              <span class="font-bold">{(result as StandingResult).points}</span
-              >{" "}
-              {#if Object.keys(results).indexOf(track) >= Object.keys(results).length - 3 && (result as StandingResult).netPoints}
-                <span class="font-light text-xs"
-                  >({(result as StandingResult).netPoints})
-                </span>
-              {/if}
+              <span class="font-bold">
+                {#if useNetPoints}
+                  {(result as StandingResult).netPoints}
+                {:else}
+                  {(result as StandingResult).points}
+                {/if}
+              </span>
             </Table.Cell>
           </Table.Row>
         {/if}

@@ -16,6 +16,15 @@
   let { data, trackResults }: Props = $props();
   const { season, track, setShowType, setChartType, netPoints } =
     getStandingsContext();
+
+  const useNetPoints = $derived(netPoints());
+  const sortedData = $derived(
+    Object.entries(data).sort(([, a], [, b]) => {
+      return useNetPoints
+        ? (b.netNormalisedPoints ?? 0) - (a.netNormalisedPoints ?? 0)
+        : (b.normalisedPoints ?? 0) - (a.normalisedPoints ?? 0);
+    }),
+  );
 </script>
 
 <div
@@ -25,7 +34,7 @@
   <div>
     <h2 class="text-2xl font-bold">Constructors' Standings</h2>
     <h3 class="text-sm text-center text-muted-foreground">
-      ({netPoints() ? "net points" : "total points"})
+      ({useNetPoints ? "net points" : "total points"})
     </h3>
   </div>
   <div class="flex justify-center items-center gap-2">
@@ -58,7 +67,7 @@
   </div>
   <Table.Root>
     <Table.Body>
-      {#each Object.entries(data) as [constructorName, result], index}
+      {#each sortedData as [constructorName, result], index}
         {@const constructor = constructors[constructorName as ConstructorName]}
         {@const constructorDrivers = Object.entries(seasonRacers[season])
           .filter((racer) =>
@@ -79,7 +88,9 @@
                 >
                   {index + 1}
                 </Badge>
-                <DeltaMarker delta={result.delta} />
+                <DeltaMarker
+                  delta={useNetPoints ? result.netDelta : result.delta}
+                />
               </div>
             </Table.Cell>
             <Table.Cell>
@@ -104,12 +115,13 @@
               {/each}
             </Table.Cell>
             <Table.Cell class="font-bold text-right">
-              <span class="font-bold">{result.normalisedPoints}</span>{" "}
-              {#if Object.keys(results).indexOf(track) >= Object.keys(results).length - 3 && result.netNormalisedPoints}
-                <span class="font-light text-xs">
-                  ({result.netNormalisedPoints})
-                </span>
-              {/if}
+              <span class="font-bold">
+                {#if netPoints()}
+                  {result.netNormalisedPoints}
+                {:else}
+                  {result.normalisedPoints}
+                {/if}
+              </span>
             </Table.Cell>
           </Table.Row>
         {/if}

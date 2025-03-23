@@ -9,11 +9,13 @@ export type StandingResult = {
   points: number;
   delta: number;
   netPoints?: number;
+  netDelta?: number;
+  deductedRaces?: string[];
 };
 
 type Standings = Record<
   SeasonName,
-  Record<TrackName, Record<RacerName, StandingResult>>
+  Partial<Record<TrackName, Partial<Record<RacerName, StandingResult>>>>
 >;
 
 export const standings = { s1, s2, s3, s4, s5 } as Standings;

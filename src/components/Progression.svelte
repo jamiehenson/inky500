@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { constructorsStandings, tracks } from "@/data";
   import { type TrackName } from "@/types";
   import Chart, { type ChartConfiguration } from "chart.js/auto";
@@ -7,12 +6,13 @@
   import type { ConstructorName, RacerName } from "@/types";
   import * as Card from "@/components/ui/card";
   import { Button } from "@/components/ui/button";
-  import * as Select from "@/components/ui/select";
   import { commonConfig } from "./utils";
   import { cn } from "@/lib/utils";
   import ResultsTable from "./ResultsTable.svelte";
   import type { ChartType, SortType, ShowType } from "./types";
   import { getStandingsContext } from "./context";
+  import * as RadioGroup from "@/components/ui/radio-group";
+  import { Label } from "./ui/label";
 
   let standingsCtx: HTMLCanvasElement;
   let chartInstance: Chart;
@@ -25,11 +25,13 @@
     setShowType,
     setChartType,
     setSortType,
+    netPoints,
   } = getStandingsContext();
 
   const chart = $derived(chartType());
   const sort = $derived(sortType());
   const show = $derived(showType());
+  const useNetPoints = $derived(netPoints());
 
   const seasonStandingKeys = Object.keys(standings[season] ?? {});
 
@@ -44,26 +46,32 @@
   };
 
   // Derive data based on current state
-  const driverData = Object.keys(seasonRacers[season])
-    .map((driver) => ({
-      driver,
-      standings: Object.values(standings[season] ?? {})
-        .slice(0, seasonStandingKeys.indexOf(track) + 1)
-        .map((standing) => standing[driver as RacerName]?.points),
-      rankings: Object.values(standings[season] ?? {})
-        .slice(0, seasonStandingKeys.indexOf(track) + 1)
-        .map((standing) => {
-          const rank = Object.keys(standing).indexOf(driver) + 1;
-          return rank === 0 ? -1 : rank;
-        }),
-    }))
-    .sort((a, b) =>
-      drivers[a.driver as RacerName].name.localeCompare(
-        drivers[b.driver as RacerName].name,
+  const driverData = $derived(
+    Object.keys(seasonRacers[season])
+      .map((driver) => ({
+        driver,
+        standings: Object.values(standings[season] ?? {})
+          .slice(0, seasonStandingKeys.indexOf(track) + 1)
+          .map((standing) =>
+            useNetPoints
+              ? (standing[driver as RacerName]?.netPoints ?? 0)
+              : (standing[driver as RacerName]?.points ?? 0),
+          ),
+        rankings: Object.values(standings[season] ?? {})
+          .slice(0, seasonStandingKeys.indexOf(track) + 1)
+          .map((standing) => {
+            const rank = Object.keys(standing).indexOf(driver) + 1;
+            return rank === 0 ? -1 : rank;
+          }),
+      }))
+      .sort((a, b) =>
+        drivers[a.driver as RacerName].name.localeCompare(
+          drivers[b.driver as RacerName].name,
+        ),
       ),
-    );
+  );
 
-  const constructorData =
+  const constructorData = $derived(
     Object.keys(constructorsStandings[season]).length > 0
       ? Array.from(
           new Set(
@@ -79,7 +87,11 @@
             constructor,
             standings: Object.values(constructorsStandings[season])
               .slice(0, seasonStandingKeys.indexOf(track) + 1)
-              .map((standing) => standing[constructor]?.normalisedPoints ?? 0),
+              .map((standing) =>
+                useNetPoints
+                  ? (standing[constructor]?.netNormalisedPoints ?? 0)
+                  : (standing[constructor]?.normalisedPoints ?? 0),
+              ),
             rankings: Object.values(constructorsStandings[season])
               .slice(0, seasonStandingKeys.indexOf(track) + 1)
               .map((standing) => {
@@ -92,7 +104,8 @@
               constructors[b.constructor as ConstructorName].name,
             ),
           )
-      : [];
+      : [],
+  );
 
   // Effect to update chart when data changes
   $effect(() => {
@@ -170,74 +183,83 @@
         <Card.Title>Progression</Card.Title>
         <Card.Description>
           Showing progression as of {tracks[track].name}
+          {#if useNetPoints}
+            (net points)
+          {:else}
+            (total points)
+          {/if}
         </Card.Description>
       </div>
-      <div class="flex items-center gap-4 !mt-3 md:!mt-0">
+      <div class="flex items-center gap-6 !mt-3 md:!mt-0">
         <div class="flex flex-col gap-2">
           <div>Show me</div>
-          <Select.Root
-            type="single"
-            value={chartType()}
+          <RadioGroup.Root
+            value={chart}
             onValueChange={(value) => {
               setChartType(value as ChartType);
             }}
           >
-            <Select.Trigger class="w-36">{chartType()}</Select.Trigger>
-            <Select.Content>
-              <Select.Item value="drivers">drivers</Select.Item>
-              {#if ["s4", "s5"].includes(season)}
-                <Select.Item value="constructors">constructors</Select.Item>
-              {/if}
-            </Select.Content>
-          </Select.Root>
+            <div class="flex items-center space-x-2">
+              <RadioGroup.Item value="drivers" id="drivers-radio" />
+              <Label for="drivers-radio">drivers</Label>
+            </div>
+            {#if ["s4", "s5"].includes(season)}
+              <div class="flex items-center space-x-2">
+                <RadioGroup.Item value="constructors" id="constructors-radio" />
+                <Label for="constructors-radio">constructors</Label>
+              </div>
+            {/if}
+          </RadioGroup.Root>
         </div>
         <div class="flex flex-col gap-2">
           <div>as a</div>
-          <Select.Root
-            type="single"
-            value={showType()}
+          <RadioGroup.Root
+            value={show}
             onValueChange={(value) => {
               setShowType(value as ShowType);
             }}
           >
-            <Select.Trigger class="w-36">{showType()}</Select.Trigger>
-            <Select.Content>
-              <Select.Item value="chart">chart</Select.Item>
-              <Select.Item value="table">table</Select.Item>
-            </Select.Content>
-          </Select.Root>
+            <div class="flex items-center space-x-2">
+              <RadioGroup.Item value="chart" id="chart-radio" />
+              <Label for="chart-radio">chart</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <RadioGroup.Item value="table" id="table-radio" />
+              <Label for="table-radio">table</Label>
+            </div>
+          </RadioGroup.Root>
         </div>
         <div class="flex flex-col gap-2">
           <div>and sort by</div>
-          <Select.Root
-            type="single"
-            value={sortType()}
+          <RadioGroup.Root
+            value={sort}
             onValueChange={(value) => {
               setSortType(value as SortType);
             }}
-            disabled={showType() === "table"}
+            disabled={show === "table"}
           >
-            <Select.Trigger class="w-36"
-              >{showType() === "chart" ? sortType() : "n/a"}</Select.Trigger
-            >
-            <Select.Content>
-              <Select.Item value="points">points</Select.Item>
-              <Select.Item value="rank">rank</Select.Item>
-            </Select.Content>
-          </Select.Root>
+            <div class="flex items-center space-x-2">
+              <RadioGroup.Item value="points" id="points-radio" />
+              <Label for="points-radio">points</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <RadioGroup.Item value="rank" id="rank-radio" />
+              <Label for="rank-radio">rank</Label>
+            </div>
+          </RadioGroup.Root>
         </div>
       </div>
     </Card.Header>
     <Card.Content>
-      <div class={cn("h-[600px]", showType() === "chart" ? "flex" : "hidden")}>
+      <div class={cn("h-[600px]", show === "chart" ? "flex" : "hidden")}>
         <canvas bind:this={standingsCtx} id="standings-chart"></canvas>
       </div>
-      {#if showType() === "table"}
+      {#if show === "table"}
         <ResultsTable />
       {/if}
     </Card.Content>
     <Card.Footer class="flex justify-center gap-3 p-3">
-      {#if showType() === "chart"}
+      {#if show === "chart"}
         <Button onclick={() => toggleAllDatasets(true)} variant="outline"
           >Show All</Button
         >

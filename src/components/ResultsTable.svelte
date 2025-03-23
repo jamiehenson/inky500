@@ -9,7 +9,6 @@
     seasonRacers,
   } from "@/data";
   import {
-    type SeasonName,
     type TrackName,
     type RacerName,
     type ConstructorName,
@@ -18,8 +17,8 @@
   import { Badge } from "@/components/ui/badge";
   import { cn } from "@/lib/utils";
   import { carImages } from "@/utils";
-  import type { ChartType } from "@/components/types";
   import { getStandingsContext } from "./context";
+  import { pointsScheme } from "@/points";
 
   type ConstructorResults = Record<
     TrackName,
@@ -28,7 +27,9 @@
 
   type ConstructorTotals = Record<TrackName, Record<ConstructorName, number>>;
 
-  const { season, track, chartType } = getStandingsContext();
+  const { season, track, chartType, netPoints } = getStandingsContext();
+
+  const useNetPoints = $derived(netPoints());
 
   const cellColor = (pos: number) => {
     if (pos === 0) return "";
@@ -85,6 +86,55 @@
       },
     };
   }, {} as ConstructorTotals);
+
+  const sortedData = $derived(
+    chartType() === "drivers"
+      ? Object.entries(standings[season][track] ?? {}).sort(
+          (a, b) =>
+            (b[1]?.[useNetPoints ? "netPoints" : "points"] ?? 0) -
+            (a[1]?.[useNetPoints ? "netPoints" : "points"] ?? 0),
+        )
+      : Object.entries(constructorsStandings[season][track] ?? {}).sort(
+          (a, b) =>
+            (b[1]?.[
+              useNetPoints ? "netNormalisedPoints" : "normalisedPoints"
+            ] ?? 0) -
+            (a[1]?.[
+              useNetPoints ? "netNormalisedPoints" : "normalisedPoints"
+            ] ?? 0),
+        ),
+  );
+
+  const netConstructorsPoints = (
+    resultTrack: TrackName,
+    constructor: ConstructorName,
+  ) => {
+    const field = useNetPoints ? "netNormalisedPoints" : "normalisedPoints";
+    const thisRace =
+      constructorsStandings[season][resultTrack]?.[constructor]?.[field] ?? 0;
+
+    const lastRaceIndex =
+      Object.keys(constructorsStandings[season]).findIndex(
+        (c) => c === resultTrack,
+      ) - 1;
+
+    const lastRace =
+      Object.values(constructorsStandings[season])[lastRaceIndex]?.[
+        constructor
+      ]?.[field] ?? 0;
+
+    return thisRace - lastRace;
+  };
+
+  const raceIndex = $derived(
+    Object.keys(results[season] ?? {}).findIndex(
+      (resultsTrack) => resultsTrack === track,
+    ),
+  );
+
+  const scopedResults = Object.entries(results[season]).filter(
+    (_, index) => index <= raceIndex,
+  );
 </script>
 
 <Table.Root class="w-full overflow-x-auto">
@@ -94,7 +144,7 @@
       <Table.Head
         >{chartType() === "drivers" ? "Driver" : "Constructor"}</Table.Head
       >
-      {#each Object.entries(results[season] ?? {}) as [track, result]}
+      {#each scopedResults as [track, result]}
         {@const trackData = tracks[track as TrackName]}
         {#if result?.results}
           <Table.Head>
@@ -108,69 +158,97 @@
     </Table.Row>
   </Table.Header>
   <Table.Body>
-    {#if chartType() === "drivers"}
-      {#each Object.keys(standings[season][track] ?? {}) as driver, index}
-        <Table.Row>
-          <Table.Cell>
-            <Badge variant="secondary">{index + 1}</Badge>
-          </Table.Cell>
-          <Table.Cell>
-            {drivers[driver as RacerName].name}
-          </Table.Cell>
-          {#each Object.values(results[season]) as result}
-            {#if result?.results}
-              {@const position =
-                Object.keys(result?.results ?? {}).indexOf(driver) + 1}
-              <Table.Cell class={cn(cellColor(position), "text-center border")}>
-                <span class="text-sm font-bold">
-                  {position > 0 ? position : ""}
-                </span>
-              </Table.Cell>
-            {/if}
-          {/each}
-          <Table.Cell class="text-center">
-            <span class="text-sm font-bold">
-              {standings[season][track][driver as RacerName].points}
-            </span>
-          </Table.Cell>
-        </Table.Row>
-      {/each}
-    {:else if chartType() === "constructors"}
-      {#each Object.keys(constructorsStandings[season][track] ?? {}) as constructor, index}
-        <Table.Row>
-          <Table.Cell>
-            <Badge variant="secondary">{index + 1}</Badge>
-          </Table.Cell>
-          <Table.Cell>
+    {#each sortedData as [item], index}
+      <Table.Row>
+        <Table.Cell>
+          <Badge variant="secondary">{index + 1}</Badge>
+        </Table.Cell>
+        <Table.Cell>
+          {#if chartType() === "drivers"}
+            {drivers[item as RacerName].name}
+          {:else}
             <div class="flex items-center gap-2">
               <img
-                src={carImages[constructor as ConstructorName].src}
-                alt={constructor}
+                src={carImages[item as ConstructorName].src}
+                alt={item}
                 class="w-5 h-5"
               />
-              {constructors[constructor as ConstructorName].name}
+              {constructors[item as ConstructorName].name}
             </div>
-          </Table.Cell>
-          {#each Object.keys(results[season]) as track}
-            {#if results[season][track as TrackName]?.results}
-              {@const position =
-                Object.entries(constructorTotals[track as TrackName])
-                  .sort((a, b) => a[1] - b[1])
-                  .findIndex(([c]) => c === constructor) + 1}
-              <Table.Cell class={cn(cellColor(position), "text-center border")}>
-                {position > 0 ? position : ""}
-              </Table.Cell>
+          {/if}
+        </Table.Cell>
+        {#each scopedResults as [resultTrack, result]}
+          {#if result?.results}
+            {@const position =
+              chartType() === "drivers"
+                ? Object.keys(result?.results ?? {}).indexOf(item) + 1
+                : Object.entries(constructorTotals[resultTrack as TrackName])
+                    .sort((a, b) => a[1] - b[1])
+                    .findIndex(([c]) => c === item) + 1}
+            {@const points =
+              chartType() === "drivers"
+                ? pointsScheme[season][position - 1] +
+                  (result.fastestLap?.racerId === (item as RacerName) ? 1 : 0)
+                : netConstructorsPoints(
+                    resultTrack as TrackName,
+                    item as ConstructorName,
+                  )}
+            {@const deducted =
+              useNetPoints &&
+              chartType() === "drivers" &&
+              standings[season][track]?.[
+                item as RacerName
+              ]?.deductedRaces?.includes(resultTrack)}
+            <Table.Cell
+              class={cn(cellColor(position), "text-center border", {
+                "bg-red-100 dark:bg-red-300": deducted,
+              })}
+            >
+              <div class="flex flex-col items-center relative">
+                <span
+                  class={cn("text-sm font-bold", {
+                    "select-none": deducted,
+                  })}
+                >
+                  {position > 0 ? `P${position}` : ""}
+                </span>
+                {#if position > 0}
+                  <span
+                    class={cn("text-xs", {
+                      "select-none": deducted,
+                    })}
+                  >
+                    ({points})
+                  </span>
+                {/if}
+                {#if deducted}
+                  <span
+                    class="text-5xl absolute top-0 right-0 w-full h-full flex items-center justify-center pt-1"
+                    >❌</span
+                  >
+                {/if}
+              </div>
+            </Table.Cell>
+          {/if}
+        {/each}
+        <Table.Cell class="text-center">
+          <span class="text-sm font-bold">
+            {#if chartType() === "drivers"}
+              {#if useNetPoints}
+                {standings[season][track]?.[item as RacerName]?.netPoints}
+              {:else}
+                {standings[season][track]?.[item as RacerName]?.points}
+              {/if}
+            {:else if useNetPoints}
+              {constructorsStandings[season][track]?.[item as ConstructorName]
+                ?.netNormalisedPoints}
+            {:else}
+              {constructorsStandings[season][track]?.[item as ConstructorName]
+                ?.normalisedPoints}
             {/if}
-          {/each}
-          <Table.Cell class="text-center">
-            <span class="text-sm font-bold">
-              {constructorsStandings[season][track]?.[
-                constructor as ConstructorName
-              ]?.normalisedPoints}
-            </span>
-          </Table.Cell>
-        </Table.Row>
-      {/each}
-    {/if}
+          </span>
+        </Table.Cell>
+      </Table.Row>
+    {/each}
   </Table.Body>
 </Table.Root>

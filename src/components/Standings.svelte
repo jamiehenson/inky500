@@ -8,7 +8,10 @@
   import type { ConstructorResults } from "@/data/constructorsStandings";
   import type { ChartType, ShowType, SortType } from "@/components/types";
   import { setStandingsContext } from "@/components/context";
-  import Switches from "./Switches.svelte";
+  import { Switch } from "./ui/switch";
+  import { Label } from "./ui/label";
+  import { Button } from "./ui/button";
+  import ChevronUp from "@lucide/svelte/icons/chevron-up";
 
   type Props = {
     season: SeasonName;
@@ -26,10 +29,10 @@
     trackResults,
   }: Props = $props();
 
-  let chartType = $state<ChartType>("drivers");
+  let chartType = $state<ChartType>("constructors");
   let showType = $state<ShowType>("chart");
   let sortType = $state<SortType>("points");
-  let netPoints = $state(false);
+  let netPoints = $state(true);
 
   setStandingsContext({
     season,
@@ -45,7 +48,35 @@
   });
 </script>
 
-<Switches />
+<div
+  class="fixed z-10 bottom-0 right-0 flex items-center space-x-2 p-2 h-10 bg-background rounded-tl-lg"
+>
+  <Label for="net-points">Net Points</Label>
+  <Switch
+    id="net-points"
+    checked={netPoints}
+    onCheckedChange={(value) => {
+      netPoints = value;
+    }}
+  />
+</div>
+<div
+  class="fixed z-10 bottom-0 left-0 flex items-center space-x-2 p-2 h-10 bg-background rounded-tr-lg"
+>
+  <Button
+    variant="secondary"
+    size="sm"
+    class="h-8"
+    onclick={() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }}
+  >
+    <ChevronUp />
+  </Button>
+</div>
 {#if trackStandings}
   <DriversStandings data={trackStandings} />
 {/if}

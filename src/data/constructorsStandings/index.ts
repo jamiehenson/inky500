@@ -8,6 +8,7 @@ export type ConstructorResult = {
   netNormalisedPoints?: number;
   driverCount: number;
   delta: number;
+  netDelta: number;
 };
 
 export type ConstructorResults = {

@@ -12,7 +12,7 @@ const generateStandings = async () => {
     const parsedResults = await timeGrabber(
       process.argv[3] as SeasonName,
       process.argv[4] as TrackName,
-      process.argv[5]
+      process.argv[5],
     );
 
     const resultsPath = `src/data/results/${process.argv[3]}.json`;
@@ -42,7 +42,7 @@ const generateStandings = async () => {
   try {
     fs.writeFileSync(constructorsPath, constructors, { flag: "w" });
     console.log(
-      `${activeSeason} constructors data saved to file successfully.`
+      `${activeSeason} constructors data saved to file successfully.`,
     );
   } catch (error) {
     console.error("Error writing JSON data to file:", error);
