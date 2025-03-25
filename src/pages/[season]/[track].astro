@@ -101,38 +101,33 @@ const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
         Winner: <span class="font-bold">{winnerName}</span>
       </h3>
     </div>
-    <div class="absolute bottom-3 left-3">
-      {
-        results[season][previousTrack]?.results ? (
-          <a href={withBase(`/${season}/${previousTrack}`)}>
-            <Button variant="outline">
-              <Icon.ChevronLeft size="24" aria-label="Previous Race" />
-              <span
-                class={`rounded-sm mr-1 fi fi-${tracks[previousTrack].countryCode}`}
-              />
-              <span class="hidden sm:block">{tracks[previousTrack].name}</span>
-            </Button>
-          </a>
-        ) : null
-      }
-    </div>
-    <div class="absolute bottom-3 right-3">
-      {
-        results[season][nextTrack]?.results ? (
-          <a href={withBase(`/${season}/${nextTrack}`)}>
-            <Button variant="outline">
-              <span
-                class={`rounded-sm ml-1 fi fi-${tracks[nextTrack].countryCode}`}
-              />
-              <span class="hidden sm:block">{tracks[nextTrack].name}</span>
-              <Icon.ChevronRight size="24" aria-label="Next Race" />
-            </Button>
-          </a>
-        ) : null
-      }
-    </div>
   </div>
-
+  <div
+    class="fixed left-0 bottom-0 p-2 w-full z-10 flex gap-3 justify-center items-center"
+  >
+    {
+      [previousTrack, nextTrack].map((track) => (
+        <div>
+          {results[season][track]?.results ? (
+            <a href={withBase(`/${season}/${track}`)}>
+              <Button variant="outline">
+                {track === previousTrack && (
+                  <Icon.ChevronLeft size="24" aria-label="Previous Race" />
+                )}
+                <span
+                  class={`rounded-sm mr-1 fi fi-${tracks[track].countryCode}`}
+                />
+                <span class="hidden sm:block">{tracks[track].name}</span>
+                {track === nextTrack && (
+                  <Icon.ChevronRight size="24" aria-label="Next Race" />
+                )}
+              </Button>
+            </a>
+          ) : null}
+        </div>
+      ))
+    }
+  </div>
   <div class="grid md:grid-cols-2 gap-8">
     <NavRow client:load />
     {
