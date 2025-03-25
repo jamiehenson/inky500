@@ -60,7 +60,16 @@
         rankings: Object.values(standings[season] ?? {})
           .slice(0, seasonStandingKeys.indexOf(track) + 1)
           .map((standing) => {
-            const rank = Object.keys(standing).indexOf(driver) + 1;
+            // Sort drivers by points and find the position of the current driver
+            const sortedDrivers = Object.entries(standing)
+              .sort(([, a], [, b]) =>
+                useNetPoints
+                  ? (b.netPoints ?? 0) - (a.netPoints ?? 0)
+                  : (b.points ?? 0) - (a.points ?? 0),
+              )
+              .map(([driverId]) => driverId);
+
+            const rank = sortedDrivers.indexOf(driver) + 1;
             return rank === 0 ? -1 : rank;
           }),
       }))
@@ -95,7 +104,16 @@
             rankings: Object.values(constructorsStandings[season])
               .slice(0, seasonStandingKeys.indexOf(track) + 1)
               .map((standing) => {
-                const rank = Object.keys(standing).indexOf(constructor) + 1;
+                // Sort constructors by points and find the position of the current constructor
+                const sortedConstructors = Object.entries(standing)
+                  .sort(([, a], [, b]) =>
+                    useNetPoints
+                      ? (b.netNormalisedPoints ?? 0) -
+                        (a.netNormalisedPoints ?? 0)
+                      : (b.normalisedPoints ?? 0) - (a.normalisedPoints ?? 0),
+                  )
+                  .map(([constructorId]) => constructorId);
+                const rank = sortedConstructors.indexOf(constructor) + 1;
                 return rank === 0 ? -1 : rank;
               }),
           }))
