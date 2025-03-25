@@ -51,7 +51,10 @@
 <div
   class="fixed z-10 bottom-0 right-0 flex items-center space-x-2 p-2 h-10 bg-background rounded-tl-lg"
 >
-  <Label for="net-points">Net Points</Label>
+  <Label for="net-points">
+    <span class="hidden sm:inline">Net Points</span>
+    <span class="inline-block sm:hidden">Net</span>
+  </Label>
   <Switch
     id="net-points"
     checked={netPoints}
