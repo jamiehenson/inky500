@@ -29,7 +29,7 @@
     trackResults,
   }: Props = $props();
 
-  let chartType = $state<ChartType>("constructors");
+  let chartType = $state<ChartType>("drivers");
   let showType = $state<ShowType>("chart");
   let sortType = $state<SortType>("points");
   let netPoints = $state(true);

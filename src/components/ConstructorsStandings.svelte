@@ -34,7 +34,9 @@
   <div>
     <h2 class="text-2xl font-bold">Constructors' Standings</h2>
     <h3 class="text-sm text-center text-muted-foreground">
-      ({useNetPoints ? "net points" : "total points"})
+      ({useNetPoints
+        ? "net normalised points - two lowest results deducted"
+        : "total points"})
     </h3>
   </div>
   <div class="flex justify-center items-center gap-2">
