@@ -19,13 +19,12 @@ const seasonCars = (season: SeasonName) =>
       ])
     )
   ).toSorted();
-
 const getSeasonWinners = (season: SeasonName): RacerName[] =>
   Object.entries(
     Object.values(standings[season])[Object.keys(standings[season]).length - 1]
   )
     .sort((a, b) => b[1].points - a[1].points)
-    .map(([key]) => key)
+    .map(([key]) => key as RacerName)
     .slice(0, 3);
 ---
 
@@ -60,35 +59,33 @@ const getSeasonWinners = (season: SeasonName): RacerName[] =>
               ))}
             </div>
             <div class="flex flex-col gap-2 mb-6">
-              {season.status === "complete"
-                ? getSeasonWinners(season.key as SeasonName).map(
-                    (winner, index) => (
-                      <p class="flex justify-between gap-2">
-                        <span class="flex items-center gap-1">
-                          {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
-                          {drivers[winner].name}
-                        </span>
-                        <span class="flex items-center gap-2 text-xs">
-                          {seasonRacers[season.key as SeasonName][winner]?.team}
-                          <Image
-                            src={
-                              carImages[
-                                seasonRacers[season.key as SeasonName][winner]
-                                  ?.car as ConstructorName
-                              ]
-                            }
-                            alt={
-                              seasonRacers[season.key as SeasonName][winner]
-                                ?.car ?? "unknown"
-                            }
-                            class="w-6 h-6 inline-block"
-                            loading="eager"
-                          />
-                        </span>
-                      </p>
-                    )
-                  )
-                : null}
+              {getSeasonWinners(season.key as SeasonName).map(
+                (winner, index) => (
+                  <p class="flex justify-between gap-2">
+                    <span class="flex items-center gap-1">
+                      {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+                      {drivers[winner].name}
+                    </span>
+                    <span class="flex items-center gap-2 text-xs">
+                      {seasonRacers[season.key as SeasonName][winner]?.team}
+                      <Image
+                        src={
+                          carImages[
+                            seasonRacers[season.key as SeasonName][winner]
+                              ?.car as ConstructorName
+                          ]
+                        }
+                        alt={
+                          seasonRacers[season.key as SeasonName][winner]?.car ??
+                          "unknown"
+                        }
+                        class="w-6 h-6 inline-block"
+                        loading="eager"
+                      />
+                    </span>
+                  </p>
+                )
+              )}
             </div>
             <StatusBadge status={season.status} />
           </ConstructorCard>

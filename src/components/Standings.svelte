@@ -29,7 +29,7 @@
   let chartType = $state<ChartType>("drivers");
   let showType = $state<ShowType>("chart");
   let sortType = $state<SortType>("points");
-  let netPoints = $state(true);
+  let netPoints = $state(["s5"].includes(season));
 
   setStandingsContext({
     season,

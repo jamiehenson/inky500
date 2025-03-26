@@ -59,19 +59,23 @@
       </Tooltip.Provider>
     {/each}
   </div>
-  <div
-    class="flex items-center space-x-2 p-2 h-11 bg-background rounded-tl-lg border"
-  >
-    <Label for="net-points">
-      <span class="hidden sm:inline">Net Points</span>
-      <span class="inline-block sm:hidden">Net</span>
-    </Label>
-    <Switch
-      id="net-points"
-      checked={netPoints()}
-      onCheckedChange={(value) => {
-        setNetPoints(value);
-      }}
-    />
-  </div>
+  {#if ["s5"].includes(season)}}
+    <div
+      class="flex items-center space-x-2 p-2 h-11 bg-background rounded-tl-lg border"
+    >
+      <Label for="net-points">
+        <span class="hidden sm:inline">Net Points</span>
+        <span class="inline-block sm:hidden">Net</span>
+      </Label>
+      <Switch
+        id="net-points"
+        checked={netPoints()}
+        onCheckedChange={(value) => {
+          setNetPoints(value);
+        }}
+      />
+    </div>
+  {:else}
+    <div></div>
+  {/if}
 </div>

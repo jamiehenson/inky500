@@ -222,7 +222,11 @@
               <Label for="drivers-radio">drivers</Label>
             </div>
             <div class="flex items-center space-x-2">
-              <RadioGroup.Item value="constructors" id="constructors-radio" />
+              <RadioGroup.Item
+                value="constructors"
+                id="constructors-radio"
+                disabled={!["s4", "s5"].includes(season)}
+              />
               <Label for="constructors-radio">constructors</Label>
             </div>
           </RadioGroup.Root>
