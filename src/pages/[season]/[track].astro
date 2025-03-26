@@ -43,9 +43,7 @@ const trackResults = results[season][track];
 
 const trackStandings = standings[season][track];
 
-const trackConstructors = ["s4", "s5"].includes(season)
-  ? (constructorsStandings[season][track] as ConstructorResults)
-  : null;
+const trackConstructors = constructorsStandings[season][track];
 
 const winnerId = trackResults
   ? (Object.keys(trackResults.results ?? {}) as RacerName[])[0]
@@ -54,12 +52,7 @@ const winner = seasonRacers[season][winnerId];
 const winnerName = drivers[winnerId].name;
 const winnerCar = winner?.otherTeams?.[track]?.car || winner?.car || "unknown";
 const carTeamColor = constructors[winnerCar]?.teamColor ?? "transparent";
-
 const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
-
-const trackIndex = Object.keys(results[season]).findIndex((t) => t === track);
-const nextTrack = Object.keys(results[season])[trackIndex + 1] as TrackName;
-const previousTrack = Object.keys(results[season])[trackIndex - 1] as TrackName;
 ---
 
 <Layout

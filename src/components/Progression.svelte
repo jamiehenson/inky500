@@ -221,12 +221,10 @@
               <RadioGroup.Item value="drivers" id="drivers-radio" />
               <Label for="drivers-radio">drivers</Label>
             </div>
-            {#if ["s4", "s5"].includes(season)}
-              <div class="flex items-center space-x-2">
-                <RadioGroup.Item value="constructors" id="constructors-radio" />
-                <Label for="constructors-radio">constructors</Label>
-              </div>
-            {/if}
+            <div class="flex items-center space-x-2">
+              <RadioGroup.Item value="constructors" id="constructors-radio" />
+              <Label for="constructors-radio">constructors</Label>
+            </div>
           </RadioGroup.Root>
         </div>
         <div class="flex flex-col gap-2">
