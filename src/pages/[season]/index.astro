@@ -80,7 +80,7 @@ const seasonTitle = `Season ${seasonNumber.toString().toUpperCase()}`;
       seasonNumber > 1 && (
         <a
           href={withBase(`/s${seasonNumber - 1}`)}
-          class="absolute top-1/2 left-0 -translate-y-1/2"
+          class="absolute top-1/2 left-0 -translate-y-1/2 hidden sm:block"
         >
           <Button variant="outline">
             <Icon.ChevronLeft size="24" aria-label="Previous Season" />
@@ -96,7 +96,7 @@ const seasonTitle = `Season ${seasonNumber.toString().toUpperCase()}`;
       seasonNumber < Object.keys(results).length && (
         <a
           href={withBase(`/s${seasonNumber + 1}`)}
-          class="absolute top-1/2 right-0 -translate-y-1/2"
+          class="absolute top-1/2 right-0 -translate-y-1/2 hidden sm:block"
         >
           <Button variant="outline">
             <span>S{seasonNumber + 1}</span>

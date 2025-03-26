@@ -59,7 +59,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
   title={`Inky 500 | ${tracks[track].name}, ${seasonTitle}`}
   description={`Results and standings for the Inky 500 ${seasonTitle} after ${tracks[track].name} 🏆`}
 >
-  <a href={withBase(`/${season}`)} class="absolute z-10">
+  <a href={withBase(`/${season}`)} class="absolute z-10 m-2">
     <Button variant="outline">
       <Icon.ChevronLeft size="24" aria-label="Back" />
       S{season[season.length - 1].toUpperCase()}
@@ -67,7 +67,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
   </a>
   <div class="relative">
     <div
-      class="absolute rounded-lg w-full h-full opacity-50 -z-10"
+      class="absolute rounded-t-lg w-full h-full opacity-50 -z-10 border border-b-0"
       style={{
         background: `linear-gradient(to right, transparent, ${carTeamColor})`,
       }}
@@ -80,8 +80,8 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
         )
       }
     </div>
-    <div class="p-3 mb-8 z-10">
-      <h1 class="mt-9">
+    <div class="p-3 mb-8 z-10 relative">
+      <h1 class="mt-9 z-10">
         {trackName}
         <span class="hidden sm:inline-block">
           <span class={`rounded-sm ml-3 fi fi-${trackCountryCode}`}></span>

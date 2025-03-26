@@ -4,15 +4,15 @@
   export const sections = [
     {
       id: "results",
-      label: "Race Results 🏎️",
+      label: "Results 🏎️",
     },
     {
       id: "drivers",
-      label: "Driver's Standings 🏆",
+      label: "Drivers 🏆",
     },
     {
       id: "constructors",
-      label: "Constructors' Standings ⚙️",
+      label: "Constructors ⚙️",
     },
     {
       id: "progression",
@@ -22,7 +22,7 @@
 </script>
 
 <div
-  class="flex gap-4 flex-wrap justify-center items-center rounded-lg border p-4 col-span-2"
+  class="grid grid-cols-2 sm:grid-cols-4 gap-2 justify-center items-center rounded-b-lg border p-4 col-span-2 -mt-8"
 >
   {#each sections as section}
     <Button

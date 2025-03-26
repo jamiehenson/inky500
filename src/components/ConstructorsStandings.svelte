@@ -69,7 +69,8 @@
           ?.scrollIntoView({ behavior: "smooth" });
       }}
     >
-      Go to progression chart 📈
+      <span class="hidden sm:block">Go to progression chart 📈</span>
+      <span class="block sm:hidden">Chart 📈</span>
     </Badge>
     <Badge
       variant="outline"
@@ -82,7 +83,8 @@
           ?.scrollIntoView({ behavior: "smooth" });
       }}
     >
-      Go to overview table 🥇
+      <span class="hidden sm:block">Go to overview table 🥇</span>
+      <span class="block sm:hidden">Table 🥇</span>
     </Badge>
   </div>
   <Table.Root>
