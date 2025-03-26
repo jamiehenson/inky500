@@ -21,13 +21,12 @@ const seasonCars = (season: SeasonName) =>
   ).toSorted();
 
 const getSeasonWinners = (season: SeasonName): RacerName[] =>
-  (
-    Object.keys(
-      Object.values(standings[season])[
-        Object.keys(standings[season]).length - 1
-      ]
-    ) as RacerName[]
-  ).slice(0, 3);
+  Object.entries(
+    Object.values(standings[season])[Object.keys(standings[season]).length - 1]
+  )
+    .sort((a, b) => b[1].points - a[1].points)
+    .map(([key]) => key)
+    .slice(0, 3);
 ---
 
 <Layout

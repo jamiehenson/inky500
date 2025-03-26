@@ -1,6 +1,3 @@
-import s1 from "./s1.json";
-import s2 from "./s2.json";
-import s3 from "./s3.json";
 import s4 from "./s4.json";
 import s5 from "./s5.json";
 import type { ConstructorName, SeasonName, TrackName } from "@/types";
@@ -27,9 +24,9 @@ type ConstructorsStandings = {
 };
 
 export const constructorsStandings = {
-  s1,
-  s2,
-  s3,
+  s1: {},
+  s2: {},
+  s3: {},
   s4,
   s5,
 } as ConstructorsStandings;

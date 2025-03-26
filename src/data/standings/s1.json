@@ -1,1 +1,68 @@
-{"snetterton":{"graeme":{"points":8,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"cannonmandan":{"points":10,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"kruthal":{"points":3,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"inkubusjaymz":{"points":8,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"eugenegoat":{"points":5,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"blyzr":{"points":9,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"happybadger":{"points":6,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"fletch":{"points":4,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]},"expendablelee":{"points":2,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton"]}},"silverstone":{"graeme":{"points":18,"netPoints":0,"delta":1,"netDelta":0,"deductedRaces":["snetterton","silverstone"]},"cannonmandan":{"points":19,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["silverstone","snetterton"]},"kruthal":{"points":11,"netPoints":0,"delta":3,"netDelta":0,"deductedRaces":["snetterton","silverstone"]},"inkubusjaymz":{"points":16,"netPoints":0,"delta":1,"netDelta":0,"deductedRaces":["snetterton","silverstone"]},"eugenegoat":{"points":10,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["snetterton","silverstone"]},"blyzr":{"points":15,"netPoints":0,"delta":-2,"netDelta":0,"deductedRaces":["silverstone","snetterton"]},"happybadger":{"points":9,"netPoints":0,"delta":-2,"netDelta":0,"deductedRaces":["silverstone","snetterton"]},"fletch":{"points":8,"netPoints":0,"delta":-1,"netDelta":0,"deductedRaces":["snetterton","silverstone"]},"expendablelee":{"points":2,"netPoints":0,"delta":0,"netDelta":0,"deductedRaces":["silverstone","snetterton"]}},"oulton-park":{"graeme":{"points":29,"netPoints":11,"delta":1,"netDelta":0,"deductedRaces":["snetterton","silverstone"]},"cannonmandan":{"points":28,"netPoints":10,"delta":-1,"netDelta":0,"deductedRaces":["silverstone","oulton-park"]},"kruthal":{"points":17,"netPoints":8,"delta":0,"netDelta":-1,"deductedRaces":["snetterton","oulton-park"]},"inkubusjaymz":{"points":23,"netPoints":8,"delta":0,"netDelta":-1,"deductedRaces":["oulton-park","snetterton"]},"eugenegoat":{"points":14,"netPoints":5,"delta":0,"netDelta":-2,"deductedRaces":["oulton-park","snetterton"]},"blyzr":{"points":23,"netPoints":9,"delta":0,"netDelta":3,"deductedRaces":["silverstone","oulton-park"]},"happybadger":{"points":14,"netPoints":6,"delta":0,"netDelta":1,"deductedRaces":["silverstone","oulton-park"]},"fletch":{"points":11,"netPoints":4,"delta":0,"netDelta":0,"deductedRaces":["oulton-park","snetterton"]},"expendablelee":{"points":4,"netPoints":2,"delta":0,"netDelta":0,"deductedRaces":["silverstone","snetterton"]}},"spa":{"graeme":{"points":38,"netPoints":21,"delta":0,"netDelta":0,"deductedRaces":["snetterton","spa"]},"cannonmandan":{"points":38,"netPoints":20,"delta":0,"netDelta":0,"deductedRaces":["silverstone","oulton-park"]},"kruthal":{"points":26,"netPoints":17,"delta":0,"netDelta":1,"deductedRaces":["snetterton","oulton-park"]},"inkubusjaymz":{"points":27,"netPoints":16,"delta":-1,"netDelta":0,"deductedRaces":["spa","oulton-park"]},"eugenegoat":{"points":20,"netPoints":11,"delta":-1,"netDelta":0,"deductedRaces":["oulton-park","snetterton"]},"blyzr":{"points":28,"netPoints":17,"delta":1,"netDelta":-1,"deductedRaces":["spa","silverstone"]},"happybadger":{"points":21,"netPoints":13,"delta":1,"netDelta":0,"deductedRaces":["silverstone","oulton-park"]},"fletch":{"points":13,"netPoints":8,"delta":0,"netDelta":0,"deductedRaces":["spa","oulton-park"]},"expendablelee":{"points":7,"netPoints":5,"delta":0,"netDelta":0,"deductedRaces":["silverstone","snetterton"]}},"brands-hatch":{"graeme":{"points":49,"netPoints":32,"delta":0,"netDelta":0,"deductedRaces":["snetterton","spa"]},"cannonmandan":{"points":38,"netPoints":29,"delta":0,"netDelta":0,"deductedRaces":["brands-hatch","silverstone"]},"kruthal":{"points":32,"netPoints":23,"delta":0,"netDelta":-2,"deductedRaces":["snetterton","oulton-park"]},"inkubusjaymz":{"points":36,"netPoints":25,"delta":1,"netDelta":2,"deductedRaces":["spa","oulton-park"]},"eugenegoat":{"points":25,"netPoints":16,"delta":0,"netDelta":0,"deductedRaces":["oulton-park","snetterton"]},"blyzr":{"points":35,"netPoints":24,"delta":-1,"netDelta":0,"deductedRaces":["spa","silverstone"]},"happybadger":{"points":29,"netPoints":21,"delta":0,"netDelta":0,"deductedRaces":["silverstone","oulton-park"]},"fletch":{"points":17,"netPoints":12,"delta":0,"netDelta":0,"deductedRaces":["spa","oulton-park"]},"expendablelee":{"points":10,"netPoints":8,"delta":0,"netDelta":0,"deductedRaces":["silverstone","snetterton"]}},"donington":{"graeme":{"points":59,"netPoints":42,"delta":0,"netDelta":0,"deductedRaces":["snetterton","spa"]},"cannonmandan":{"points":47,"netPoints":38,"delta":0,"netDelta":0,"deductedRaces":["brands-hatch","silverstone"]},"kruthal":{"points":41,"netPoints":32,"delta":1,"netDelta":2,"deductedRaces":["snetterton","oulton-park"]},"inkubusjaymz":{"points":43,"netPoints":32,"delta":0,"netDelta":-1,"deductedRaces":["spa","oulton-park"]},"eugenegoat":{"points":31,"netPoints":22,"delta":0,"netDelta":0,"deductedRaces":["oulton-park","snetterton"]},"blyzr":{"points":40,"netPoints":30,"delta":-1,"netDelta":-1,"deductedRaces":["spa","donington"]},"happybadger":{"points":33,"netPoints":26,"delta":0,"netDelta":0,"deductedRaces":["silverstone","donington"]},"fletch":{"points":17,"netPoints":15,"delta":0,"netDelta":0,"deductedRaces":["donington","spa"]},"expendablelee":{"points":10,"netPoints":10,"delta":0,"netDelta":0,"deductedRaces":["silverstone","donington"]}}}
+{
+  "snetterton": {
+    "cannonmandan": { "points": 10, "delta": 0 },
+    "blyzr": { "points": 9, "delta": 0 },
+    "inkubusjaymz": { "points": 8, "delta": 0 },
+    "graeme": { "points": 8, "delta": 0 },
+    "happybadger": { "points": 6, "delta": 0 },
+    "eugenegoat": { "points": 5, "delta": 0 },
+    "fletch": { "points": 4, "delta": 0 },
+    "kruthal": { "points": 3, "delta": 0 },
+    "expendablelee": { "points": 2, "delta": 0 }
+  },
+  "silverstone": {
+    "graeme": { "points": 19, "delta": 0 },
+    "cannonmandan": { "points": 19, "delta": 0 },
+    "kruthal": { "points": 11, "delta": 0 },
+    "inkubusjaymz": { "points": 16, "delta": 0 },
+    "blyzr": { "points": 15, "delta": 0 },
+    "eugenegoat": { "points": 10, "delta": 0 },
+    "fletch": { "points": 8, "delta": 0 },
+    "happybadger": { "points": 9, "delta": 0 },
+    "expendablelee": { "points": 2, "delta": 0 }
+  },
+  "oulton-park": {
+    "graeme": { "points": 29, "delta": 0 },
+    "cannonmandan": { "points": 28, "delta": 0 },
+    "blyzr": { "points": 23, "delta": 0 },
+    "inkubusjaymz": { "points": 23, "delta": 0 },
+    "kruthal": { "points": 17, "delta": 0 },
+    "happybadger": { "points": 14, "delta": 0 },
+    "eugenegoat": { "points": 14, "delta": 0 },
+    "fletch": { "points": 8, "delta": 0 },
+    "expendablelee": { "points": 4, "delta": 0 }
+  },
+  "spa": {
+    "cannonmandan": { "points": 38, "delta": 0 },
+    "graeme": { "points": 37, "delta": 0 },
+    "kruthal": { "points": 28, "delta": 0 },
+    "happybadger": { "points": 20, "delta": 0 },
+    "eugenegoat": { "points": 19, "delta": 0 },
+    "blyzr": { "points": 23, "delta": 0 },
+    "inkubusjaymz": { "points": 23, "delta": 0 },
+    "expendablelee": { "points": 4, "delta": 0 },
+    "fletch": { "points": 8, "delta": 0 }
+  },
+  "brands-hatch": {
+    "graeme": { "points": 48, "delta": 0 },
+    "cannonmandan": { "points": 41, "delta": 0 },
+    "inkubusjaymz": { "points": 33, "delta": 0 },
+    "happybadger": { "points": 28, "delta": 0 },
+    "blyzr": { "points": 27, "delta": 0 },
+    "kruthal": { "points": 28, "delta": 0 },
+    "eugenegoat": { "points": 24, "delta": 0 },
+    "fletch": { "points": 8, "delta": 0 },
+    "expendablelee": { "points": 4, "delta": 0 }
+  },
+  "donington": {
+    "graeme": { "points": 59, "delta": 0 },
+    "cannonmandan": { "points": 47, "delta": 0 },
+    "kruthal": { "points": 38, "delta": 0 },
+    "inkubusjaymz": { "points": 40, "delta": 0 },
+    "eugenegoat": { "points": 29, "delta": 0 },
+    "blyzr": { "points": 28, "delta": 0 },
+    "happybadger": { "points": 30, "delta": 0 },
+    "fletch": { "points": 8, "delta": 0 },
+    "expendablelee": { "points": 4, "delta": 0 }
+  }
+}
