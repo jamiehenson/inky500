@@ -5,8 +5,10 @@
   import type { StandingResult } from "@/data/standings";
   import * as Table from "@/components/ui/table";
   import { Badge } from "@/components/ui/badge";
+  import * as Tooltip from "@/components/ui/tooltip";
   import DeltaMarker from "@/components/ui/DeltaMarker.svelte";
   import { getStandingsContext } from "@/components/context";
+  import CircleHelp from "@lucide/svelte/icons/circle-help";
   type Props = {
     data: Record<string, StandingResult>;
   };
@@ -32,11 +34,26 @@
 >
   <div>
     <h2 class="text-2xl font-bold">Drivers' Standings</h2>
-    <h3 class="text-sm text-center text-muted-foreground">
-      ({useNetPoints
-        ? "net points - two lowest results deducted"
-        : "total points"})
-    </h3>
+    <div class="flex justify-center items-center gap-2">
+      <h3 class="text-sm text-center text-muted-foreground">
+        ({useNetPoints ? "net points" : "total points"})
+      </h3>
+      {#if useNetPoints}
+        <Tooltip.Provider delayDuration={100}>
+          <Tooltip.Root>
+            <Tooltip.Trigger>
+              <CircleHelp size={16} />
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <p class="max-w-sm">
+                Net points are calculated by deducting the two lowest results
+                from a driver's total points each race.
+              </p>
+            </Tooltip.Content>
+          </Tooltip.Root>
+        </Tooltip.Provider>
+      {/if}
+    </div>
   </div>
   <div class="flex justify-center items-center gap-2">
     <Badge
