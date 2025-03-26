@@ -75,7 +75,10 @@
           <div class="grid grid-cols-3 gap-2">
             {#each completedRaces as completedTrack}
               <a href={withBase(`/${season}/${completedTrack}`)}>
-                <Button variant="secondary" size="sm">
+                <Button
+                  variant={completedTrack === track ? "default" : "secondary"}
+                  size="sm"
+                >
                   {tracks[completedTrack as TrackName].abbreviation}
                   <span
                     class={`rounded-sm fi fi-${tracks[completedTrack as TrackName].countryCode}`}
