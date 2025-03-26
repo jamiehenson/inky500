@@ -59,7 +59,7 @@
       </Tooltip.Provider>
     {/each}
   </div>
-  {#if ["s5"].includes(season)}}
+  {#if ["s5"].includes(season)}
     <div
       class="flex items-center space-x-2 p-2 h-11 bg-background rounded-tl-lg border"
     >
