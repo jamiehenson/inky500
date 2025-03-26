@@ -13,11 +13,9 @@ import {
 } from "@/data";
 import { carImages, withBase } from "@/utils";
 import Button from "@/components/ui/Button.astro";
-import type { ConstructorResults } from "@/data/constructorsStandings";
 import NavRow from "@/components/NavRow.svelte";
 import RaceResults from "@/components/RaceResults.svelte";
 import Standings from "@/components/Standings.svelte";
-import Progression from "@/components/Progression.svelte";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
@@ -59,7 +57,7 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
   title={`Inky 500 | ${tracks[track].name}, ${seasonTitle}`}
   description={`Results and standings for the Inky 500 ${seasonTitle} after ${tracks[track].name} 🏆`}
 >
-  <a href={withBase(`/${season}`)} class="absolute z-10 m-2">
+  <a href={withBase(`/${season}`)} class="absolute z-20 m-2">
     <Button variant="outline">
       <Icon.ChevronLeft size="24" aria-label="Back" />
       S{season[season.length - 1].toUpperCase()}
