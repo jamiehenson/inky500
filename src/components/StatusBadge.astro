@@ -1,6 +1,6 @@
 ---
 import { cn } from "@/lib/utils";
-import Badge from "./ui/Badge.astro";
+import { Badge } from "./ui/badge";
 
 export type Status = "complete" | "upcoming" | "in-progress";
 
@@ -19,9 +19,7 @@ const { status, date } = Astro.props;
 ---
 
 <div class="absolute bottom-3 right-3">
-  <Badge
-    className={cn(statuses[status].color, "opacity-90 pointer-events-none")}
-  >
+  <Badge class={cn(statuses[status].color, "opacity-90 pointer-events-none")}>
     {statuses[status].label}{date ? ` - ${date}` : ""}
   </Badge>
 </div>

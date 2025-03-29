@@ -6,8 +6,8 @@ import { ClientRouter } from "astro:transitions";
 import "@/styles/globals.css";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { withBase } from "@/utils";
-import NavLink from "@/components/NavLink.astro";
 import ThemeIcon from "@/components/ThemeIcon.astro";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   title: string;
@@ -63,7 +63,7 @@ const { title, description } = Astro.props;
     <ClientRouter />
   </head>
   <body class="bg-white dark:bg-zinc-900">
-    <div class="flex items-center justify-between px-3 py-2">
+    <div class="flex items-center px-3 py-2 justify-between">
       <div class="flex gap-3">
         <a href={withBase()} class="flex items-center">
           <Image
@@ -73,8 +73,8 @@ const { title, description } = Astro.props;
             loading="eager"
           />
         </a>
-        <NavLink href={withBase()} class="mr-3">Seasons</NavLink>
-        <NavLink href={withBase("/drivers")} class="mr-3">Drivers</NavLink>
+        <Button variant="outline" href={withBase()}> Seasons </Button>
+        <Button variant="outline" href={withBase("/drivers")}> Drivers </Button>
       </div>
       <div class="flex gap-3">
         <a

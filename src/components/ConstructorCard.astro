@@ -1,15 +1,11 @@
 ---
 import { Image } from "astro:assets";
 import type { ConstructorName } from "@/types";
-import CardContent from "./ui/card/CardContent.astro";
-import CardDescription from "./ui/card/CardDescription.astro";
-import CardHeader from "./ui/card/CardHeader.astro";
-import CardTitle from "./ui/card/CardTitle.astro";
-import Badge from "./ui/Badge.astro";
 import { constructors } from "@/data";
 import { carImages, withBase } from "@/utils";
-import Card from "./ui/card/Card.astro";
-
+import * as Card from "./ui/card";
+import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
 type Props = {
   link?: string;
   car?: ConstructorName;
@@ -27,13 +23,14 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
   href={withBase(link ?? "#")}
   class={link ? "cursor-pointer" : "cursor-not-allowed"}
 >
-  <Card
-    className={link
-      ? "hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-      : ""}
+  <Card.Root
+    class={cn(
+      link ? "hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" : "",
+      "relative h-full"
+    )}
   >
     <div
-      class="absolute rounded-lg w-full h-full opacity-50 -z-10"
+      class="absolute rounded-lg w-full h-full opacity-50"
       style={{
         background: `linear-gradient(to right, transparent, ${carTeamColor})`,
       }}
@@ -52,21 +49,21 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
       }
     </div>
     <div class="relative z-10 h-full">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+      <Card.Header>
+        <Card.Title class="flex items-center gap-2">
           {
             index ? (
-              <Badge className="rounded-lg pointer-events-none">{index}</Badge>
+              <Badge class="rounded-lg pointer-events-none">{index}</Badge>
             ) : null
           }
-          {title}</CardTitle
+          {title}</Card.Title
         >
-        <CardDescription
+        <Card.Description
           >{
             Array.isArray(subtitle) ? (
               <div>
                 <Badge
-                  className="rounded-lg pointer-events-none"
+                  class="rounded-lg pointer-events-none"
                   variant="secondary"
                 >
                   <span class={`mr-1 rounded-sm fi fi-${subtitle[1]}`} />
@@ -76,12 +73,12 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
             ) : (
               subtitle
             )
-          }</CardDescription
+          }</Card.Description
         >
-      </CardHeader>
-      <CardContent>
+      </Card.Header>
+      <Card.Content>
         <slot />
-      </CardContent>
+      </Card.Content>
     </div>
-  </Card>
+  </Card.Root>
 </a>

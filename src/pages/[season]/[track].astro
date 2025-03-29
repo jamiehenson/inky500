@@ -12,10 +12,10 @@ import {
   constructorsStandings,
 } from "@/data";
 import { carImages, withBase } from "@/utils";
-import Button from "@/components/ui/Button.astro";
 import NavRow from "@/components/NavRow.svelte";
 import RaceResults from "@/components/RaceResults.svelte";
 import Standings from "@/components/Standings.svelte";
+import { Button } from "@/components/ui/button";
 
 export function getStaticPaths() {
   const races: { season: string; track: string }[] = [];
