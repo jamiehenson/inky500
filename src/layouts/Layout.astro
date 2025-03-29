@@ -64,7 +64,7 @@ const { title, description } = Astro.props;
   </head>
   <body class="bg-white dark:bg-zinc-900">
     <div class="flex items-center px-3 py-2 justify-between">
-      <div class="flex gap-3">
+      <div class="flex gap-2">
         <a href={withBase()} class="flex items-center">
           <Image
             src={inkyLogo}
@@ -73,8 +73,10 @@ const { title, description } = Astro.props;
             loading="eager"
           />
         </a>
-        <Button variant="outline" href={withBase()}> Seasons </Button>
-        <Button variant="outline" href={withBase("/drivers")}> Drivers </Button>
+        <Button size="sm" variant="outline" href={withBase()}> Seasons </Button>
+        <Button size="sm" variant="outline" href={withBase("/drivers")}>
+          Drivers
+        </Button>
       </div>
       <div class="flex gap-3">
         <a
