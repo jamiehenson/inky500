@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { seasonRacers, drivers, constructors, results } from "@/data";
+  import { seasonRacers, drivers, constructors } from "@/data";
   import { type ConstructorName, type RacerName } from "@/types";
   import { carImages } from "@/utils";
   import * as Table from "@/components/ui/table";

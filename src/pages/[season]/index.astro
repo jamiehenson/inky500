@@ -69,12 +69,10 @@ const seasonTitle = `Season ${seasonNumber.toString().toUpperCase()}`;
   title={`Inky 500 | ${seasonTitle}`}
   description={`All the stats from ${seasonTitle} of the Inky 500 🔎`}
 >
-  <a href={withBase()} class="absolute">
-    <Button variant="outline">
-      <Icon.ChevronLeft size="24" aria-label="Back" />
-      Seasons
-    </Button>
-  </a>
+  <Button variant="outline" href={withBase()} class="absolute">
+    <Icon.ChevronLeft size="24" aria-label="Back" />
+    Seasons
+  </Button>
   <div class="relative">
     {
       seasonNumber > 1 && (

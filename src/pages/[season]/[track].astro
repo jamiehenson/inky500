@@ -57,12 +57,14 @@ const seasonTitle = `Season ${season[season.length - 1].toUpperCase()}`;
   title={`Inky 500 | ${tracks[track].name}, ${seasonTitle}`}
   description={`Results and standings for the Inky 500 ${seasonTitle} after ${tracks[track].name} 🏆`}
 >
-  <a href={withBase(`/${season}`)} class="absolute z-20 m-2">
-    <Button variant="outline">
-      <Icon.ChevronLeft size="24" aria-label="Back" />
-      S{season[season.length - 1].toUpperCase()}
-    </Button>
-  </a>
+  <Button
+    variant="outline"
+    href={withBase(`/${season}`)}
+    class="absolute z-20 m-2"
+  >
+    <Icon.ChevronLeft size="24" aria-label="Back" />
+    S{season[season.length - 1].toUpperCase()}
+  </Button>
   <div class="relative">
     <div
       class="absolute rounded-t-lg w-full h-full opacity-50 -z-10 border border-b-0"

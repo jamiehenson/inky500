@@ -1,7 +1,7 @@
 <script lang="ts">
   import { results, tracks } from "@/data";
   import { getStandingsContext } from "./context";
-  import { Button } from "./ui/button";
+  import { Button, buttonVariants } from "./ui/button";
   import { Label } from "./ui/label";
   import { Switch } from "./ui/switch";
   import ChevronUp from "@lucide/svelte/icons/chevron-up";
@@ -10,6 +10,7 @@
   import * as Popover from "./ui/popover";
   import type { TrackName } from "@/types";
   import { withBase } from "@/utils";
+  import { cn } from "@/lib/utils";
 
   const { season, track, netPoints, setNetPoints } = getStandingsContext();
   const completedRaces = Object.entries(results[season])
@@ -45,16 +46,15 @@
         <Tooltip.Provider delayDuration={100}>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <a href={withBase(`/${season}/${completedTrack}`)}>
-                <Button
-                  variant={completedTrack === track ? "default" : "secondary"}
-                  size="sm"
-                >
-                  <span
-                    class={`rounded-sm fi fi-${tracks[completedTrack as TrackName].countryCode}`}
-                  ></span>
-                </Button>
-              </a>
+              <Button
+                href={withBase(`/${season}/${completedTrack}`)}
+                variant={completedTrack === track ? "default" : "secondary"}
+                size="sm"
+              >
+                <span
+                  class={`rounded-sm fi fi-${tracks[completedTrack as TrackName].countryCode}`}
+                ></span>
+              </Button>
             </Tooltip.Trigger>
             <Tooltip.Content
               >{tracks[completedTrack as TrackName].name}</Tooltip.Content
@@ -65,27 +65,29 @@
     </div>
     <div class="block sm:hidden">
       <Popover.Root>
-        <Popover.Trigger>
-          <Button variant="secondary" size="sm" class="mb-0.5">
-            Season {season[season.length - 1].toUpperCase()}
-            <ChevronUp />
-          </Button>
+        <Popover.Trigger
+          class={cn(
+            buttonVariants({ variant: "outline", size: "sm" }),
+            "mb-0.5",
+          )}
+        >
+          Season {season[season.length - 1].toUpperCase()}
+          <ChevronUp />
         </Popover.Trigger>
         <Popover.Content>
           <div class="grid grid-cols-3 gap-2">
             {#each completedRaces as completedTrack}
-              <a href={withBase(`/${season}/${completedTrack}`)}>
-                <Button
-                  class="w-full"
-                  variant={completedTrack === track ? "default" : "secondary"}
-                  size="sm"
-                >
-                  {tracks[completedTrack as TrackName].abbreviation}
-                  <span
-                    class={`rounded-sm fi fi-${tracks[completedTrack as TrackName].countryCode}`}
-                  ></span>
-                </Button>
-              </a>
+              <Button
+                href={withBase(`/${season}/${completedTrack}`)}
+                class="w-full"
+                variant={completedTrack === track ? "default" : "secondary"}
+                size="sm"
+              >
+                {tracks[completedTrack as TrackName].abbreviation}
+                <span
+                  class={`rounded-sm fi fi-${tracks[completedTrack as TrackName].countryCode}`}
+                ></span>
+              </Button>
             {/each}
           </div>
         </Popover.Content>
