@@ -22,7 +22,7 @@
 >
   <div class="min-w-[100px] sm:min-w-[150px]">
     <div
-      class="inline-flex items-center h-12 p-2 bg-background sm:rounded-tr-lg sm:border"
+      class="inline-flex items-center h-12 p-2 bg-background sm:rounded-tr-lg sm:border border-b-0"
     >
       <Button
         variant="secondary"
@@ -39,7 +39,7 @@
       </Button>
     </div>
   </div>
-  <div class="rounded-t-lg bg-background p-1 sm:border">
+  <div class="rounded-t-lg bg-background p-1 sm:border border-b-0">
     <div class="hidden sm:flex justify-center gap-1 flex-wrap">
       {#each completedRaces as completedTrack}
         <Tooltip.Provider delayDuration={100}>
@@ -76,6 +76,7 @@
             {#each completedRaces as completedTrack}
               <a href={withBase(`/${season}/${completedTrack}`)}>
                 <Button
+                  class="w-full"
                   variant={completedTrack === track ? "default" : "secondary"}
                   size="sm"
                 >
@@ -94,7 +95,7 @@
   <div class="min-w-[100px] sm:min-w-[150px]">
     {#if ["s5"].includes(season)}
       <div
-        class="flex items-center space-x-2 p-2 h-12 bg-background sm:rounded-tl-lg sm:border"
+        class="flex items-center space-x-2 p-2 h-12 bg-background sm:rounded-tl-lg sm:border border-b-0"
       >
         <Label for="net-points">
           <span class="hidden sm:inline">Net Points</span>
