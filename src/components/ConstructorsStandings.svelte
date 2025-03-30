@@ -102,7 +102,9 @@
 
       <div animate:flip>
         {#if constructor && constructorDrivers.length > 0 && typeof result !== "string"}
-          <GridTable.Row class="grid grid-cols-4 w-full">
+          <GridTable.Row
+            class="grid grid-cols-[110px_48px_minmax(0,_1fr)_48px] sm:grid-cols-[140px_140px_minmax(0,_1fr)_60px] w-full"
+          >
             <GridTable.Cell class="flex items-center">
               <div class="flex items-center">
                 <Badge

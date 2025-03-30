@@ -96,8 +96,10 @@
         {#if driver && seasonDriver}
           {@const currentTeam =
             seasonDriver.otherTeams?.[track as TrackName] ?? seasonDriver}
-          <GridTable.Row class="grid grid-cols-4 sm:grid-cols-5 w-full">
-            <GridTable.Cell class="flex items-center">
+          <GridTable.Row
+            class="grid grid-cols-[110px_48px_minmax(0,_1fr)_48px] sm:grid-cols-[140px_140px_minmax(0,_1fr)_60px] w-full"
+          >
+            <GridTable.Cell class="flex items-center order-1">
               <Badge
                 variant="secondary"
                 class="w-8 justify-center mr-2 pointer-events-none"
@@ -110,8 +112,10 @@
                   : (result?.delta ?? 0)}
               />
             </GridTable.Cell>
-            <GridTable.Cell>{driver.name}</GridTable.Cell>
-            <GridTable.Cell class="sm:col-span-2">
+            <GridTable.Cell class="order-3 sm:order-2">
+              {driver.name}
+            </GridTable.Cell>
+            <GridTable.Cell class="order-2 sm:order-3">
               <div class="flex items-center gap-2">
                 <img
                   src={carImages[currentTeam.car].src}
@@ -121,7 +125,7 @@
                 <span class="hidden sm:block">{currentTeam.team}</span>
               </div>
             </GridTable.Cell>
-            <GridTable.Cell class="justify-end">
+            <GridTable.Cell class="justify-end order-4">
               <span class="font-bold">
                 {#if useNetPoints}
                   {(result as StandingResult).netPoints}
