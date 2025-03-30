@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { drivers, results, seasonRacers } from "@/data";
-  import type { RacerName, SeasonName, TrackName } from "@/types";
+  import { flip } from "svelte/animate";
+  import { drivers, seasonRacers } from "@/data";
+  import type { RacerName, TrackName } from "@/types";
   import { carImages } from "@/utils";
   import type { StandingResult } from "@/data/standings";
-  import * as Table from "@/components/ui/table";
+  import * as GridTable from "@/components/ui/grid-table";
   import { Badge } from "@/components/ui/badge";
   import * as Tooltip from "@/components/ui/tooltip";
   import DeltaMarker from "@/components/ui/DeltaMarker.svelte";
@@ -85,33 +86,32 @@
       <span class="block sm:hidden">Table 🥇</span>
     </Badge>
   </div>
-  <Table.Root>
-    <Table.Body>
-      {#each sortedData as [key, result], index}
-        {@const seasonDriver = seasonRacers[season][key as RacerName]}
-        {@const driver = drivers[key as RacerName]}
 
+  <div>
+    {#each sortedData as [key, result], index (key)}
+      {@const seasonDriver = seasonRacers[season][key as RacerName]}
+      {@const driver = drivers[key as RacerName]}
+
+      <div animate:flip>
         {#if driver && seasonDriver}
           {@const currentTeam =
             seasonDriver.otherTeams?.[track as TrackName] ?? seasonDriver}
-          <Table.Row>
-            <Table.Cell>
-              <div class="flex items-center">
-                <Badge
-                  variant="secondary"
-                  class="w-8 justify-center mr-2 pointer-events-none"
-                >
-                  {index + 1}
-                </Badge>
-                <DeltaMarker
-                  delta={useNetPoints
-                    ? (result?.netDelta ?? 0)
-                    : (result?.delta ?? 0)}
-                />
-              </div>
-            </Table.Cell>
-            <Table.Cell>{driver.name}</Table.Cell>
-            <Table.Cell>
+          <GridTable.Row class="grid grid-cols-4 sm:grid-cols-5 w-full">
+            <GridTable.Cell class="flex items-center">
+              <Badge
+                variant="secondary"
+                class="w-8 justify-center mr-2 pointer-events-none"
+              >
+                {index + 1}
+              </Badge>
+              <DeltaMarker
+                delta={useNetPoints
+                  ? (result?.netDelta ?? 0)
+                  : (result?.delta ?? 0)}
+              />
+            </GridTable.Cell>
+            <GridTable.Cell>{driver.name}</GridTable.Cell>
+            <GridTable.Cell class="sm:col-span-2">
               <div class="flex items-center gap-2">
                 <img
                   src={carImages[currentTeam.car].src}
@@ -120,8 +120,8 @@
                 />
                 <span class="hidden sm:block">{currentTeam.team}</span>
               </div>
-            </Table.Cell>
-            <Table.Cell class="font-bold text-right">
+            </GridTable.Cell>
+            <GridTable.Cell class="justify-end">
               <span class="font-bold">
                 {#if useNetPoints}
                   {(result as StandingResult).netPoints}
@@ -129,10 +129,10 @@
                   {(result as StandingResult).points}
                 {/if}
               </span>
-            </Table.Cell>
-          </Table.Row>
+            </GridTable.Cell>
+          </GridTable.Row>
         {/if}
-      {/each}
-    </Table.Body>
-  </Table.Root>
+      </div>
+    {/each}
+  </div>
 </div>

@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { flip } from "svelte/animate";
   import { seasonRacers, drivers, constructors } from "@/data";
   import { type ConstructorName, type RacerName } from "@/types";
   import { carImages } from "@/utils";
-  import * as Table from "@/components/ui/table";
+  import * as GridTable from "@/components/ui/grid-table";
   import { Badge } from "@/components/ui/badge";
   import DeltaMarker from "./ui/DeltaMarker.svelte";
   import type { ConstructorResults } from "@/data/constructorsStandings";
@@ -87,22 +88,22 @@
       <span class="block sm:hidden">Table 🥇</span>
     </Badge>
   </div>
-  <Table.Root>
-    <Table.Body>
-      {#each sortedData as [constructorName, result], index}
-        {@const constructor = constructors[constructorName as ConstructorName]}
-        {@const constructorDrivers = Object.entries(seasonRacers[season])
-          .filter((racer) =>
-            racer[1].otherTeams?.[track]
-              ? racer[1].otherTeams[track].car === constructorName
-              : racer[1].car === constructorName,
-          )
-          .map((racer) => [racer[0], drivers[racer[0] as RacerName].name])
-          .toSorted((a, b) => a[1].localeCompare(b[1]))}
+  <div>
+    {#each sortedData as [constructorName, result], index (constructorName)}
+      {@const constructor = constructors[constructorName as ConstructorName]}
+      {@const constructorDrivers = Object.entries(seasonRacers[season])
+        .filter((racer) =>
+          racer[1].otherTeams?.[track]
+            ? racer[1].otherTeams[track].car === constructorName
+            : racer[1].car === constructorName,
+        )
+        .map((racer) => [racer[0], drivers[racer[0] as RacerName].name])
+        .toSorted((a, b) => a[1].localeCompare(b[1]))}
 
+      <div animate:flip>
         {#if constructor && constructorDrivers.length > 0 && typeof result !== "string"}
-          <Table.Row>
-            <Table.Cell>
+          <GridTable.Row class="grid grid-cols-4 w-full">
+            <GridTable.Cell class="flex items-center">
               <div class="flex items-center">
                 <Badge
                   variant="secondary"
@@ -114,18 +115,18 @@
                   delta={useNetPoints ? result.netDelta : result.delta}
                 />
               </div>
-            </Table.Cell>
-            <Table.Cell>
+            </GridTable.Cell>
+            <GridTable.Cell>
               <div class="flex items-center gap-2">
                 <img
                   src={carImages[constructorName as ConstructorName].src}
                   alt={constructorName}
                   class="w-6 h-6"
                 />
-                <span class="hidden sm:block">{constructor.name}</span>
+                <span class="hidden md:block">{constructor.name}</span>
               </div>
-            </Table.Cell>
-            <Table.Cell>
+            </GridTable.Cell>
+            <GridTable.Cell class="flex-col items-start">
               {#each constructorDrivers as driver}
                 <p
                   class={Object.keys(trackResults ?? {}).includes(driver[0])
@@ -135,8 +136,8 @@
                   {driver[1]}
                 </p>
               {/each}
-            </Table.Cell>
-            <Table.Cell class="font-bold text-right">
+            </GridTable.Cell>
+            <GridTable.Cell class="justify-end">
               <span class="font-bold">
                 {#if netPoints()}
                   {result.netNormalisedPoints}
@@ -144,10 +145,10 @@
                   {result.normalisedPoints}
                 {/if}
               </span>
-            </Table.Cell>
-          </Table.Row>
+            </GridTable.Cell>
+          </GridTable.Row>
         {/if}
-      {/each}
-    </Table.Body>
-  </Table.Root>
+      </div>
+    {/each}
+  </div>
 </div>
