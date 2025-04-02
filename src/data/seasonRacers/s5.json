@@ -21,7 +21,7 @@
     "car": "mclaren"
   },
   "inkubusjaymz": {
-    "team": "Big Girl",
+    "team": "Bentley Team M-Sport",
     "car": "bentley",
     "otherTeams": {
       "red-bull-ring": { "car": "audi", "team": "Attempto Racing" },
@@ -57,7 +57,17 @@
   },
   "atlas": {
     "team": "ATLAS Performance Most Wanted",
-    "car": "bmw"
+    "car": "lamborghini",
+    "otherTeams": {
+      "red-bull-ring": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "misano": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "paul-ricard": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "nurburgring": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "brands-hatch": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "zolder": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "kyalami": { "car": "bmw", "team": "ATLAS Performance Most Wanted" },
+      "hungaroring": { "car": "bmw", "team": "ATLAS Performance Most Wanted" }
+    }
   },
   "cousinbenson": {
     "team": "The Estate",
@@ -84,8 +94,18 @@
     "car": "audi"
   },
   "howell": {
-    "team": "BMW M4 GT3",
-    "car": "bmw"
+    "team": "Porsche 992",
+    "car": "porsche",
+    "otherTeams": {
+      "red-bull-ring": { "car": "bmw", "team": "Team WRT" },
+      "misano": { "car": "bmw", "team": "Team WRT" },
+      "paul-ricard": { "car": "bmw", "team": "Team WRT" },
+      "nurburgring": { "car": "bmw", "team": "Team WRT" },
+      "brands-hatch": { "car": "bmw", "team": "Team WRT" },
+      "zolder": { "car": "bmw", "team": "Team WRT" },
+      "kyalami": { "car": "bmw", "team": "Team WRT" },
+      "hungaroring": { "car": "bmw", "team": "Team WRT" }
+    }
   },
   "smolzie": {
     "team": "Smolzie Racing",
