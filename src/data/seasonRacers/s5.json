@@ -94,7 +94,7 @@
     "car": "audi"
   },
   "howell": {
-    "team": "Porsche 992",
+    "team": "Wright Motorsports",
     "car": "porsche",
     "otherTeams": {
       "red-bull-ring": { "car": "bmw", "team": "Team WRT" },
@@ -116,7 +116,7 @@
     "car": "mercedes"
   },
   "cal": {
-    "team": "Large Greasy Nuts",
+    "team": "Grease My NUTS",
     "car": "mclaren"
   },
   "cosmo": {
