@@ -1,7 +1,11 @@
 <script lang="ts">
   import { flip } from "svelte/animate";
-  import { seasonRacers, drivers, constructors } from "@/data";
-  import { type ConstructorName, type RacerName } from "@/types";
+  import { seasonRacers, drivers, constructors, tracks, results } from "@/data";
+  import {
+    type TrackName,
+    type ConstructorName,
+    type RacerName,
+  } from "@/types";
   import { carImages } from "@/utils";
   import * as GridTable from "@/components/ui/grid-table";
   import { Badge } from "@/components/ui/badge";
@@ -10,6 +14,7 @@
   import { getStandingsContext } from "@/components/context";
   import * as Tooltip from "@/components/ui/tooltip";
   import CircleHelp from "@lucide/svelte/icons/circle-help";
+  import { cn } from "@/lib/utils";
 
   type Props = {
     data: ConstructorResults;
@@ -28,6 +33,24 @@
         : (b.normalisedPoints ?? 0) - (a.normalisedPoints ?? 0);
     }),
   );
+
+  const seasonKeys = Object.keys(results[season]);
+  const completedRaces = seasonKeys.filter(
+    (seasonTrack) =>
+      seasonKeys.indexOf(seasonTrack) <= seasonKeys.indexOf(track),
+  );
+
+  const eligibleOtherTeams = (driver: RacerName) => {
+    const formerTeams = Object.entries(
+      seasonRacers[season][driver]?.otherTeams ?? {},
+    ).filter(([seasonTrack]) => completedRaces.includes(seasonTrack));
+
+    if (formerTeams.some((formerTeam) => formerTeam[0] === track)) {
+      return [];
+    }
+
+    return formerTeams;
+  };
 </script>
 
 <div
@@ -131,11 +154,48 @@
             <GridTable.Cell class="flex-col items-start">
               {#each constructorDrivers as driver}
                 <p
-                  class={Object.keys(trackResults ?? {}).includes(driver[0])
-                    ? ""
-                    : "font-extralight text-zinc-400"}
+                  class={cn(
+                    Object.keys(trackResults ?? {}).includes(driver[0])
+                      ? ""
+                      : "font-extralight text-zinc-400",
+                    "flex gap-1",
+                  )}
                 >
                   {driver[1]}
+                  {#if eligibleOtherTeams(driver[0] as RacerName).length > 0}
+                    <Tooltip.Provider delayDuration={100}>
+                      <Tooltip.Root>
+                        <Tooltip.Trigger>
+                          <CircleHelp size={16} />
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>
+                          <div class="flex flex-col gap-2">
+                            <strong>Formerly with:</strong>
+                            <ul class="flex flex-col gap-2">
+                              {#each eligibleOtherTeams(driver[0] as RacerName) as [track, otherTeam]}
+                                <li
+                                  class="flex justify-between gap-4 items-center"
+                                >
+                                  <span>
+                                    {tracks[track as TrackName].name}
+                                  </span>
+                                  <span>
+                                    <img
+                                      src={carImages[
+                                        otherTeam.car as ConstructorName
+                                      ].src}
+                                      alt={otherTeam.car}
+                                      class="w-6 h-6"
+                                    />
+                                  </span>
+                                </li>
+                              {/each}
+                            </ul>
+                          </div>
+                        </Tooltip.Content>
+                      </Tooltip.Root>
+                    </Tooltip.Provider>
+                  {/if}
                 </p>
               {/each}
             </GridTable.Cell>
