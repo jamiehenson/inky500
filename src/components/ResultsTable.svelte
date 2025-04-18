@@ -19,6 +19,7 @@
   import { carImages } from "@/utils";
   import { getStandingsContext } from "./context";
   import { pointsScheme } from "@/points";
+  import type { SeasonRacer } from "@/data/seasonRacers";
 
   type ConstructorResults = Record<
     TrackName,
@@ -40,6 +41,9 @@
     return "bg-green-100 dark:bg-green-300";
   };
 
+  const getDriverCar = (track: TrackName, driver?: SeasonRacer) =>
+    driver?.otherTeams?.[track as TrackName]?.car ?? driver?.car ?? "unknown";
+
   const constructorResults = Object.entries(
     results[season] ?? {},
   ).reduce<ConstructorResults>((acc, [track, result]) => {
@@ -47,10 +51,10 @@
       const resultKeys = Object.keys(result?.results ?? {});
       resultKeys.map((driver) => {
         const driverData = seasonRacers[season][driver as RacerName];
-        const driverConstructor: ConstructorName =
-          driverData?.otherTeams?.[track as TrackName]?.car ??
-          driverData?.car ??
-          "unknown";
+        const driverConstructor: ConstructorName = getDriverCar(
+          track as TrackName,
+          driverData,
+        );
 
         acc[track as TrackName] = {
           ...(acc[track as TrackName] ?? {}),
@@ -200,10 +204,22 @@
                 item as RacerName
               ]?.deductedRaces?.includes(resultTrack)}
             <Table.Cell
-              class={cn(cellColor(position), "text-center border", {
+              class={cn(cellColor(position), "text-center border relative", {
                 "bg-red-100 dark:bg-red-300": deducted,
               })}
             >
+              {#if position > 0}
+                <img
+                  src={carImages[
+                    getDriverCar(
+                      resultTrack as TrackName,
+                      seasonRacers[season][item as RacerName] as SeasonRacer,
+                    ) as ConstructorName
+                  ].src}
+                  alt={item}
+                  class="w-3 h-3 absolute top-1 right-1"
+                />
+              {/if}
               <div class="flex flex-col items-center relative">
                 <span
                   class={cn("text-sm font-bold", {
@@ -218,7 +234,7 @@
                       "select-none": deducted,
                     })}
                   >
-                    ({points})
+                    ({isNaN(points) ? 0 : points})
                   </span>
                 {/if}
                 {#if deducted}
