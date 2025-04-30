@@ -128,8 +128,20 @@
     "car": "astonmartin"
   },
   "phelps": {
-    "team": "Team WRT",
-    "car": "bmw"
+    "team": "Team Lambo",
+    "car": "lamborghini",
+    "otherTeams": {
+      "red-bull-ring": { "car": "bmw", "team": "Team WRT" },
+      "misano": { "car": "bmw", "team": "Team WRT" },
+      "paul-ricard": { "car": "bmw", "team": "Team WRT" },
+      "nurburgring": { "car": "bmw", "team": "Team WRT" },
+      "brands-hatch": { "car": "bmw", "team": "Team WRT" },
+      "zolder": { "car": "bmw", "team": "Team WRT" },
+      "kyalami": { "car": "bmw", "team": "Team WRT" },
+      "hungaroring": { "car": "bmw", "team": "Team WRT" },
+      "barcelona": { "car": "bmw", "team": "Team WRT" },
+      "imola": { "car": "bmw", "team": "Team WRT" }
+    }
   },
   "greenway": {
     "team": "Team WRT",
