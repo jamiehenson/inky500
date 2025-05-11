@@ -17,7 +17,11 @@ export const gridPenalties = {
       wobbleboss: -3,
     },
   },
-  s5: {},
+  s5: {
+    "snetterton": {
+      "graeme": 1
+    }
+  },
 } satisfies Penalties;
 
 export const pointsPenalties = {
