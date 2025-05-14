@@ -25,7 +25,17 @@
     "car": "bentley",
     "otherTeams": {
       "red-bull-ring": { "car": "audi", "team": "Attempto Racing" },
-      "misano": { "car": "audi", "team": "Attempto Racing" }
+      "misano": { "car": "audi", "team": "Attempto Racing" },
+      "paul-ricard": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "nurburgring": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "brands-hatch": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "zolder": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "kyalami": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "hungaroring": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "barcelona": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "imola": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "snetterton": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "suzuka": { "car": "bentley", "team": "Bentley Team M-Sport" }
     }
   },
   "graeme": {
