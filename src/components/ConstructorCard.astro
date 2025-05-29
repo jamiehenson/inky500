@@ -25,7 +25,7 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
 >
   <Card.Root
     class={cn(
-      link ? "hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" : "",
+      link ? "hover:bg-background transition-colors" : "",
       "relative h-full"
     )}
   >
@@ -53,7 +53,9 @@ const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
         <Card.Title class="flex items-center gap-2">
           {
             index ? (
-              <Badge class="rounded-lg pointer-events-none">{index}</Badge>
+              <Badge variant="secondary" class="rounded-lg pointer-events-none">
+                {index}
+              </Badge>
             ) : null
           }
           {title}</Card.Title

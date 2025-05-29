@@ -157,7 +157,7 @@
                   class={cn(
                     Object.keys(trackResults ?? {}).includes(driver[0])
                       ? ""
-                      : "font-extralight text-zinc-400",
+                      : "font-extralight text-muted-foreground",
                     "flex gap-1",
                   )}
                 >
