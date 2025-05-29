@@ -33,5 +33,8 @@ export const pointsPenalties = {
     "red-bull-ring": {
       wobbleboss: 5,
     },
+    "indianapolis": {
+      "atlas": 5
+    }
   },
 } as Penalties;
