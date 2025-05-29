@@ -208,7 +208,7 @@
           {/if}
         </Card.Description>
       </div>
-      <div class="flex items-center gap-6 !mt-3 md:!mt-0">
+      <div class="flex items-center gap-6 mt-3! md:mt-0!">
         <div class="flex flex-col gap-2">
           <div>Show me</div>
           <RadioGroup.Root

@@ -67,7 +67,7 @@
       <Popover.Root>
         <Popover.Trigger
           class={cn(
-            buttonVariants({ variant: "outline", size: "sm" }),
+            buttonVariants({ variant: "outline-solid", size: "sm" }),
             "mb-0.5",
           )}
         >

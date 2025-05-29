@@ -52,7 +52,7 @@
                 {index + 1}
               </Badge>
               <span
-                class={`!hidden sm:!inline-flex rounded-sm mr-1 fi fi-${driver.countryCode}`}
+                class={`hidden! sm:inline-flex! rounded-sm mr-1 fi fi-${driver.countryCode}`}
               ></span>
               <span>{driver.name}</span>
             </Table.Cell>
