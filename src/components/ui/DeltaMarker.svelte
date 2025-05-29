@@ -19,5 +19,7 @@
     <Minus size="24" class="stroke-gray-500" />
   {/if}
 
-  <span class="font-bold">{delta !== 0 ? Math.abs(delta) : null}</span>
+  <span class="font-bold text-foreground"
+    >{delta !== 0 ? Math.abs(delta) : null}</span
+  >
 </div>
