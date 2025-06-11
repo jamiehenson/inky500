@@ -21,8 +21,8 @@
     "car": "mclaren"
   },
   "inkubusjaymz": {
-    "team": "IJTeam",
-    "car": "astonmartin",
+    "team": "Bentley Team M-Sport",
+    "car": "bentley",
     "otherTeams": {
       "red-bull-ring": { "car": "audi", "team": "Attempto Racing" },
       "misano": { "car": "audi", "team": "Attempto Racing" },
@@ -35,7 +35,8 @@
       "barcelona": { "car": "bentley", "team": "Bentley Team M-Sport" },
       "imola": { "car": "bentley", "team": "Bentley Team M-Sport" },
       "snetterton": { "car": "bentley", "team": "Bentley Team M-Sport" },
-      "suzuka": { "car": "bentley", "team": "Bentley Team M-Sport" }
+      "suzuka": { "car": "bentley", "team": "Bentley Team M-Sport" },
+      "indianapolis": { "car": "astonmartin", "team": "IJTeam" }
     }
   },
   "graeme": {

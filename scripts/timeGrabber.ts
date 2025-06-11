@@ -35,14 +35,14 @@ const formatDate = (dateString: string) => {
 export const timeGrabber = async (
   season: SeasonName,
   race: TrackName,
-  link: string
+  link: string,
 ) => {
   const response = await fetch(link);
   const html = await response.text();
   const dom = new JSDOM(
     html
       .replace(/<style([\S\s]*?)>([\S\s]*?)<\/style>/gim, "")
-      .replace(/<script([\S\s]*?)>([\S\s]*?)<\/script>/gim, "")
+      .replace(/<script([\S\s]*?)>([\S\s]*?)<\/script>/gim, ""),
   );
 
   const dateElement =
@@ -69,10 +69,10 @@ export const timeGrabber = async (
 
         if (driver && totalTime && bestLap && numLaps) {
           return [
-            driver.innerHTML.split("\n")[0],
-            totalTime.innerHTML,
-            bestLap.innerHTML.split("<")[0],
-            numLaps.innerHTML.split("lap")[0],
+            driver.innerHTML.split("\n")[1].trim(),
+            totalTime.innerHTML.trim(),
+            bestLap.innerHTML.split("<")[0].trim(),
+            numLaps.innerHTML.split("lap")[0].trim(),
           ];
         }
 
@@ -87,8 +87,8 @@ export const timeGrabber = async (
       const name =
         Object.entries(drivers).find((driver) =>
           (driver[1] as { tableNames?: string[] }).tableNames?.includes(
-            tableName
-          )
+            tableName,
+          ),
         )?.[0] ?? tableName;
 
       let parsedTime = time[1].split(":").slice(1).join(":");
@@ -145,7 +145,7 @@ export const timeGrabber = async (
     (obj: Record<string, string>, item: string) => {
       return (obj[item] = results[item]), obj;
     },
-    {}
+    {},
   );
 
   return { results: orderedResults, fastestLap, data: link, date };
