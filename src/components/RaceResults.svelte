@@ -24,7 +24,12 @@
 </script>
 
 <div id="results" class="flex flex-col gap-4 col-span-2 border rounded-lg">
-  <h2 class="text-2xl font-bold">Race Results</h2>
+  <h2 class="text-2xl font-bold mb-0">Race Results</h2>
+  {#if data.data}
+    <a href={data.data} class="w-fit self-center ml-4 mb-2" target="_blank">
+      <Badge variant="default">Detailed breakdown 🔎</Badge>
+    </a>
+  {/if}
   <Table.Root>
     <Table.Body>
       {#each Object.entries(data.results ?? {}) as [racerId, result], index}
