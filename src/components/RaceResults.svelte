@@ -21,12 +21,37 @@
   };
 
   const { data, season, track, link = undefined }: Props = $props();
+
+  const formatLink = (link: string) => {
+    if (!link) return "#";
+
+    if (link.endsWith("_R")) {
+      const linkParts = link.split("/");
+      const linkStart = linkParts
+        .slice(0, -1)
+        .join("/")
+        .replace("results", "result");
+      const linkEnd = linkParts.slice(-1)?.[0] ?? "";
+
+      const parts = linkEnd?.split("_");
+      const date = "20" + parts[0].match(/.{1,2}/g)?.join("-");
+      const time = parts[1].match(/.{1,2}/g)?.join("-");
+
+      return `${linkStart}/${date}_${time}_RACE`;
+    }
+
+    return link;
+  };
 </script>
 
 <div id="results" class="flex flex-col gap-4 col-span-2 border rounded-lg">
   <h2 class="text-2xl font-bold mb-0">Race Results</h2>
-  {#if data.data}
-    <a href={data.data} class="w-fit self-center ml-4 mb-2" target="_blank">
+  {#if link}
+    <a
+      href={formatLink(link)}
+      class="w-fit self-center ml-4 mb-2"
+      target="_blank"
+    >
       <Badge variant="default">Detailed breakdown 🔎</Badge>
     </a>
   {/if}
