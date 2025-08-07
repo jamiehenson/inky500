@@ -6,7 +6,7 @@
     type SeasonName,
     type TrackName,
   } from "@/types";
-  import { carImages } from "@/utils";
+  import { carImages, withBase } from "@/utils";
   import { pointsScheme } from "@/points";
   import type { RacerResult } from "@/data/results";
   import * as Table from "./ui/table";
@@ -84,7 +84,9 @@
               <span
                 class={`hidden! sm:inline-flex! rounded-sm mr-1 fi fi-${driver.countryCode}`}
               ></span>
-              <span>{driver.name}</span>
+              <a href={withBase(`/drivers/${racerId}`)} class="hover:underline"
+                >{driver.name}</a
+              >
             </Table.Cell>
             <Table.Cell>
               <div class="flex items-center gap-2">

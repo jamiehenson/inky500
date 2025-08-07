@@ -6,22 +6,24 @@ import { carImages, withBase } from "@/utils";
 import * as Card from "./ui/card";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
+
 type Props = {
   link?: string;
   car?: ConstructorName;
   title: string;
   subtitle: string | [string, string];
   index?: number;
+  class?: string;
 };
 
-const { link, car, title, subtitle, index } = Astro.props;
+const { link, car, title, subtitle, index, class: className } = Astro.props;
 
 const carTeamColor = car ? constructors[car]?.teamColor : "transparent";
 ---
 
 <a
-  href={withBase(link ?? "#")}
-  class={link ? "cursor-pointer" : "cursor-not-allowed"}
+  href={link ? withBase(link) : "#"}
+  class={cn(link ? "cursor-pointer" : "cursor-not-allowed", className)}
 >
   <Card.Root
     class={cn(

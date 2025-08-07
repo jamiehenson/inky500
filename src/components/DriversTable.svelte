@@ -4,33 +4,10 @@
   import { seasonInfo } from "@/data/seasons";
   import { cn } from "@/lib/utils";
   import type { ConstructorName, RacerName } from "@/types";
-  import { carImages } from "@/utils";
+  import { carImages, resultPositionSuffix } from "@/utils";
   import ArrowUpDown from "@lucide/svelte/icons/arrow-up-down";
   import ArrowUp from "@lucide/svelte/icons/arrow-up";
   import ArrowDown from "@lucide/svelte/icons/arrow-down";
-
-  const resultPositionSuffix = (position: number) => {
-    if (!position) {
-      return "N/A";
-    }
-
-    const lastDigit = (n: number) => n % 10;
-    const lastTwoDigits = (n: number) => n % 100;
-
-    if (lastDigit(position) === 1 && lastTwoDigits(position) !== 11) {
-      return position + "st";
-    }
-
-    if (lastDigit(position) === 2 && lastTwoDigits(position) !== 12) {
-      return position + "nd";
-    }
-
-    if (lastDigit(position) === 3 && lastTwoDigits(position) !== 13) {
-      return position + "rd";
-    }
-
-    return position + "th";
-  };
 
   const calculateDriverData = (driver: RacerName) => {
     let fastestLaps = 0;
@@ -53,6 +30,7 @@
       positions.reduce((acc, position) => acc + position, 0) / positions.length;
 
     return {
+      id: driver,
       name: drivers[driver].name,
       teams: Array.from(
         new Set(
@@ -90,12 +68,16 @@
       championships: Object.entries(standings)
         .map((seasonStandings) => {
           const seasonStandingValues = Object.values(seasonStandings[1]);
-          return driver ===
-            Object.keys(
-              seasonStandingValues[seasonStandingValues.length - 1],
-            )[0]
-            ? seasonStandings[0].toUpperCase()
-            : null;
+
+          const topDriver = Object.entries(
+            seasonStandingValues[seasonStandingValues.length - 1],
+          ).sort((a, b) =>
+            b[1].netPoints && a[1].netPoints
+              ? b[1].netPoints - a[1].netPoints
+              : b[1].points - a[1].points,
+          )[0][0];
+
+          return driver === topDriver ? seasonStandings[0].toUpperCase() : null;
         })
         .filter(
           (season) =>
@@ -206,7 +188,11 @@
         <Table.Row>
           {#each headers as header}
             <Table.Cell>
-              {#if header.id === "teams"}
+              {#if header.id === "name"}
+                <a class="hover:underline" href={`/drivers/${driver.id}`}>
+                  {driver.name}
+                </a>
+              {:else if header.id === "teams"}
                 <div class="flex flex-wrap gap-2">
                   {#each driver.teams as team}
                     <img

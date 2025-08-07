@@ -47,3 +47,26 @@ export const carImages: Record<ConstructorName, ImageMetadata> = {
   renault,
   unknown,
 };
+
+export const resultPositionSuffix = (position: number | null) => {
+  if (!position) {
+    return "N/A";
+  }
+
+  const lastDigit = (n: number) => n % 10;
+  const lastTwoDigits = (n: number) => n % 100;
+
+  if (lastDigit(position) === 1 && lastTwoDigits(position) !== 11) {
+    return position + "st";
+  }
+
+  if (lastDigit(position) === 2 && lastTwoDigits(position) !== 12) {
+    return position + "nd";
+  }
+
+  if (lastDigit(position) === 3 && lastTwoDigits(position) !== 13) {
+    return position + "rd";
+  }
+
+  return position + "th";
+};

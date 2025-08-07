@@ -1,0 +1,99 @@
+---
+import {
+  drivers,
+  standings,
+  seasonRacers,
+  results as resultsData,
+  tracks,
+} from "../../data";
+import Layout from "../../layouts/Layout.astro";
+import ConstructorCard from "../../components/ConstructorCard.astro";
+import { resultPositionSuffix } from "../../utils";
+import type {
+  ConstructorName,
+  RacerName,
+  SeasonName,
+  TrackName,
+} from "@/types";
+
+const { driver } = Astro.params;
+
+export function getStaticPaths() {
+  return Object.keys(drivers).map((driver) => ({ params: { driver } }));
+}
+
+const results = Object.entries(standings)
+  .map(([season, seasonStandings]) => {
+    const typedSeason = season as SeasonName;
+    const typedDriver = driver as RacerName;
+    const lastKey = Object.keys(seasonStandings).at(-1) as TrackName;
+    const driverResults = seasonStandings[lastKey]?.[typedDriver];
+
+    if (!driverResults) return null;
+
+    return {
+      season,
+      points: driverResults.netPoints ?? driverResults.points ?? 0,
+      position: seasonStandings[lastKey]
+        ? Object.entries(seasonStandings[lastKey])
+            .sort((a, b) =>
+              b[1].netPoints && a[1].netPoints
+                ? b[1].netPoints - a[1].netPoints
+                : b[1].points - a[1].points
+            )
+            .map(([driver, _]) => driver)
+            .indexOf(driver) + 1
+        : null,
+      team: seasonRacers[typedSeason][typedDriver]?.team || "Unknown",
+      car: seasonRacers[typedSeason][typedDriver]?.car || "Unknown",
+      raceResults: Object.entries(resultsData[typedSeason]).map(
+        ([track, raceResult]) => ({
+          track,
+          position:
+            Object.keys(raceResult?.results ?? {}).indexOf(driver) + 1 || null,
+        })
+      ),
+    };
+  })
+  .filter(Boolean);
+---
+
+<Layout
+  title="Inky 500 | Seasons"
+  description={`View the results and standings for all Inky 500 seasons 🏆`}
+>
+  <h1>{drivers[driver as RacerName].name}</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {
+      results.map(
+        (result) =>
+          result && (
+            <ConstructorCard
+              title={`Season ${result.season.slice(1)}`}
+              subtitle={`${result.team} | ${resultPositionSuffix(result.position)} | Points:
+                  ${result.points}`}
+              car={result.car as ConstructorName}
+              class="cursor-auto"
+            >
+              {result.position !== null && <span />}
+              <ul>
+                {result.raceResults.map((r) => (
+                  <li class="flex justify-between items-center text-sm">
+                    <div>
+                      <span
+                        class={`fi fi-${tracks[r.track as TrackName].countryCode} mr-1`}
+                      />
+                      {tracks[r.track as TrackName].name}
+                    </div>
+                    <span class="font-bold">
+                      {resultPositionSuffix(r.position)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </ConstructorCard>
+          )
+      )
+    }
+  </div>
+</Layout>
