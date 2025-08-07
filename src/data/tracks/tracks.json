@@ -154,5 +154,17 @@
     "location": "Watkins Glen, United States",
     "countryCode": "us",
     "abbreviation": "WAT"
+  },
+  "valencia": {
+    "name": "Valencia",
+    "location": "Valencia, Spain",
+    "countryCode": "es",
+    "abbreviation": "VAL"
+  },
+  "nordschleife": {
+    "name": "Nordschleife",
+    "location": "Nürburg, Germany",
+    "countryCode": "de",
+    "abbreviation": "NOR"
   }
 }

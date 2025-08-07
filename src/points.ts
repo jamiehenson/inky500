@@ -10,4 +10,5 @@ export const pointsScheme = {
   s3: topTenPoints,
   s4: topTwentyPoints,
   s5: topTwentyPoints,
+  s6: topTwentyPoints,
 };

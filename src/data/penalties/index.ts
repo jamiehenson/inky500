@@ -22,6 +22,7 @@ export const gridPenalties = {
       "graeme": 1
     }
   },
+  s6: {},
 } satisfies Penalties;
 
 export const pointsPenalties = {
@@ -37,4 +38,5 @@ export const pointsPenalties = {
       "atlas": 5
     }
   },
+  s6: {},
 } as Penalties;

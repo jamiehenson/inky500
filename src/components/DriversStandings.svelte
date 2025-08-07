@@ -2,7 +2,7 @@
   import { flip } from "svelte/animate";
   import { drivers, seasonRacers } from "@/data";
   import type { RacerName, TrackName } from "@/types";
-  import { carImages } from "@/utils";
+  import { carImages, withBase } from "@/utils";
   import type { StandingResult } from "@/data/standings";
   import * as GridTable from "@/components/ui/grid-table";
   import { Badge } from "@/components/ui/badge";
@@ -113,7 +113,9 @@
               />
             </GridTable.Cell>
             <GridTable.Cell class="order-3 sm:order-2">
-              {driver.name}
+              <a class="hover:underline" href={withBase(`/drivers/${key}`)}
+                >{driver.name}</a
+              >
             </GridTable.Cell>
             <GridTable.Cell class="order-2 sm:order-3">
               <div class="flex items-center gap-2">

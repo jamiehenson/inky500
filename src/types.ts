@@ -2,7 +2,7 @@ import driversData from "./data/drivers/drivers.json";
 import trackData from "./data/tracks/tracks.json";
 import constructorsData from "./data/constructors/constructors.json";
 
-export const seasons = ["s1", "s2", "s3", "s4", "s5"] as const;
+export const seasons = ["s1", "s2", "s3", "s4", "s5", "s6"] as const;
 export type SeasonName = (typeof seasons)[number];
 
 export const tracks = Object.keys(trackData);

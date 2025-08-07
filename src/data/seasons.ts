@@ -39,4 +39,10 @@ export const seasonInfo: SeasonInfo[] = [
     game: "ACC",
     status: "complete",
   },
+  {
+    key: "s6",
+    subtitle: "GT3, GT4, TCX",
+    game: "ACC",
+    status: "upcoming",
+  },
 ];

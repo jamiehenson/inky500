@@ -19,11 +19,11 @@
 </script>
 
 <div
-  class="fixed bottom-0 left-0 w-full z-10 flex items-end justify-between space-x-2 bg-background sm:bg-transparent"
+  class="fixed bottom-0 left-0 w-full z-10 flex items-end justify-between space-x-2 bg-background md:bg-transparent"
 >
-  <div class="min-w-[100px] sm:min-w-[150px]">
+  <div class="min-w-[100px] md:min-w-[150px]">
     <div
-      class="inline-flex items-center h-12 p-2 bg-background sm:rounded-tr-lg sm:border border-b-0"
+      class="inline-flex items-center h-12 p-2 bg-background md:rounded-tr-lg md:border border-b-0"
     >
       <Button
         variant="secondary"
@@ -40,8 +40,8 @@
       </Button>
     </div>
   </div>
-  <div class="rounded-t-lg bg-background p-1 sm:border border-b-0">
-    <div class="hidden sm:flex justify-center gap-1 flex-wrap">
+  <div class="rounded-t-lg bg-background p-1 md:border border-b-0">
+    <div class="hidden md:flex justify-center gap-1 flex-wrap">
       {#each completedRaces as completedTrack}
         <Tooltip.Provider delayDuration={100}>
           <Tooltip.Root>
@@ -63,7 +63,7 @@
         </Tooltip.Provider>
       {/each}
     </div>
-    <div class="block sm:hidden">
+    <div class="block md:hidden">
       <Popover.Root>
         <Popover.Trigger
           class={cn(
@@ -94,14 +94,14 @@
       </Popover.Root>
     </div>
   </div>
-  <div class="min-w-[100px] sm:min-w-[150px]">
+  <div class="min-w-[100px] md:min-w-[150px]">
     {#if ["s5"].includes(season)}
       <div
-        class="flex items-center space-x-2 p-2 h-12 bg-background sm:rounded-tl-lg sm:border border-b-0"
+        class="flex items-center space-x-2 p-2 h-12 bg-background md:rounded-tl-lg md:border border-b-0"
       >
         <Label for="net-points">
-          <span class="hidden sm:inline">Net Points</span>
-          <span class="inline-block sm:hidden">Net</span>
+          <span class="hidden md:inline">Net Points</span>
+          <span class="inline-block md:hidden">Net</span>
         </Label>
         <Switch
           id="net-points"

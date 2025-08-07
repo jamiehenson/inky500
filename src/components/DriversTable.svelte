@@ -75,7 +75,7 @@
             b[1].netPoints && a[1].netPoints
               ? b[1].netPoints - a[1].netPoints
               : b[1].points - a[1].points,
-          )[0][0];
+          )[0]?.[0];
 
           return driver === topDriver ? seasonStandings[0].toUpperCase() : null;
         })

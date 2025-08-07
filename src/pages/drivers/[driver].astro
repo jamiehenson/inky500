@@ -8,15 +8,17 @@ import {
 } from "../../data";
 import Layout from "../../layouts/Layout.astro";
 import ConstructorCard from "../../components/ConstructorCard.astro";
-import { resultPositionSuffix } from "../../utils";
+import { resultPositionSuffix, withBase } from "../../utils";
 import type {
   ConstructorName,
   RacerName,
   SeasonName,
   TrackName,
 } from "@/types";
+import { Button } from "@/components/ui/button";
+import * as Icon from "@astropub/icons";
 
-const { driver } = Astro.params;
+const { driver } = Astro.params as { driver: RacerName };
 
 export function getStaticPaths() {
   return Object.keys(drivers).map((driver) => ({ params: { driver } }));
@@ -25,9 +27,8 @@ export function getStaticPaths() {
 const results = Object.entries(standings)
   .map(([season, seasonStandings]) => {
     const typedSeason = season as SeasonName;
-    const typedDriver = driver as RacerName;
     const lastKey = Object.keys(seasonStandings).at(-1) as TrackName;
-    const driverResults = seasonStandings[lastKey]?.[typedDriver];
+    const driverResults = seasonStandings[lastKey]?.[driver];
 
     if (!driverResults) return null;
 
@@ -44,8 +45,8 @@ const results = Object.entries(standings)
             .map(([driver, _]) => driver)
             .indexOf(driver) + 1
         : null,
-      team: seasonRacers[typedSeason][typedDriver]?.team || "Unknown",
-      car: seasonRacers[typedSeason][typedDriver]?.car || "Unknown",
+      team: seasonRacers[typedSeason][driver]?.team || "Unknown",
+      car: seasonRacers[typedSeason][driver]?.car || "Unknown",
       raceResults: Object.entries(resultsData[typedSeason]).map(
         ([track, raceResult]) => ({
           track,
@@ -62,6 +63,13 @@ const results = Object.entries(standings)
   title="Inky 500 | Seasons"
   description={`View the results and standings for all Inky 500 seasons 🏆`}
 >
+  <Button
+    variant="outline"
+    onClick="history.back()"
+    class="absolute z-20 m-2 cursor-pointer"
+  >
+    <Icon.ChevronLeft size="24" aria-label="Back" />
+  </Button>
   <h1>{drivers[driver as RacerName].name}</h1>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {

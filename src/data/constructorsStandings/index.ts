@@ -1,5 +1,6 @@
 import s4 from "./s4.json";
 import s5 from "./s5.json";
+import s6 from "./s6.json";
 import type { ConstructorName, SeasonName, TrackName } from "@/types";
 
 export type ConstructorResult = {
@@ -29,4 +30,5 @@ export const constructorsStandings = {
   s3: {},
   s4,
   s5,
+  s6,
 } as ConstructorsStandings;
