@@ -1,142 +1,121 @@
 {
+  "cannonmandan": {
+    "team": "Porsche 992 GT3 R",
+    "car": "porsche",
+    "class": "gt3"
+  },
   "bigtimebosco": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+    "team": "Porsche 992 GT3 R",
+    "car": "porsche",
+    "class": "gt3",
+    "otherTeams": {
+      "valencia": {
+        "team": "BMW M4 GT3",
+        "car": "bmw"
+      },
+      "kyalami": {
+        "team": "BMW M4 GT3",
+        "car": "bmw"
+      }
+    }
   },
-  "eugenegoat": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+  "cosmo": {
+    "team": "Audi R8 LMS GT3 Evo II",
+    "car": "audi",
+    "class": "gt3",
+    "otherTeams": {
+      "spa": {
+        "team": "Porsche 992 GT3 R",
+        "car": "porsche"
+      },
+      "brands-hatch": {
+        "team": "Porsche 992 GT3 R",
+        "car": "porsche"
+      },
+      "snetterton": {
+        "team": "Porsche 992 GT3 R",
+        "car": "porsche"
+      }
+    }
   },
-  "diego": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "inkubusjaymz": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "graeme": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "wobbleboss": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "snicks": {
-    "team": "",
-    "car": "unknown",
+  "michael": {
+    "team": "BMW M4 GT3",
+    "car": "bmw",
     "class": "gt3"
   },
   "xnpxbirdy": {
-    "team": "",
-    "car": "unknown",
+    "team": "BMW M4 GT3",
+    "car": "bmw",
     "class": "gt3"
   },
-  "kruthal": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "atlas": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "cousinbenson": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "michael": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "roberts": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "mcdonoli": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "cannonmandan": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "blex": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "howell": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+  "inkubusjaymz": {
+    "team": "Mercedes-AMG GT4",
+    "car": "mercedes",
+    "class": "gt4"
   },
   "smolzie": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+    "team": "Mercedes-AMG GT4",
+    "car": "mercedes",
+    "class": "gt4"
   },
-  "fletcher": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+  "howell": {
+    "team": "Mercedes-AMG GT4",
+    "car": "mercedes",
+    "class": "gt4"
   },
-  "cal": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+  "graeme": {
+    "team": "Chevrolet Camaro GT4",
+    "car": "chevrolet",
+    "class": "gt4"
   },
-  "cosmo": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "rafa4xx": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "phelps": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "greenway": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "hunt": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
-  },
-  "blyzr": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+  "mcdonoli": {
+    "team": "Mercedes-AMG GT4",
+    "car": "mercedes",
+    "class": "gt4"
   },
   "erikain": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+    "team": "Chevrolet Camaro GT4",
+    "car": "chevrolet",
+    "class": "gt4"
   },
-  "ward": {
-    "team": "",
-    "car": "unknown",
-    "class": "gt3"
+  "gordy": {
+    "team": "Mercedes-AMG GT4",
+    "car": "mercedes",
+    "class": "gt4"
+  },
+  "eugenegoat": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
+  },
+  "mishy": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
+  },
+  "strong": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
+  },
+  "waghorn": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
+  },
+  "snicks": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
+  },
+  "pirrie": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
+  },
+  "diego": {
+    "team": "BMW M2 CS Racing",
+    "car": "bmw",
+    "class": "tcx"
   }
 }

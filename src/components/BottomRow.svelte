@@ -95,7 +95,7 @@
     </div>
   </div>
   <div class="min-w-[100px] md:min-w-[150px]">
-    {#if ["s5"].includes(season)}
+    {#if ["s5", "s6"].includes(season)}
       <div
         class="flex items-center space-x-2 p-2 h-12 bg-background md:rounded-tl-lg md:border border-b-0"
       >

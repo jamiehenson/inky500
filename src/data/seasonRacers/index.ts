@@ -6,9 +6,12 @@ import s4 from "./s4.json";
 import s5 from "./s5.json";
 import s6 from "./s6.json";
 
+export type SeasonRacerClass = "gt3" | "gt4" | "tcx" | "all";
+
 export type SeasonRacer = {
   team: string;
   car: ConstructorName;
+  class?: SeasonRacerClass;
   otherTeams?: {
     [index: string]: {
       team: string;

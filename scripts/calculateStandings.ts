@@ -1,7 +1,7 @@
 import { pointsPenalties, results, seasonRacers } from "@/data";
 import type { SeasonName, TrackName, RacerName } from "@/types";
-import { pointslessResults } from "./standings";
-import { pointsScheme } from "@/points";
+import { calcRacePoints } from "@/racePoints";
+import { doublePointsTracks } from "@/points";
 
 type BaseStanding = {
   points: number;
@@ -49,22 +49,30 @@ class StandingsCalculator {
     const raceResults = results[this.season][race];
     if (!raceResults?.results) return {};
 
-    return Object.entries(raceResults.results).reduce(
-      (acc, [driverId, result], index) => {
-        const dnf = pointslessResults.includes(result);
-        if (dnf) return acc;
+    const classOf = (id: string) =>
+      seasonRacers[this.season][id as RacerName]?.class;
 
-        const basePoints = pointsScheme[this.season][index] ?? 0;
-        const fastestLapPoint =
-          raceResults.fastestLap?.racerId === driverId ? 1 : 0;
-        const penalties =
-          pointsPenalties[this.season][race]?.[driverId as RacerName] ?? 0;
+    // Multiclass seasons store per-class fastest laps; single-class seasons fall
+    // back to the one overall fastest lap (bucketed under its driver's class or "all").
+    const fl = raceResults.fastestLap;
+    const classFastestLaps =
+      raceResults.classFastestLaps ??
+      (fl ? { [classOf(fl.racerId) ?? "all"]: fl.racerId } : {});
 
-        acc[driverId] = basePoints + fastestLapPoint - penalties;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
+    const multiplier = (doublePointsTracks[this.season] ?? []).includes(race)
+      ? 2
+      : 1;
+
+    return calcRacePoints({
+      season: this.season,
+      orderedResults: Object.entries(raceResults.results) as [string, string][],
+      classOf,
+      classFastestLaps,
+      penalties: pointsPenalties[this.season][race] as
+        | Record<string, number>
+        | undefined,
+      multiplier,
+    });
   }
 
   private calculateWorstResults() {
@@ -321,6 +329,29 @@ class StandingsCalculator {
     return standings;
   }
 
+  // Rank drivers within their class (or a single "all" bucket for single-class
+  // seasons) by the given metric, returning a 1-based position per driver.
+  private rankByClass(
+    standings: Record<string, BaseStanding>,
+    metric: "points" | "netPoints",
+  ): Map<string, number> {
+    const byClass: Record<string, string[]> = {};
+    Object.keys(standings).forEach((id) => {
+      const cls = seasonRacers[this.season][id as RacerName]?.class ?? "all";
+      (byClass[cls] ??= []).push(id);
+    });
+
+    const positions = new Map<string, number>();
+    Object.values(byClass).forEach((ids) => {
+      ids
+        .sort(
+          (a, b) => (standings[b][metric] ?? 0) - (standings[a][metric] ?? 0),
+        )
+        .forEach((id, index) => positions.set(id, index + 1));
+    });
+    return positions;
+  }
+
   private updatePositionDeltas<T extends BaseStanding | ConstructorStanding>(
     currentStandings: Record<string, T>,
     previousStandings: Record<string, T> | null,
@@ -374,18 +405,12 @@ class StandingsCalculator {
         currentStandings[id].netDelta = previousPos - currentPos;
       });
     } else {
-      // For drivers, continue using regular points
-      const currentPositions = new Map(
-        Object.entries(currentStandings)
-          .sort(([, a], [, b]) => b.points - a.points)
-          .map(([id], index) => [id, index + 1]),
-      );
-
-      const previousPositions = new Map(
-        Object.entries(previousStandings)
-          .sort(([, a], [, b]) => b.points - a.points)
-          .map(([id], index) => [id, index + 1]),
-      );
+      // Drivers are ranked within their class, so position deltas reflect
+      // movement in the class championship (a leader who stays top of their
+      // class shows no change, even if passed on overall points). Single-class
+      // seasons collapse to one "all" bucket, i.e. overall ranking as before.
+      const currentPositions = this.rankByClass(currentStandings, "points");
+      const previousPositions = this.rankByClass(previousStandings, "points");
 
       Object.keys(currentStandings).forEach((id) => {
         const currentPos = currentPositions.get(id) ?? 0;
@@ -394,16 +419,13 @@ class StandingsCalculator {
       });
 
       // Calculate net delta using net points for drivers
-      const currentNetPositions = new Map(
-        Object.entries(currentStandings)
-          .sort(([, a], [, b]) => b.netPoints - a.netPoints)
-          .map(([id], index) => [id, index + 1]),
+      const currentNetPositions = this.rankByClass(
+        currentStandings,
+        "netPoints",
       );
-
-      const previousNetPositions = new Map(
-        Object.entries(previousStandings)
-          .sort(([, a], [, b]) => b.netPoints - a.netPoints)
-          .map(([id], index) => [id, index + 1]),
+      const previousNetPositions = this.rankByClass(
+        previousStandings,
+        "netPoints",
       );
 
       Object.keys(currentStandings).forEach((id) => {

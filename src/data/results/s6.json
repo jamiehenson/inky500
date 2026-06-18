@@ -1,18 +1,450 @@
 {
-  "valencia": null,
-  "kyalami": null,
-  "mt-panorama": null,
-  "suzuka": null,
-  "laguna-seca": null,
-  "watkins-glen": null,
-  "cota": null,
-  "nordschleife": null,
-  "zolder": null,
-  "red-bull-ring": null,
-  "monza": null,
-  "paul-ricard": null,
-  "spa": null,
-  "brands-hatch": null,
-  "oulton-park": null,
-  "snetterton": null
+  "valencia": {
+    "results": {
+      "michael": "46:06.409",
+      "cannonmandan": "3.869",
+      "bigtimebosco": "29.696",
+      "cosmo": "12.713",
+      "howell": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "smolzie": "2 laps",
+      "mcdonoli": "2 laps",
+      "waghorn": "4 laps",
+      "eugenegoat": "4 laps",
+      "xnpxbirdy": "4 laps",
+      "snicks": "4 laps",
+      "mishy": "4 laps",
+      "diego": "4 laps",
+      "strong": "4 laps",
+      "graeme": "8 laps",
+      "gordy": "9 laps"
+    },
+    "fastestLap": {
+      "racerId": "michael",
+      "time": "01:31.912"
+    },
+    "classFastestLaps": {
+      "gt3": "michael",
+      "gt4": "inkubusjaymz",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/251015_214028_R.json",
+    "date": "October 15th, 2025"
+  },
+  "kyalami": {
+    "results": {
+      "cannonmandan": "45:49.359",
+      "michael": "12.895",
+      "bigtimebosco": "19.074",
+      "xnpxbirdy": "1 lap",
+      "howell": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "mcdonoli": "2 laps",
+      "smolzie": "2 laps",
+      "erikain": "2 laps",
+      "snicks": "3 laps",
+      "mishy": "3 laps",
+      "waghorn": "3 laps",
+      "strong": "4 laps",
+      "eugenegoat": "4 laps"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "01:42.595"
+    },
+    "classFastestLaps": {
+      "gt3": "cannonmandan",
+      "gt4": "smolzie",
+      "tcx": "eugenegoat"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/251029_214203_R.json",
+    "date": "October 29th, 2025"
+  },
+  "mt-panorama": {
+    "results": {
+      "cannonmandan": "61:15.755",
+      "bigtimebosco": "0.446",
+      "cosmo": "4.502",
+      "smolzie": "2 laps",
+      "michael": "2 laps",
+      "howell": "3 laps",
+      "waghorn": "3 laps",
+      "mcdonoli": "3 laps",
+      "eugenegoat": "3 laps",
+      "mishy": "6 laps",
+      "inkubusjaymz": "8 laps",
+      "strong": "9 laps",
+      "erikain": "DNF",
+      "pirrie": "DSQ"
+    },
+    "fastestLap": {
+      "racerId": "bigtimebosco",
+      "time": "02:05.757"
+    },
+    "classFastestLaps": {
+      "gt3": "bigtimebosco",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/251112_215810_R.json",
+    "date": "November 12th, 2025"
+  },
+  "suzuka": {
+    "results": {
+      "bigtimebosco": "46:52.363",
+      "cosmo": "0.630",
+      "howell": "1 lap",
+      "inkubusjaymz": "1 lap",
+      "smolzie": "1 lap",
+      "mcdonoli": "2 laps",
+      "waghorn": "2 laps",
+      "eugenegoat": "2 laps",
+      "strong": "2 laps",
+      "snicks": "2 laps",
+      "mishy": "2 laps",
+      "pirrie": "5 laps"
+    },
+    "fastestLap": {
+      "racerId": "cosmo",
+      "time": "02:09.307"
+    },
+    "classFastestLaps": {
+      "gt3": "cosmo",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/251126_214347_R.json",
+    "date": "November 26th, 2025"
+  },
+  "laguna-seca": {
+    "results": {
+      "xnpxbirdy": "46:22.014",
+      "michael": "7.918",
+      "bigtimebosco": "25.646",
+      "cannonmandan": "1 lap",
+      "smolzie": "2 laps",
+      "howell": "2 laps",
+      "inkubusjaymz": "3 laps",
+      "mishy": "4 laps",
+      "eugenegoat": "4 laps",
+      "waghorn": "4 laps",
+      "snicks": "4 laps",
+      "strong": "7 laps",
+      "pirrie": "20 laps"
+    },
+    "fastestLap": {
+      "racerId": "xnpxbirdy",
+      "time": "01:23.550"
+    },
+    "classFastestLaps": {
+      "gt3": "xnpxbirdy",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/251210_213845_R.json",
+    "date": "December 10th, 2025"
+  },
+  "watkins-glen": {
+    "results": {
+      "bigtimebosco": "46:11.998",
+      "michael": "13.579",
+      "cannonmandan": "13.278",
+      "cosmo": "1 lap",
+      "smolzie": "2 laps",
+      "howell": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "mcdonoli": "2 laps",
+      "graeme": "2 laps",
+      "waghorn": "3 laps",
+      "eugenegoat": "3 laps",
+      "snicks": "3 laps",
+      "mishy": "4 laps",
+      "strong": "5 laps",
+      "xnpxbirdy": "DNF",
+      "gordy": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "bigtimebosco",
+      "time": "01:46.615"
+    },
+    "classFastestLaps": {
+      "gt3": "bigtimebosco",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260107_214314_R.json",
+    "date": "January 7th, 2026"
+  },
+  "cota": {
+    "results": {
+      "cannonmandan": "46:29.291",
+      "michael": "28.047",
+      "cosmo": "27.934",
+      "smolzie": "1 lap",
+      "inkubusjaymz": "1 lap",
+      "howell": "1 lap",
+      "graeme": "2 laps",
+      "snicks": "2 laps",
+      "waghorn": "2 laps",
+      "eugenegoat": "2 laps",
+      "mishy": "2 laps",
+      "strong": "3 laps",
+      "xnpxbirdy": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "02:08.352"
+    },
+    "classFastestLaps": {
+      "gt3": "cannonmandan",
+      "gt4": "smolzie",
+      "tcx": "snicks"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260121_214153_R.json",
+    "date": "January 21st, 2026"
+  },
+  "nordschleife": {
+    "results": {
+      "cannonmandan": "61:32.888",
+      "michael": "34.642",
+      "inkubusjaymz": "1 lap",
+      "smolzie": "1 lap",
+      "mcdonoli": "1 lap",
+      "howell": "1 lap",
+      "waghorn": "1 lap",
+      "eugenegoat": "1 lap",
+      "mishy": "1 lap",
+      "graeme": "2 laps",
+      "strong": "2 laps",
+      "snicks": "2 laps",
+      "bigtimebosco": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "bigtimebosco",
+      "time": "08:32.437"
+    },
+    "classFastestLaps": {
+      "gt3": "bigtimebosco",
+      "gt4": "inkubusjaymz",
+      "tcx": "eugenegoat"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260204_220039_R.json",
+    "date": "February 4th, 2026"
+  },
+  "zolder": {
+    "results": {
+      "xnpxbirdy": "46:23.461",
+      "cannonmandan": "27.163",
+      "michael": "18.803",
+      "howell": "2 laps",
+      "smolzie": "2 laps",
+      "graeme": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "snicks": "4 laps",
+      "waghorn": "4 laps",
+      "mishy": "4 laps",
+      "eugenegoat": "4 laps",
+      "strong": "4 laps"
+    },
+    "fastestLap": {
+      "racerId": "xnpxbirdy",
+      "time": "01:28.967"
+    },
+    "classFastestLaps": {
+      "gt3": "xnpxbirdy",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260304_213936_R.json",
+    "date": "March 4th, 2026"
+  },
+  "red-bull-ring": {
+    "results": {
+      "cannonmandan": "45:22.979",
+      "bigtimebosco": "0.432",
+      "cosmo": "43.176",
+      "michael": "0.429",
+      "xnpxbirdy": "32.738",
+      "smolzie": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "howell": "2 laps",
+      "graeme": "2 laps",
+      "waghorn": "3 laps",
+      "snicks": "3 laps",
+      "eugenegoat": "3 laps",
+      "mishy": "3 laps",
+      "strong": "4 laps"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "01:33.865"
+    },
+    "classFastestLaps": {
+      "gt3": "cannonmandan",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260318_213849_R.json",
+    "date": "March 18th, 2026"
+  },
+  "monza": {
+    "results": {
+      "xnpxbirdy": "45:04.443",
+      "cannonmandan": "1.449",
+      "bigtimebosco": "2.296",
+      "michael": "1 lap",
+      "smolzie": "2 laps",
+      "howell": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "eugenegoat": "3 laps",
+      "snicks": "3 laps",
+      "strong": "3 laps",
+      "mishy": "3 laps",
+      "waghorn": "6 laps",
+      "graeme": "9 laps"
+    },
+    "fastestLap": {
+      "racerId": "xnpxbirdy",
+      "time": "01:48.290"
+    },
+    "classFastestLaps": {
+      "gt3": "xnpxbirdy",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260401_213953_R.json",
+    "date": "April 1st, 2026"
+  },
+  "paul-ricard": {
+    "results": {
+      "bigtimebosco": "46:07.249",
+      "cannonmandan": "94.680",
+      "mcdonoli": "1 lap",
+      "smolzie": "1 lap",
+      "inkubusjaymz": "2 laps",
+      "waghorn": "2 laps",
+      "eugenegoat": "2 laps",
+      "mishy": "2 laps",
+      "strong": "3 laps",
+      "snicks": "3 laps",
+      "cosmo": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "bigtimebosco",
+      "time": "02:01.615"
+    },
+    "classFastestLaps": {
+      "gt3": "bigtimebosco",
+      "gt4": "mcdonoli",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260415_214314_R.json",
+    "date": "April 15th, 2026"
+  },
+  "spa": {
+    "results": {
+      "bigtimebosco": "60:30.485",
+      "cannonmandan": "50.027",
+      "cosmo": "71.153",
+      "smolzie": "1 lap",
+      "inkubusjaymz": "2 laps",
+      "graeme": "2 laps",
+      "waghorn": "3 laps",
+      "snicks": "3 laps",
+      "eugenegoat": "3 laps",
+      "mishy": "3 laps",
+      "strong": "3 laps",
+      "howell": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "02:19.630"
+    },
+    "classFastestLaps": {
+      "gt3": "cannonmandan",
+      "gt4": "howell",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260429_215712_R.json",
+    "date": "April 29th, 2026"
+  },
+  "brands-hatch": {
+    "results": {
+      "cannonmandan": "45:34.980",
+      "bigtimebosco": "0.222",
+      "graeme": "2 laps",
+      "howell": "2 laps",
+      "smolzie": "2 laps",
+      "mcdonoli": "2 laps",
+      "inkubusjaymz": "3 laps",
+      "snicks": "3 laps",
+      "waghorn": "3 laps",
+      "eugenegoat": "4 laps",
+      "mishy": "4 laps",
+      "strong": "4 laps",
+      "cosmo": "DNF"
+    },
+    "fastestLap": {
+      "racerId": "bigtimebosco",
+      "time": "01:24.920"
+    },
+    "classFastestLaps": {
+      "gt3": "bigtimebosco",
+      "gt4": "smolzie",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260513_214048_R.json",
+    "date": "May 13th, 2026"
+  },
+  "oulton-park": {
+    "results": {
+      "cannonmandan": "46:15.143",
+      "bigtimebosco": "1 lap",
+      "graeme": "2 laps",
+      "smolzie": "2 laps",
+      "inkubusjaymz": "2 laps",
+      "waghorn": "3 laps",
+      "mishy": "3 laps",
+      "eugenegoat": "4 laps",
+      "strong": "4 laps"
+    },
+    "fastestLap": {
+      "racerId": "cannonmandan",
+      "time": "01:35.220"
+    },
+    "classFastestLaps": {
+      "gt3": "cannonmandan",
+      "gt4": "smolzie",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260527_214312_R.json",
+    "date": "May 27th, 2026"
+  },
+  "snetterton": {
+    "results": {
+      "cosmo": "45:27.239",
+      "bigtimebosco": "31.272",
+      "xnpxbirdy": "1.581",
+      "graeme": "1 lap",
+      "smolzie": "1 lap",
+      "howell": "1 lap",
+      "inkubusjaymz": "2 laps",
+      "waghorn": "3 laps",
+      "strong": "3 laps",
+      "mishy": "3 laps",
+      "eugenegoat": "3 laps",
+      "cannonmandan": "3 laps"
+    },
+    "fastestLap": {
+      "racerId": "xnpxbirdy",
+      "time": "01:47.222"
+    },
+    "classFastestLaps": {
+      "gt3": "xnpxbirdy",
+      "gt4": "smolzie",
+      "tcx": "waghorn"
+    },
+    "data": "https://inky500-acc.emperorservers.com/server/0/results/download/260610_214015_R.json",
+    "date": "June 10th, 2026"
+  }
 }

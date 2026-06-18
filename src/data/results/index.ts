@@ -12,6 +12,8 @@ export type RacerResult = {
     racerId: RacerName;
     time: string;
   } | null;
+  /** Per-class fastest-lap setters (multiclass seasons), used for class FL points. */
+  classFastestLaps?: Partial<Record<string, RacerName>>;
   data?: string;
   date?: string;
 };

@@ -7,7 +7,8 @@
     type TrackName,
   } from "@/types";
   import { carImages, withBase } from "@/utils";
-  import { pointsScheme } from "@/points";
+  import { doublePointsTracks } from "@/points";
+  import { calcRacePoints } from "@/racePoints";
   import type { RacerResult } from "@/data/results";
   import * as Table from "./ui/table";
   import { Badge } from "./ui/badge";
@@ -21,6 +22,26 @@
   };
 
   const { data, season, track, link = undefined }: Props = $props();
+
+  // Class-aware per-race points (positions per class, fastest-lap bonus, and
+  // double points at endurance rounds) — same helper the standings script uses.
+  const racePoints = calcRacePoints({
+    season,
+    orderedResults: Object.entries(data.results ?? {}) as [string, string][],
+    classOf: (id) => seasonRacers[season][id as RacerName]?.class,
+    classFastestLaps:
+      data.classFastestLaps ??
+      (data.fastestLap
+        ? {
+            [seasonRacers[season][data.fastestLap.racerId]?.class ?? "all"]:
+              data.fastestLap.racerId,
+          }
+        : {}),
+    penalties: pointsPenalties[season][track] as
+      | Record<string, number>
+      | undefined,
+    multiplier: (doublePointsTracks[season] ?? []).includes(track) ? 2 : 1,
+  });
 
   const formatLink = (link: string) => {
     if (!link) return "#";
@@ -65,11 +86,7 @@
 
         {#if driver && seasonDriver}
           {@const pointsDeducted = pointsPenalties[season][track]?.[racer] ?? 0}
-          {@const pointsAdded = ["DNF", "DSQ", "-"].includes(result)
-            ? 0
-            : Number(pointsScheme[season][index] ?? "0") +
-              (hasFastestLap ? 1 : 0) -
-              pointsDeducted}
+          {@const pointsAdded = racePoints[racerId] ?? 0}
           {@const currentTeam =
             seasonDriver.otherTeams?.[track] ?? seasonDriver}
 
@@ -84,6 +101,14 @@
               <span
                 class={`hidden! sm:inline-flex! rounded-sm mr-1 fi fi-${driver.countryCode}`}
               ></span>
+              {#if seasonDriver.class && seasonDriver.class !== "all"}
+                <Badge
+                  carClass={seasonDriver.class}
+                  class="uppercase mr-2 pointer-events-none"
+                >
+                  {seasonDriver.class}
+                </Badge>
+              {/if}
               <a href={withBase(`/drivers/${racerId}`)} class="hover:underline"
                 >{driver.name}</a
               >

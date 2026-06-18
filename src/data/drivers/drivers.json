@@ -3,90 +3,135 @@
     "name": "B. Bosco",
     "countryCode": "gb",
     "img": "bigtimebosco",
-    "tableNames": ["BigTime B"]
+    "tableNames": [
+      "BigTime B"
+    ],
+    "playerId": "S76561197989174270"
   },
   "eugenegoat": {
     "name": "E. Goat",
     "countryCode": "gb",
     "img": "eugenegoat",
     "twitch": "gghqio",
-    "tableNames": ["Eugene G"]
+    "tableNames": [
+      "Eugene G"
+    ],
+    "playerId": "S76561197998274535"
   },
   "diego": {
     "name": "D. Iego",
     "countryCode": "gb",
     "img": "diego",
     "twitch": "piratelassie",
-    "tableNames": ["D i", "Happy B", "D I"]
+    "tableNames": [
+      "D i",
+      "Happy B",
+      "D I"
+    ],
+    "playerId": "S76561198095418312"
   },
   "inkubusjaymz": {
     "name": "I. Jaymz",
     "countryCode": "gb",
     "img": "inkubusjaymz",
     "twitch": "inkubusjaymz",
-    "tableNames": ["Inkubus J"]
+    "tableNames": [
+      "Inkubus J"
+    ],
+    "playerId": "S76561198263032121"
   },
   "graeme": {
     "name": "G. Clark",
     "countryCode": "gb-sct",
     "img": "graeme",
     "twitch": "graemekustom",
-    "tableNames": ["Graeme C", "Kustom P"]
+    "tableNames": [
+      "Graeme C",
+      "Kustom P"
+    ],
+    "playerId": "S76561199057629091"
   },
   "wobbleboss": {
     "name": "B. Nykänen",
     "countryCode": "gb-sct",
     "img": "wobbleboss",
-    "tableNames": ["Ben N"]
+    "tableNames": [
+      "Ben N"
+    ]
   },
   "snicks": {
     "name": "K. Snicks",
     "countryCode": "no",
     "img": "snicks",
     "twitch": "sncksstreams",
-    "tableNames": ["K S"]
+    "tableNames": [
+      "K S"
+    ],
+    "playerId": "S76561198028042644"
   },
   "kruthal": {
     "name": "K. Ruthal",
     "countryCode": "gb",
     "img": "kruthal",
-    "tableNames": ["K r", "  K", ". K"]
+    "tableNames": [
+      "K r",
+      "  K",
+      ". K"
+    ]
   },
   "atlas": {
     "name": "J. Atlas",
     "countryCode": "gb",
     "img": "atlas",
-    "tableNames": ["Joseph A"]
+    "tableNames": [
+      "Joseph A"
+    ]
   },
   "cousinbenson": {
     "name": "C. Bob",
     "countryCode": "gb",
     "img": "cousinbenson",
     "twitch": "pongoxp",
-    "tableNames": ["cousin b"]
+    "tableNames": [
+      "cousin b"
+    ]
   },
   "xnpxbirdy": {
     "name": "N. Bird",
     "countryCode": "gb",
-    "tableNames": ["N. B"]
+    "tableNames": [
+      "N. B"
+    ],
+    "playerId": "S76561198292401370"
   },
   "michael": {
     "name": "M. Smith",
     "countryCode": "gb",
     "img": "michael",
-    "tableNames": ["Michael S"],
-    "youtube": "MichaelSmithRaces"
+    "tableNames": [
+      "Michael S"
+    ],
+    "youtube": "MichaelSmithRaces",
+    "playerId": "S76561197987045446"
   },
   "cannonmandan": {
     "name": "C. Dan",
     "countryCode": "gb",
     "img": "cannonmandan",
-    "tableNames": ["  C", " CannonMan D", " Cannon M", "Dan C"]
+    "tableNames": [
+      "  C",
+      " CannonMan D",
+      " Cannon M",
+      "Dan C"
+    ],
+    "playerId": "S76561197988762298"
   },
   "roberts": {
     "name": "D. Roberts",
     "countryCode": "gb",
-    "tableNames": ["Dan R"],
+    "tableNames": [
+      "Dan R"
+    ],
     "youtube": "DCOnTrack"
   },
   "happybadger": {
@@ -98,7 +143,9 @@
     "name": "B. Reid",
     "countryCode": "us",
     "img": "blyzr",
-    "tableNames": ["Blayze R"]
+    "tableNames": [
+      "Blayze R"
+    ]
   },
   "adam": {
     "name": "Adam",
@@ -116,13 +163,17 @@
   "subhaac": {
     "name": "S. Arumugam",
     "img": "subhaac",
-    "tableNames": ["Subhaa Chandar S"]
+    "tableNames": [
+      "Subhaa Chandar S"
+    ]
   },
   "calamitysam": {
     "name": "S. Am",
     "countryCode": "gb",
     "img": "calamitysam",
-    "tableNames": ["S a"]
+    "tableNames": [
+      "S a"
+    ]
   },
   "fletch": {
     "name": "Fletch",
@@ -137,27 +188,38 @@
   },
   "preece": {
     "name": "J. Preece",
-    "tableNames": ["Josh P"]
+    "tableNames": [
+      "Josh P"
+    ]
   },
   "rafa4xx": {
     "name": "R. Oliveira",
     "countryCode": "pt",
-    "tableNames": ["Rafael O"]
+    "tableNames": [
+      "Rafael O"
+    ]
   },
   "mcdonoli": {
     "name": "O. McDonnell",
     "countryCode": "gb",
-    "tableNames": ["Oliver M"]
+    "tableNames": [
+      "Oliver M"
+    ],
+    "playerId": "S76561198128609859"
   },
   "bouncingczech": {
     "name": "W. Masek",
     "countryCode": "cz",
-    "tableNames": ["Bouncing C"]
+    "tableNames": [
+      "Bouncing C"
+    ]
   },
   "blex": {
     "name": "N. Harley",
     "countryCode": "gb",
-    "tableNames": ["Naomi H"]
+    "tableNames": [
+      "Naomi H"
+    ]
   },
   "expendablelee": {
     "name": "E. Lee",
@@ -166,52 +228,117 @@
   "phelps": {
     "name": "L. Phelps",
     "countryCode": "gb",
-    "tableNames": ["Lewis P"]
+    "tableNames": [
+      "Lewis P"
+    ]
   },
   "greenway": {
     "name": "C. Greenway",
     "countryCode": "gb",
-    "tableNames": ["Chad G"]
+    "tableNames": [
+      "Chad G"
+    ]
   },
   "hunt": {
     "name": "J. Hunt",
     "countryCode": "gb",
-    "tableNames": ["Joe H"]
+    "tableNames": [
+      "Joe H"
+    ]
   },
   "howell": {
     "name": "J. Howell",
     "countryCode": "gb",
-    "tableNames": ["Jon H"]
+    "tableNames": [
+      "Jon H"
+    ],
+    "playerId": "S76561197973487761"
   },
   "smolzie": {
     "name": "J. Smolzie",
     "countryCode": "gb",
-    "tableNames": ["Josh S"]
+    "tableNames": [
+      "Josh S"
+    ],
+    "playerId": "S76561198108908175"
   },
   "fletcher": {
     "name": "J. Fletcher",
     "countryCode": "gb",
-    "tableNames": ["Fletch", "James F"]
+    "tableNames": [
+      "Fletch",
+      "James F"
+    ]
   },
   "cal": {
     "name": "R. Cal",
     "countryCode": "gb",
-    "tableNames": ["R C"]
+    "tableNames": [
+      "R C"
+    ]
   },
   "cosmo": {
     "name": "C. Marsh",
     "countryCode": "gb-sct",
-    "tableNames": ["Cosmo M"]
+    "tableNames": [
+      "Cosmo M"
+    ],
+    "playerId": "S76561198024832104"
   },
   "erikain": {
     "name": "E. McC",
     "countryCode": "gb",
-    "tableNames": ["Erik M"]
+    "tableNames": [
+      "Erik M"
+    ],
+    "playerId": "S76561198021333606"
   },
   "ward": {
     "name": "M. Ward",
     "countryCode": "gb",
-    "tableNames": ["Mackenzie W"]
+    "tableNames": [
+      "Mackenzie W"
+    ]
+  },
+  "waghorn": {
+    "name": "M. Waghorn",
+    "countryCode": "gb",
+    "tableNames": [
+      "Max Waghorn"
+    ],
+    "playerId": "S76561198027984698"
+  },
+  "mishy": {
+    "name": "N. Mishy",
+    "countryCode": "gb",
+    "tableNames": [
+      "N mishy"
+    ],
+    "playerId": "S76561198025452024"
+  },
+  "strong": {
+    "name": "P. Strong",
+    "countryCode": "gb",
+    "tableNames": [
+      "Phil Strong"
+    ],
+    "playerId": "S76561197990855252"
+  },
+  "gordy": {
+    "name": "Ninja Gordy",
+    "countryCode": "gb-sct",
+    "tableNames": [
+      "Ninja Gordy"
+    ],
+    "playerId": "S76561197991557434"
+  },
+  "pirrie": {
+    "name": "D. Pirrie",
+    "countryCode": "gb",
+    "tableNames": [
+      "David Pirrie"
+    ],
+    "playerId": "S76561198026447858"
   },
   "unknown": {
     "name": "Unknown"

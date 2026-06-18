@@ -4,6 +4,7 @@
   import Chart, { type ChartConfiguration } from "chart.js/auto";
   import { constructors, drivers, seasonRacers, standings } from "@/data";
   import type { ConstructorName, RacerName } from "@/types";
+  import type { SeasonRacerClass } from "@/data/seasonRacers";
   import * as Card from "@/components/ui/card";
   import { Button } from "@/components/ui/button";
   import { commonConfig } from "./utils";
@@ -26,6 +27,8 @@
     setChartType,
     setSortType,
     netPoints,
+    classFilter,
+    setClassFilter,
   } = getStandingsContext();
 
   const chart = $derived(chartType());
@@ -34,6 +37,16 @@
   const useNetPoints = $derived(netPoints());
 
   const seasonStandingKeys = Object.keys(standings[season] ?? {});
+
+  // Multiclass seasons can filter the progression to a single class.
+  const hasClasses = Object.values(seasonRacers[season]).some((r) => r?.class);
+  const relevantDrivers = $derived(
+    Object.keys(seasonRacers[season]).filter(
+      (driver) =>
+        classFilter() === "all" ||
+        seasonRacers[season][driver as RacerName]?.class === classFilter(),
+    ),
+  );
 
   const config: ChartConfiguration<"line", number[], string> = {
     ...commonConfig,
@@ -47,7 +60,7 @@
 
   // Derive data based on current state
   const driverData = $derived(
-    Object.keys(seasonRacers[season])
+    relevantDrivers
       .map((driver) => ({
         driver,
         standings: Object.values(standings[season] ?? {})
@@ -60,8 +73,10 @@
         rankings: Object.values(standings[season] ?? {})
           .slice(0, seasonStandingKeys.indexOf(track) + 1)
           .map((standing) => {
-            // Sort drivers by points and find the position of the current driver
+            // Sort drivers by points and find the position of the current
+            // driver, ranking only within the relevant (class-filtered) field.
             const sortedDrivers = Object.entries(standing)
+              .filter(([driverId]) => relevantDrivers.includes(driverId))
               .sort(([, a], [, b]) =>
                 useNetPoints
                   ? (b.netPoints ?? 0) - (a.netPoints ?? 0)
@@ -268,6 +283,25 @@
             </div>
           </RadioGroup.Root>
         </div>
+        {#if hasClasses && chart === "drivers"}
+          <div class="flex flex-col gap-2">
+            <div>class</div>
+            <RadioGroup.Root
+              value={classFilter()}
+              onValueChange={(value) =>
+                setClassFilter(value as SeasonRacerClass)}
+            >
+              {#each ["all", "gt3", "gt4", "tcx"] as cls}
+                <div class="flex items-center space-x-2">
+                  <RadioGroup.Item value={cls} id={`class-${cls}-radio`} />
+                  <Label for={`class-${cls}-radio`} class="uppercase"
+                    >{cls}</Label
+                  >
+                </div>
+              {/each}
+            </RadioGroup.Root>
+          </div>
+        {/if}
       </div>
     </Card.Header>
     <Card.Content>

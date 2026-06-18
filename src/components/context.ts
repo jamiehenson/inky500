@@ -1,6 +1,7 @@
 import { getContext, setContext } from "svelte";
 import type { SeasonName, TrackName } from "@/types";
 import type { ShowType, SortType, ChartType } from "./types";
+import type { SeasonRacerClass } from "@/data/seasonRacers";
 
 export const setStandingsContext = ({
   season,
@@ -13,6 +14,10 @@ export const setStandingsContext = ({
   setShowType,
   sortType,
   setSortType,
+  classGroup,
+  setClassGroup,
+  classFilter,
+  setClassFilter,
 }: {
   season: SeasonName;
   track: TrackName;
@@ -24,6 +29,10 @@ export const setStandingsContext = ({
   setShowType: (showType: ShowType) => void;
   sortType: () => SortType;
   setSortType: (sortType: SortType) => void;
+  classGroup: () => boolean;
+  setClassGroup: (classGroup: boolean) => void;
+  classFilter: () => SeasonRacerClass;
+  setClassFilter: (classFilter: SeasonRacerClass) => void;
 }) => {
   setContext<SeasonName>("season", season);
   setContext<TrackName>("track", track);
@@ -35,6 +44,13 @@ export const setStandingsContext = ({
   setContext<(type: ShowType) => void>("setShowType", setShowType);
   setContext<() => SortType>("sortType", sortType);
   setContext<(type: SortType) => void>("setSortType", setSortType);
+  setContext<() => boolean>("classGroup", classGroup);
+  setContext<(classGroup: boolean) => void>("setClassGroup", setClassGroup);
+  setContext<() => SeasonRacerClass>("classFilter", classFilter);
+  setContext<(classFilter: SeasonRacerClass) => void>(
+    "setClassFilter",
+    setClassFilter,
+  );
 };
 
 export const getStandingsContext = () => ({
@@ -48,4 +64,9 @@ export const getStandingsContext = () => ({
   setShowType: getContext<(type: ShowType) => void>("setShowType"),
   sortType: getContext<() => SortType>("sortType"),
   setSortType: getContext<(type: SortType) => void>("setSortType"),
+  classGroup: getContext<() => boolean>("classGroup"),
+  setClassGroup: getContext<(classGroup: boolean) => void>("setClassGroup"),
+  classFilter: getContext<() => SeasonRacerClass>("classFilter"),
+  setClassFilter:
+    getContext<(classFilter: SeasonRacerClass) => void>("setClassFilter"),
 });

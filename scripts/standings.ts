@@ -3,7 +3,7 @@ import { type TrackName, type SeasonName } from "../src/types";
 import { timeGrabber } from "scripts/timeGrabber";
 import { calculateStandings } from "scripts/calculateStandings";
 
-const activeSeason = "s5";
+const activeSeason = "s6";
 
 export const pointslessResults = ["DNF", "DSQ"];
 
@@ -35,17 +35,21 @@ const generateStandings = async () => {
     console.error("Error writing JSON data to file:", error);
   }
 
-  const constructors = JSON.stringify(standingsResults[1]);
+  // Season 6 is multiclass with no constructors' championship, so its
+  // constructor standings are intentionally not generated.
+  if (activeSeason !== "s6") {
+    const constructors = JSON.stringify(standingsResults[1]);
 
-  const constructorsPath = `src/data/constructorsStandings/${activeSeason}.json`;
+    const constructorsPath = `src/data/constructorsStandings/${activeSeason}.json`;
 
-  try {
-    fs.writeFileSync(constructorsPath, constructors, { flag: "w" });
-    console.log(
-      `${activeSeason} constructors data saved to file successfully.`,
-    );
-  } catch (error) {
-    console.error("Error writing JSON data to file:", error);
+    try {
+      fs.writeFileSync(constructorsPath, constructors, { flag: "w" });
+      console.log(
+        `${activeSeason} constructors data saved to file successfully.`,
+      );
+    } catch (error) {
+      console.error("Error writing JSON data to file:", error);
+    }
   }
 };
 

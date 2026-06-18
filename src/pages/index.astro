@@ -7,6 +7,7 @@ import StatusBadge from "@/components/StatusBadge.astro";
 import { carImages } from "@/utils";
 import { drivers, seasonRacers, standings } from "@/data";
 import { seasonInfo } from "@/data/seasons";
+import type { SeasonRacerClass } from "@/data/seasonRacers";
 
 const seasonCars = (season: SeasonName) =>
   Array.from(
@@ -19,13 +20,60 @@ const seasonCars = (season: SeasonName) =>
       ])
     )
   ).toSorted();
+
+const finalStandings = (season: SeasonName) =>
+  Object.values(standings[season])[Object.keys(standings[season]).length - 1] ??
+  {};
+
 const getSeasonWinners = (season: SeasonName): RacerName[] =>
-  Object.entries(
-    Object.values(standings[season])[Object.keys(standings[season]).length - 1]
-  )
+  Object.entries(finalStandings(season))
     .sort((a, b) => b[1].points - a[1].points)
     .map(([key]) => key as RacerName)
     .slice(0, 3);
+
+// Multiclass seasons crown a champion per class rather than an overall podium.
+const CLASS_ORDER: SeasonRacerClass[] = ["gt3", "gt4", "tcx"];
+
+const isMulticlass = (season: SeasonName) =>
+  Object.values(seasonRacers[season]).some((racer) => racer?.class);
+
+const getClassWinners = (season: SeasonName) => {
+  const final = finalStandings(season);
+  return CLASS_ORDER.map((carClass) => {
+    const winner = Object.entries(final)
+      .filter(([id]) => seasonRacers[season][id as RacerName]?.class === carClass)
+      .sort(
+        (a, b) =>
+          (b[1].netPoints ?? b[1].points) - (a[1].netPoints ?? a[1].points)
+      )
+      .map(([id]) => id as RacerName)[0];
+    return winner ? { carClass, winner } : null;
+  }).filter((entry) => entry !== null);
+};
+
+const classLabelClass: Record<SeasonRacerClass, string> = {
+  gt3: "bg-green-600 text-white",
+  gt4: "bg-amber-500 text-black",
+  tcx: "bg-blue-600 text-white",
+  all: "bg-muted text-foreground",
+};
+
+// Card theme: the GT3 champion's constructor for multiclass seasons, otherwise
+// the overall winner's car.
+const themeCar = (season: (typeof seasonInfo)[number]): ConstructorName => {
+  if (season.status !== "complete") return "unknown";
+  if (isMulticlass(season.key)) {
+    const gt3Winner = getClassWinners(season.key).find(
+      (entry) => entry.carClass === "gt3"
+    )?.winner;
+    return (
+      (gt3Winner && seasonRacers[season.key][gt3Winner]?.car) ?? "unknown"
+    );
+  }
+  return (
+    seasonRacers[season.key]?.[getSeasonWinners(season.key)[0]]?.car ?? "unknown"
+  );
+};
 ---
 
 <Layout
@@ -41,12 +89,7 @@ const getSeasonWinners = (season: SeasonName): RacerName[] =>
             title={`Season ${season.key.slice(1)}`}
             subtitle={`${season.subtitle} - ${Object.keys(standings[season.key]).filter((race) => race).length} races`}
             link={`/${season.key}`}
-            car={
-              season.status === "complete"
-                ? (seasonRacers[season.key]?.[getSeasonWinners(season.key)[0]]
-                    ?.car ?? "unknown")
-                : "unknown"
-            }
+            car={themeCar(season)}
           >
             <div class="flex items-center gap-2 flex-wrap -mt-4 mb-4">
               {seasonCars(season.key).map((car: string) => (
@@ -59,33 +102,60 @@ const getSeasonWinners = (season: SeasonName): RacerName[] =>
               ))}
             </div>
             <div class="flex flex-col gap-2 mb-6">
-              {getSeasonWinners(season.key as SeasonName).map(
-                (winner, index) => (
-                  <p class="flex justify-between gap-2">
-                    <span class="flex items-center gap-1">
-                      {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
-                      {drivers[winner].name}
-                    </span>
-                    <span class="flex items-center gap-2 text-xs">
-                      {seasonRacers[season.key as SeasonName][winner]?.team}
-                      <Image
-                        src={
-                          carImages[
-                            seasonRacers[season.key as SeasonName][winner]
-                              ?.car as ConstructorName
-                          ]
-                        }
-                        alt={
-                          seasonRacers[season.key as SeasonName][winner]?.car ??
-                          "unknown"
-                        }
-                        class="w-6 h-6 inline-block"
-                        loading="eager"
-                      />
-                    </span>
-                  </p>
-                )
-              )}
+              {isMulticlass(season.key)
+                ? getClassWinners(season.key).map(({ carClass, winner }) => (
+                    <p class="flex justify-between gap-2">
+                      <span class="flex items-center gap-2">
+                        <span
+                          class={`uppercase text-xs font-bold rounded px-1.5 py-0.5 ${classLabelClass[carClass]}`}
+                        >
+                          {carClass}
+                        </span>
+                        {drivers[winner].name}
+                      </span>
+                      <span class="flex items-center gap-2 text-xs">
+                        {seasonRacers[season.key][winner]?.team}
+                        <Image
+                          src={
+                            carImages[
+                              seasonRacers[season.key][winner]
+                                ?.car as ConstructorName
+                            ]
+                          }
+                          alt={seasonRacers[season.key][winner]?.car ?? "unknown"}
+                          class="w-6 h-6 inline-block"
+                          loading="eager"
+                        />
+                      </span>
+                    </p>
+                  ))
+                : getSeasonWinners(season.key as SeasonName).map(
+                    (winner, index) => (
+                      <p class="flex justify-between gap-2">
+                        <span class="flex items-center gap-1">
+                          {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+                          {drivers[winner].name}
+                        </span>
+                        <span class="flex items-center gap-2 text-xs">
+                          {seasonRacers[season.key as SeasonName][winner]?.team}
+                          <Image
+                            src={
+                              carImages[
+                                seasonRacers[season.key as SeasonName][winner]
+                                  ?.car as ConstructorName
+                              ]
+                            }
+                            alt={
+                              seasonRacers[season.key as SeasonName][winner]
+                                ?.car ?? "unknown"
+                            }
+                            class="w-6 h-6 inline-block"
+                            loading="eager"
+                          />
+                        </span>
+                      </p>
+                    )
+                  )}
             </div>
             <StatusBadge status={season.status} />
           </ConstructorCard>
