@@ -9,6 +9,7 @@ import type {
 } from "../../types";
 import * as Icon from "@astropub/icons";
 import { seasonRacers, drivers, tracks, results } from "@/data";
+import type { SeasonRacerClass } from "@/data/seasonRacers";
 import { carImages, withBase } from "@/utils";
 import StatusBadge from "@/components/StatusBadge.astro";
 import { Button } from "@/components/ui/button";
@@ -24,11 +25,38 @@ type Winner = {
   nationality?: string;
   team: string;
   car: ConstructorName;
+  carClass?: SeasonRacerClass;
 };
 
+const CLASS_ORDER: SeasonRacerClass[] = ["gt3", "gt4", "tcx"];
+const classLabelClass: Record<SeasonRacerClass, string> = {
+  gt3: "bg-green-600 text-white",
+  gt4: "bg-amber-500 text-black",
+  tcx: "bg-blue-600 text-white",
+  all: "bg-muted text-foreground",
+};
+const pointlessResults = ["DNF", "DSQ", "-"];
+
 const { season } = Astro.params as { season: SeasonName };
+
+// Multiclass seasons show a winner per class rather than an overall podium.
+const isMulticlass = Object.values(seasonRacers[season]).some((r) => r?.class);
+
+const toWinner = (id: RacerName, trackKey: string): Winner => {
+  const racer = seasonRacers[season][id];
+  return {
+    id,
+    name: drivers[id].name,
+    nationality: drivers[id].countryCode,
+    team: racer?.otherTeams?.[trackKey]?.team ?? racer?.team ?? "unknown",
+    car: racer?.otherTeams?.[trackKey]?.car || racer?.car || "unknown",
+    carClass: racer?.class,
+  };
+};
+
 const tracksData = Object.entries(results[season]).map((track) => {
-  const trackData = tracks[track[0] as TrackName];
+  const trackKey = track[0];
+  const trackData = tracks[trackKey as TrackName];
 
   if (!track[1]?.results) {
     return {
@@ -39,26 +67,34 @@ const tracksData = Object.entries(results[season]).map((track) => {
     };
   }
 
-  const winners: Winner[] = (Object.keys(track[1].results) as RacerName[])
-    .slice(0, 3)
-    .map((id) => {
-      const racer = seasonRacers[season][id];
+  const raceResults = track[1].results;
+  const order = Object.keys(raceResults) as RacerName[];
+  const finished = (id: RacerName) =>
+    !pointlessResults.includes(raceResults[id] ?? "");
 
-      return {
-        id,
-        name: drivers[id].name,
-        nationality: drivers[id].countryCode,
-        team: racer?.otherTeams?.[track[0]]?.team ?? racer?.team ?? "unknown",
-        car: racer?.otherTeams?.[track[0]]?.car || racer?.car || "unknown",
-      };
-    });
+  // Per-class winner (first classified finisher in each class) for multiclass
+  // seasons, otherwise the overall top three.
+  const winners: Winner[] = isMulticlass
+    ? CLASS_ORDER.map((cls) =>
+        order.find((id) => seasonRacers[season][id]?.class === cls && finished(id)),
+      )
+        .filter((id): id is RacerName => Boolean(id))
+        .map((id) => toWinner(id, trackKey))
+    : order.slice(0, 3).map((id) => toWinner(id, trackKey));
+
+  const themeCar = isMulticlass
+    ? (winners.find((w) => w.carClass === "gt3")?.car ??
+      winners[0]?.car ??
+      "unknown")
+    : (winners[0]?.car ?? "unknown");
 
   return {
     name: trackData?.name ?? "unknown",
     location: trackData?.location ?? "unknown",
-    link: `/${season}/${track[0]}`,
+    link: `/${season}/${trackKey}`,
     countryCode: trackData?.countryCode ?? "gb",
     winners,
+    themeCar,
     date: track[1].date,
   };
 });
@@ -116,13 +152,25 @@ const seasonTitle = `Season ${seasonNumber.toString().toUpperCase()}`;
               index={index + 1}
               subtitle={[track.location, track.countryCode]}
               link={track.link}
-              car={track.winners?.[0].car ?? "unknown"}
+              car={track.themeCar ?? "unknown"}
             >
               <div class="flex flex-col gap-2 mb-6">
                 {track.winners?.map((winner, index) => (
                   <p class="flex justify-between gap-3">
                     <span class="flex items-center gap-1">
-                      {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+                      {winner.carClass ? (
+                        <span
+                          class={`uppercase text-xs font-bold rounded px-1.5 py-0.5 ${classLabelClass[winner.carClass]}`}
+                        >
+                          {winner.carClass}
+                        </span>
+                      ) : index === 0 ? (
+                        "🥇"
+                      ) : index === 1 ? (
+                        "🥈"
+                      ) : (
+                        "🥉"
+                      )}
                       {winner.name}
                     </span>
                     <span class="flex items-center gap-2 text-xs text-right">

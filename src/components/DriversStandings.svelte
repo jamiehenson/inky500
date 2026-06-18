@@ -15,9 +15,10 @@
   import CircleHelp from "@lucide/svelte/icons/circle-help";
   type Props = {
     data: Record<string, StandingResult>;
+    fullWidth?: boolean;
   };
 
-  let { data }: Props = $props();
+  let { data, fullWidth = false }: Props = $props();
   let {
     season,
     track,
@@ -65,7 +66,7 @@
 
 <div
   id="drivers"
-  class="flex flex-col gap-4 col-span-2 lg:col-span-1 border rounded-lg"
+  class={`flex flex-col gap-4 border rounded-lg ${fullWidth ? "col-span-2" : "col-span-2 lg:col-span-1"}`}
 >
   <div class="relative">
     {#if hasClasses}

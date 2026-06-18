@@ -33,6 +33,9 @@
     ["s5", "s6"].includes(season) &&
     Object.keys(results[season]).indexOf(track) >= 2;
   const isMulticlass = ["s6"].includes(season);
+  const showConstructors = !!(
+    trackConstructors && Object.keys(trackConstructors).length > 0
+  );
 
   let chartType = $state<ChartType>("drivers");
   let showType = $state<ShowType>("chart");
@@ -61,9 +64,9 @@
 
 <BottomRow />
 {#if trackStandings}
-  <DriversStandings data={trackStandings} />
+  <DriversStandings data={trackStandings} fullWidth={!showConstructors} />
 {/if}
-{#if trackConstructors && Object.keys(trackConstructors).length > 0}
+{#if showConstructors}
   <ConstructorsStandings
     data={trackConstructors}
     trackResults={trackResults?.results ?? {}}
